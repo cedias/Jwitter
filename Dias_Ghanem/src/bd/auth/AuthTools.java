@@ -10,4 +10,8 @@ public class AuthTools {
 		return true;
 	}
 
+	public static boolean keyValid(String key) {
+		return true;
+	}
+
 }
