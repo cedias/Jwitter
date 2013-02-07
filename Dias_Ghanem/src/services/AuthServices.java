@@ -11,22 +11,22 @@ public class AuthServices {
 		try{
 			
 			if(username == null || password == null || email == null){
-				return JSONtools.error(username + "  " + password + "  " + email, 84);
+				return ErrorMsg.wrongParameter();
 			}	
 			
 			if(AuthTools.userExists(username)){
-				return JSONtools.error("Already exists", 3);
+				return ErrorMsg.userAlreadyExists(username);
 			}else{
 				
 				if(AuthTools.addUser(username,password,email)){
 					return JSONtools.ok();
 				}else{
-					return JSONtools.error("Error general", 999);
+					return ErrorMsg.bdError();
 				}
 			}
 		}
 		catch(Exception e){
-				return JSONtools.error("Error general", 999);
+			return ErrorMsg.bdError();
 		}
 	}
 	

@@ -8,53 +8,42 @@ import bd.auth.AuthTools;
 public class FriendServices {
 	
 	public static JSONObject addFriend(String key, String friend){
-		JSONObject json;
-		
-		
+
 		if(!AuthTools.keyValid(key)){
-			JSONtools.error("Your Key is invalid", 403);
+			return ErrorMsg.invalidKey();
 		}
-		
+	
 		if(!AuthTools.userExists(friend))
 		{
-			JSONtools.error("User "+friend+" doesn't exists", 20);
+			return ErrorMsg.userDoesntExist(friend);
 		}
 		
 		if(FriendTools.addFriend(key,friend))
 		{
-			 json = JSONtools.ok();
+			 return JSONtools.ok();
 		}
 		else
 		{
-			json = JSONtools.error("BD_ERROR", 900);
+			return ErrorMsg.bdError();
 		}
-		
-		return json;
 	}
 	
 	public static JSONObject removeFriend(String key, String friend){
-		JSONObject json;
-		
 		
 		if(!AuthTools.keyValid(key)){
-			JSONtools.error("Your Key is invalid", 403);
+			return ErrorMsg.invalidKey();
 		}
 		
-		if(!AuthTools.userExists(friend))
-		{
-			JSONtools.error("User "+friend+" doesn't exists", 20);
-		}
 		
 		if(FriendTools.removeFriend(key,friend))
 		{
-			 json = JSONtools.ok();
+			return JSONtools.ok();
 		}
 		else
 		{
-			json = JSONtools.error("BD_ERROR", 900);
+			return ErrorMsg.bdError();
 		}
-		
-		return json;
+
 	}
 	
 	public static JSONObject listFriends(String login, String nbResults ,String offset){
@@ -65,17 +54,23 @@ public class FriendServices {
 		
 			if(!AuthTools.userExists(login))
 			{
-				return JSONtools.error("User "+login+" doesn't exists", 20);
+				return ErrorMsg.userDoesntExist(login);
 			}
 			
-			return FriendTools.listFriend(login,nb,off);
+			JSONObject json = FriendTools.listFriend(login,nb,off);
+			
+			if(json == null){
+				return ErrorMsg.emptyResult();
+			}
+
+			return json;
 			
 		}
 		
 		catch(NumberFormatException E)
 		{
 		
-			return JSONtools.error("Wrong Parameters", 100);
+			return ErrorMsg.wrongParameter();
 		}
 	}
 	
