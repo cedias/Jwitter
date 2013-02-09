@@ -41,4 +41,8 @@ public class ErrorMsg {
 	{
 		return JSONtools.error("Query Result was empty", 398);
 	}
+
+	public static JSONObject invalidId() {
+		return JSONtools.error("Invalid Message ID ", 56);
+	}
 }
