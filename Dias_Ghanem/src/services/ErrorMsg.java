@@ -18,7 +18,7 @@ public class ErrorMsg {
 	
 	public static JSONObject wrongParameter()
 	{
-		return JSONtools.error("Invalid Parameters", 100);
+		return JSONtools.error("Invalid Parameters", 84);
 	}
 	
 	public static JSONObject invalidKey()
