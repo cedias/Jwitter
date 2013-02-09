@@ -18,7 +18,7 @@ public class ErrorMsg {
 	
 	public static JSONObject wrongParameter()
 	{
-		return JSONtools.error("Invalid Parameters", 100);
+		return JSONtools.error("Invalid Parameters", 84);
 	}
 	
 	public static JSONObject invalidKey()
@@ -45,9 +45,5 @@ public class ErrorMsg {
 	public static JSONObject wrongLogin(){
 		return JSONtools.error("Wrong username or password", 291);
 	}
-	
-	public static JSONObject wrongKey(){
-		return JSONtools.error("Wrong key",307);
-	}
-	
+
 }

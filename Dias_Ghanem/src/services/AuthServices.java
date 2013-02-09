@@ -54,7 +54,7 @@ public class AuthServices {
 				return ErrorMsg.wrongParameter();
 			}
 			if(!AuthTools.keyUsed()){
-				return ErrorMsg.wrongKey();
+				return ErrorMsg.invalidKey();
 			}else{
 				if(AuthTools.logout()){
 					return JSONtools.ok();
