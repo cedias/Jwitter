@@ -1,5 +1,9 @@
 package bd.auth;
 
+import java.util.Random;
+
+
+
 public class AuthTools {
 //TODO
 	
@@ -31,6 +35,27 @@ public class AuthTools {
 	public static boolean deactivate() {
 		//removes user
 		return true;
+	}
+	
+	public static String createKey() {
+		String key = "";
+		for(int i = 0 ; i <32 ; i++){
+			key = key + randomChar();
+		}
+		return key;
+	}	
+	
+	private static char randomChar(){
+		
+		Random r = new Random();
+		double rnd = Math.random();
+		if(rnd < 0.3){
+			return (char) (97 + r.nextInt(25));
+		}else if(rnd < 0.7){
+			return (char)(48 + r.nextInt(10));
+		}else{
+			return (char)(65 + r.nextInt(25));
+		}
 	}
 
 }
