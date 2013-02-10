@@ -31,14 +31,61 @@ public class AuthServices {
 	}
 	
 	public static JSONObject login(String userName,String password){
-		return null;
+		try{
+			if(userName == null || password == null){
+				return ErrorMsg.wrongParameter();
+			}
+			if(!AuthTools.userExists(userName)){
+				return ErrorMsg.userDoesntExist(userName);
+			}
+			if(!AuthTools.passwordValid(userName, password)){
+				return ErrorMsg.wrongLogin();
+			}else{
+				return AuthTools.createKey(userName);
+			}			
+		}catch(Exception e){
+			return ErrorMsg.bdError();
+		}
 	}
 	
-	public static JSONObject logout(String userName){
-		return null;
+	public static JSONObject logout(String key){
+		try{
+			if(key == null){
+				return ErrorMsg.wrongParameter();
+			}
+			if(!AuthTools.keyUsed()){
+				return ErrorMsg.invalidKey();
+			}else{
+				if(AuthTools.logout()){
+					return JSONtools.ok();
+				}else{
+					return ErrorMsg.bdError();
+				}
+			}
+		}catch(Exception e){
+			return ErrorMsg.bdError();
+		}
 	}
 	
 	public static JSONObject deactivate(String userName,String password){
-		return null;
+		try{
+			if(userName == null || password == null){
+				return ErrorMsg.wrongParameter();
+			}
+			if(!AuthTools.userExists(userName)){
+				return ErrorMsg.userDoesntExist(userName);
+			}
+			if(!AuthTools.passwordValid(userName, password)){
+				return ErrorMsg.wrongLogin();
+			}else{
+				if(AuthTools.deactivate()){
+					return JSONtools.ok();
+				}else{
+					return ErrorMsg.bdError();
+				}
+			}
+		}catch(Exception e){
+			return ErrorMsg.bdError();
+		}
 	}
 }
