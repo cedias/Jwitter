@@ -65,4 +65,26 @@ public class MessageServices {
 			return ErrorMsg.wrongParameter();
 		}
 	}
+
+	public static JSONObject listMessagesWord(String word, String nbMessage,
+			String offset) {
+		try{
+			int nb = Integer.parseInt(nbMessage);
+			int off = Integer.parseInt(offset);
+			
+			JSONObject json = MessageTools.listMessagesWord(word,nb,off);
+			
+			if(json == null){
+				return ErrorMsg.emptyResult();
+			}
+
+			return json;			
+		}		
+		catch(NumberFormatException E)
+		{
+		
+			return ErrorMsg.wrongParameter();
+		}
+	}
+
 }

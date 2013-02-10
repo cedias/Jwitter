@@ -19,4 +19,8 @@ public class MessageTools {
 	public static JSONObject listMessages(String username, int nb, int off) {
 		return null;
 	}
+
+	public static JSONObject listMessagesWord(String word, int nb, int off) {
+		return null;
+	}
 }

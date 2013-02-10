@@ -63,6 +63,15 @@
 	 	<servlet-name>ListMessage</servlet-name>
 	 	<url-pattern>/message/list</url-pattern>
 	 </servlet-mapping>
+	 
+	  <servlet>
+	 	<servlet-name>ListMessageWord</servlet-name>
+	 	<servlet-class>servlets.message.SearchWordMessageServlet</servlet-class>
+	 </servlet>
+	 <servlet-mapping>
+	 	<servlet-name>ListMessageWord</servlet-name>
+	 	<url-pattern>/message/listWord</url-pattern>
+	 </servlet-mapping>
  
 </web-app>
  
