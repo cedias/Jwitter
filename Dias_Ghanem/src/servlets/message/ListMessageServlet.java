@@ -21,11 +21,13 @@ public class ListMessageServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+			String qes = req.getParameter("qes");
 			String username = req.getParameter("username");
 			String nbMessage = req.getParameter("nbMessage");
 			String offset = req.getParameter("offset");
+			String word = req.getParameter("word");
 			
-			JSONObject json = MessageServices.listMessages(username,nbMessage,offset);
+			JSONObject json = MessageServices.listMessages(qes,username,nbMessage,offset,word);
 			resp.getWriter().print(json);
 	}
 	
