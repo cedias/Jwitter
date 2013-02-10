@@ -2,6 +2,7 @@ package services;
 
 import org.json.JSONObject;
 
+import bd.Friend.FriendTools;
 import bd.Message.MessageTools;
 import bd.auth.AuthTools;
 
@@ -36,6 +37,32 @@ public class MessageServices {
 			return ErrorMsg.bdError();
 		}else{
 			return JSONtools.ok();
+		}
+	}
+
+	public static JSONObject listMessages(String username, String nbMessage,
+			String offset) {
+		try{
+			int nb = Integer.parseInt(nbMessage);
+			int off = Integer.parseInt(offset);
+		
+			if(!AuthTools.userExists(username))
+			{
+				return ErrorMsg.userDoesntExist(username);
+			}
+			
+			JSONObject json = MessageTools.listMessages(username,nb,off);
+			
+			if(json == null){
+				return ErrorMsg.emptyResult();
+			}
+
+			return json;			
+		}		
+		catch(NumberFormatException E)
+		{
+		
+			return ErrorMsg.wrongParameter();
 		}
 	}
 }

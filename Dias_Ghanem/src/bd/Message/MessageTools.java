@@ -1,5 +1,7 @@
 package bd.Message;
 
+import org.json.JSONObject;
+
 public class MessageTools {
 
 	public static boolean postMessage(String key,String message){
@@ -12,5 +14,9 @@ public class MessageTools {
 
 	public static boolean deleteMessage(String key, String messageId) {
 		return true;
+	}
+
+	public static JSONObject listMessages(String username, int nb, int off) {
+		return null;
 	}
 }

@@ -54,6 +54,15 @@
 	 	<servlet-name>DeleteMessage</servlet-name>
 	 	<url-pattern>/message/delete</url-pattern>
 	 </servlet-mapping>
+	 
+	 <servlet>
+	 	<servlet-name>ListMessage</servlet-name>
+	 	<servlet-class>servlets.message.ListMessageServlet</servlet-class>
+	 </servlet>
+	 <servlet-mapping>
+	 	<servlet-name>ListMessage</servlet-name>
+	 	<url-pattern>/message/list</url-pattern>
+	 </servlet-mapping>
  
 </web-app>
  
