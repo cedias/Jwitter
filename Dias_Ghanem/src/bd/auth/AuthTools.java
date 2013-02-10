@@ -37,11 +37,18 @@ public class AuthTools {
 		return true;
 	}
 	
+	
+	/*
+	 * creation d'un cle et il retour dans un format de string
+	 * il va le sauvgarde dans le db apres
+	 * 
+	 */
 	public static String createKey() {
 		String key = "";
 		for(int i = 0 ; i <32 ; i++){
 			key = key + randomChar();
 		}
+		//save it here
 		return key;
 	}	
 	

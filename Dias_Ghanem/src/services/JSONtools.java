@@ -30,6 +30,10 @@ public class JSONtools {
 		return res;
 	}
 
+	/*
+	 * calls AuthTools.createKey() to create the key and return it as a string
+	 * to print it
+	 */
 	public static JSONObject createKey() {
 		JSONObject res = new JSONObject();
 		try {
