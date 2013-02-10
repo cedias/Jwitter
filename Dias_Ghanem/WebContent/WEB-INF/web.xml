@@ -10,6 +10,32 @@
         <url-pattern>/user/new</url-pattern>
 </servlet-mapping>
 
+<servlet>
+	<servlet-name>Login</servlet-name>
+	<servlet-class>servlets.auth.LoginAuthServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>Login</servlet-name>
+	<url-pattern>/user/login</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>Logout</servlet-name>
+	<servlet-class>servlets.auth.LogoutAuthServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>Logout</servlet-name>
+	<url-pattern>/user/logout</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>Deactivate</servlet-name>
+	<servlet-class>servlets.auth.DeactivateAuthServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>Deactivate</servlet-name>
+	<url-pattern>/user/deactivate</url-pattern>
+</servlet-mapping>
  <servlet>
         <servlet-name>AddFriend</servlet-name>
       	<servlet-class>servlets.friend.AddFriendServlet</servlet-class>
