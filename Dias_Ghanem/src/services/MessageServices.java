@@ -40,32 +40,24 @@ public class MessageServices {
 		}
 	}
 
-	public static JSONObject listMessages(String qes, String username,
-			String nbMessage, String offset, String word) {
-			if( qes==null || nbMessage == null || offset == null){
+	public static JSONObject listMessages(String username,
+			String nbMessage, String offset) {
+			if( username==null || nbMessage == null || offset == null){
 			return ErrorMsg.wrongParameter();
-			}
-			if(username == null && word == null){
-				return ErrorMsg.wrongParameter();
 			}
 		try{
 			JSONObject json;
 			int nb = Integer.parseInt(nbMessage);
 			int off = Integer.parseInt(offset);
-		    if(qes=="user"){
 			if(!AuthTools.userExists(username))
 			{
 				return ErrorMsg.userDoesntExist(username);
 			}
-				json = MessageTools.listMessages(username,nb,off);			
-		    }else{
-		    	json = MessageTools.listMessagesWord(word, nb, off);
-		    }
+			json = MessageTools.listMessages(username,nb,off);			
 			if(json == null){
 				return ErrorMsg.emptyResult();
 			}
-			return json;
-			
+			return json;			
 		}catch(NumberFormatException E){
 			return ErrorMsg.wrongParameter();
 		}
