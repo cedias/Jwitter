@@ -2,6 +2,9 @@ package bd.auth;
 
 import java.util.Random;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 
 public class AuthTools {
@@ -43,13 +46,19 @@ public class AuthTools {
 	 * il va le sauvgarde dans le db apres
 	 * 
 	 */
-	public static String createKey() {
+	public static JSONObject createKey(String username) {
 		String key = "";
 		for(int i = 0 ; i <32 ; i++){
 			key = key + randomChar();
 		}
-		//save it here
-		return key;
+		// sauvgarde
+		JSONObject json = new JSONObject();
+		try {
+			json.put("key", key);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return json;
 	}	
 	
 	private static char randomChar(){

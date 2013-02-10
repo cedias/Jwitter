@@ -41,7 +41,7 @@ public class AuthServices {
 			if(!AuthTools.passwordValid(userName, password)){
 				return ErrorMsg.wrongLogin();
 			}else{
-				return JSONtools.createKey();
+				return AuthTools.createKey(userName);
 			}			
 		}catch(Exception e){
 			return ErrorMsg.bdError();
