@@ -29,19 +29,5 @@ public class JSONtools {
 		return res;
 	}
 
-	public static JSONObject MessageId(String msg) {
-		JSONObject res = new JSONObject();
-		String id = "";
-		for(int i = 0 ; i < 6 ; i++){
-			Random r = new Random();
-			id = id + (char)(48 + r.nextInt(10));
-		}
-		try {
-			res.put("MessageId", id);
-			res.put("Message", msg);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		return res;
-	}
+	
 }

@@ -2,7 +2,6 @@ package services;
 
 import org.json.JSONObject;
 
-import bd.Friend.FriendTools;
 import bd.Message.MessageTools;
 import bd.auth.AuthTools;
 
@@ -16,7 +15,7 @@ public class MessageServices {
 			return ErrorMsg.invalidKey();
 		}else{
 			if(MessageTools.postMessage(key, message)){
-				return JSONtools.MessageId(message);
+				return MessageTools.MessageId(message);
 			}else{
 				return ErrorMsg.bdError();
 			}
@@ -31,7 +30,7 @@ public class MessageServices {
 			return ErrorMsg.invalidKey();
 		}
 		if(!MessageTools.idValid(messageId)){
-			return ErrorMsg.invalidId();
+			return ErrorMsg.invalidMessageId();
 		}
 		if(!MessageTools.deleteMessage(key,messageId)){
 			return ErrorMsg.bdError();
@@ -62,26 +61,4 @@ public class MessageServices {
 			return ErrorMsg.wrongParameter();
 		}
 	}
-
-	public static JSONObject listMessagesWord(String word, String nbMessage,
-			String offset) {
-		try{
-			int nb = Integer.parseInt(nbMessage);
-			int off = Integer.parseInt(offset);
-			
-			JSONObject json = MessageTools.listMessagesWord(word,nb,off);
-			
-			if(json == null){
-				return ErrorMsg.emptyResult();
-			}
-
-			return json;			
-		}		
-		catch(NumberFormatException E)
-		{
-		
-			return ErrorMsg.wrongParameter();
-		}
-	}
-
 }
