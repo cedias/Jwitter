@@ -1,8 +1,5 @@
-package bd.Message;
+package bd.message;
 
-import java.util.Random;
-
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MessageTools {

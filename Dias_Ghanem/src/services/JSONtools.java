@@ -1,6 +1,5 @@
 package services;
 
-import java.util.Random;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +26,6 @@ public class JSONtools {
 			e.printStackTrace();
 		}
 		return res;
-	}
 
-	
+	}
 }

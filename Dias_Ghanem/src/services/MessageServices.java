@@ -2,8 +2,8 @@ package services;
 
 import org.json.JSONObject;
 
-import bd.Message.MessageTools;
 import bd.auth.AuthTools;
+import bd.message.MessageTools;
 
 public class MessageServices {
 
@@ -15,7 +15,7 @@ public class MessageServices {
 			return ErrorMsg.invalidKey();
 		}else{
 			if(MessageTools.postMessage(key, message)){
-				return MessageTools.MessageId(message);
+				return JSONtools.ok();
 			}else{
 				return ErrorMsg.bdError();
 			}

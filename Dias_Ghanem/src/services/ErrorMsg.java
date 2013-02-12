@@ -8,7 +8,7 @@ public class ErrorMsg {
 
 	public static JSONObject userAlreadyExists(String username)
 	{
-		return JSONtools.error("User "+ username +"already exists", 3);
+		return JSONtools.error("User "+ username +" already exists", 3);
 	}
 	
 	public static JSONObject userDoesntExist(String username)
@@ -45,4 +45,10 @@ public class ErrorMsg {
 	public static JSONObject invalidMessageId() {
 		return JSONtools.error("Invalid Message ID ", 56);
 	}
+
+	
+	public static JSONObject wrongLogin(){
+		return JSONtools.error("Wrong username or password", 291);
+	}
+
 }

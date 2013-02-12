@@ -2,7 +2,7 @@ package services;
 
 import org.json.JSONObject;
 
-import bd.Friend.FriendTools;
+import bd.friend.FriendTools;
 import bd.auth.AuthTools;
 
 public class FriendServices {
