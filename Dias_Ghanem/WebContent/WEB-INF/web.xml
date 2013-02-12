@@ -62,5 +62,32 @@
         <servlet-name>ListFriend</servlet-name>
         <url-pattern>/friend/list</url-pattern>
     </servlet-mapping>
+    
+	 <servlet>
+	 	<servlet-name>PostMessage</servlet-name>
+	 	<servlet-class>servlets.message.NewMessageServlet</servlet-class>
+	 </servlet>
+	 <servlet-mapping>
+	 	<servlet-name>PostMessage</servlet-name>
+	 	<url-pattern>/message/post</url-pattern>
+	 </servlet-mapping>
+	 
+	 <servlet>
+	 	<servlet-name>DeleteMessage</servlet-name>
+	 	<servlet-class>servlets.message.DeleteMessageServlet</servlet-class>
+	 </servlet>
+	 <servlet-mapping>
+	 	<servlet-name>DeleteMessage</servlet-name>
+	 	<url-pattern>/message/delete</url-pattern>
+	 </servlet-mapping>
+	 
+	 <servlet>
+	 	<servlet-name>ListMessage</servlet-name>
+	 	<servlet-class>servlets.message.ListMessageServlet</servlet-class>
+	 </servlet>
+	 <servlet-mapping>
+	 	<servlet-name>ListMessage</servlet-name>
+	 	<url-pattern>/message/list</url-pattern>
+	 </servlet-mapping> 
 </web-app>
  

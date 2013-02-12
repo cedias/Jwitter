@@ -41,6 +41,11 @@ public class ErrorMsg {
 	{
 		return JSONtools.error("Query Result was empty", 398);
 	}
+
+	public static JSONObject invalidMessageId() {
+		return JSONtools.error("Invalid Message ID ", 56);
+	}
+
 	
 	public static JSONObject wrongLogin(){
 		return JSONtools.error("Wrong username or password", 291);

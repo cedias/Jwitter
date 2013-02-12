@@ -1,4 +1,4 @@
-package bd.Friend;
+package bd.friend;
 
 import org.json.JSONObject;
 
