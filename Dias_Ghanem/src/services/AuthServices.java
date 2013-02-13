@@ -6,19 +6,19 @@ import bd.auth.AuthTools;
 
 public class AuthServices {
 	
-	public static JSONObject newUser(String username,String password,String email){		
+	public static JSONObject newUser(String login ,String password,String nom,String prenom){		
 		
 		try{
 			
-			if(username == null || password == null || email == null){
+			if(login == null || password == null || nom == null || prenom == null){
 				return ErrorMsg.wrongParameter();
 			}	
 			
-			if(AuthTools.userExists(username)){
-				return ErrorMsg.userAlreadyExists(username);
+			if(AuthTools.userExists(login)){
+				return ErrorMsg.userAlreadyExists(login);
 			}else{
 				
-				if(AuthTools.addUser(username,password,email)){
+				if(AuthTools.addUser(login,password,nom,prenom)){
 					return JSONtools.ok();
 				}else{
 					return ErrorMsg.bdError();
@@ -26,7 +26,7 @@ public class AuthServices {
 			}
 		}
 		catch(Exception e){
-			return ErrorMsg.bdError();
+			return ErrorMsg.otherError(e.getMessage());
 		}
 	}
 	

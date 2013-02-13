@@ -1,5 +1,7 @@
 package services;
 
+import java.sql.SQLException;
+
 import org.json.JSONObject;
 
 import bd.auth.AuthTools;
@@ -59,6 +61,8 @@ public class MessageServices {
 			return json;			
 		}catch(NumberFormatException E){
 			return ErrorMsg.wrongParameter();
+		} catch (SQLException e) {
+			return ErrorMsg.bdError();
 		}
 	}
 }

@@ -1,5 +1,7 @@
 package services;
 
+import java.sql.SQLException;
+
 import org.json.JSONObject;
 
 import bd.friend.FriendTools;
@@ -8,24 +10,26 @@ import bd.auth.AuthTools;
 public class FriendServices {
 	
 	public static JSONObject addFriend(String key, String friend){
-
-		if(!AuthTools.keyValid(key)){
-			return ErrorMsg.invalidKey();
-		}
-	
-		if(!AuthTools.userExists(friend))
-		{
-			return ErrorMsg.userDoesntExist(friend);
-		}
-		
-		if(FriendTools.addFriend(key,friend))
-		{
-			 return JSONtools.ok();
-		}
-		else
-		{
+		try {
+			if(!AuthTools.keyValid(key)){
+				return ErrorMsg.invalidKey();
+			}
+			if(!AuthTools.userExists(friend))
+			{
+				return ErrorMsg.userDoesntExist(friend);
+			}			
+			if(FriendTools.addFriend(key,friend))
+			{
+				 return JSONtools.ok();
+			}
+			else
+			{
+				return ErrorMsg.bdError();
+			}
+		} catch (SQLException e) {
 			return ErrorMsg.bdError();
 		}
+		
 	}
 	
 	public static JSONObject removeFriend(String key, String friend){
@@ -71,6 +75,8 @@ public class FriendServices {
 		{
 		
 			return ErrorMsg.wrongParameter();
+		} catch (SQLException e) {
+			return ErrorMsg.bdError();
 		}
 	}
 	

@@ -24,11 +24,12 @@ public class NewAuthServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-			String username = req.getParameter("username");
+			String login = req.getParameter("login");
 			String password = req.getParameter("password");
-			String email = req.getParameter("email");
+			String nom = req.getParameter("nom");
+			String prenom = req.getParameter("prenom");
 			
-			JSONObject json = AuthServices.newUser(username, password, email);
+			JSONObject json = AuthServices.newUser(login,password,nom,prenom);
 			resp.setContentType("text/plain");
 			resp.getWriter().println(json.toString());
 	}

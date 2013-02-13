@@ -1,21 +1,58 @@
 package bd.auth;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Random;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import bd.Database;
 
 
 
 public class AuthTools {
 //TODO
 	
-	public static boolean userExists(String userName){
-		return true;
+	public static boolean userExists(String login) throws SQLException{
+		try {
+			Boolean exists;
+			Connection c = Database.getMySQLConnection();
+			Statement stt = c.createStatement();
+			ResultSet res = stt.executeQuery("Select * from User u where u.login='"+login+"';");
+		
+			exists = (res.next())?true:false;
+			
+			res.close();
+			stt.close();
+			c.close();
+			
+			return exists;
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+			throw new SQLException(e.getMessage());
+		}
 	}
 
-	public static boolean addUser(String userName, String password, String email) {
-		return true;
+	public static boolean addUser(String login, String password, String nom , String prenom) throws SQLException {
+		try{
+			Connection c = Database.getMySQLConnection();
+			Statement stt = c.createStatement();
+			int res = stt.executeUpdate("INSERT INTO User(login,password,nom,prenom) VALUES ('"+login+"','"+password+"','"+nom+"','"+prenom+"');");
+			stt.close();
+			c.close();
+			if(res == 0){
+				return false;
+			}else{
+				return true;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+			throw new SQLException(e.getMessage());
+		}
 	}
 
 	public static boolean keyValid(String key) {
