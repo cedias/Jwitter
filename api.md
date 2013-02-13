@@ -2,74 +2,75 @@
 
 ----------
 
-##**User Service**
+##User Service
 
- + **Base URL**:   `http://jwitter-url/user`
+###Base URL:
+`http://jwitter-url/user`
   
- + **Login**:
+###Login:
 
-		- url: /login
-		- arguments:
-			> username: String
-			> password: String
+	- url: /login
+	- arguments:
+		+ username: String
+		+ password: String
 
-		Returns a session key
+	> Returns a session key
 
- + **Logout**:
+###Logout:
 		
-		- url: /logout
-		- arguments:
-			> key: String
+	- url: /logout
+	- arguments:
+		+ key: String
 
-		closes a session key
+	> Closes a session key
 
- + **New**:
+###New:
 
-		- url: /new
-		- arguments:
-			> username : String
-			> password : String
+	- url: /new
+	- arguments:
+		+ username : String
+		+ password : String
 
-		creates a user
+	> Creates a user
 
- + **Deactivate**
+###Deactivate
 		
-		- url: /deactivate
-		- arguments:
-			> username: String
-			> password: String
+	- url: /deactivate
+	- arguments:
+		+ username: String
+		+ password: String
 
-		Deactivates a user
+	> Deactivates a user
 
-##**Friend Service**
+##Friend Service
 
- + **Base URL**:   `http://jwitter-url/friend`
+###Base URL:
+`http://jwitter-url/friend`
 
- + **Add**:
+###Add:
 
-		- url: /add
-		- arguments:
-			> username : String
-			> key : String
+	- url: /add
+	- arguments:
+		+ username : String
+		+ key : String
 
-		adds a friend to key user
+	> adds a friend to key user
 
- + **Remove**:
+###Remove:
 
-		- url: /remove
-		- arguments:
-			> username : String
-			> key : String
+	- url: /remove
+	- arguments:
+		+ username : String
+		+ key : String
 
-		removes a friend to key user
+	 > removes a friend to key user
 
- + **List**:
+###List:
+	- url: /list
+	- arguments:
+		+ username : String 
+		+ nbRes : Int
+		+ offset: Int
 
-		- url: /list
-		- arguments:
-				> username : String 
-				> nbRes : Int
-				> offset: Int
-
-		List a user's friends
+	> List a user's friends
 
