@@ -1,5 +1,4 @@
 #Jwitter API
-
 ----------
 
 ##User Service
@@ -9,38 +8,38 @@
   
 ###Login:
 
-	- url: /login
-	- arguments:
-		+ username: String
-		+ password: String
+- url: /login
+- arguments:
+ + username: String
+ + password: String
 
-	> Returns a session key
+> Returns a session key
 
 ###Logout:
 		
-	- url: /logout
-	- arguments:
-		+ key: String
+- url: /logout
+- arguments:
+ + key: String
 
-	> Closes a session key
+> Closes a session key
 
 ###New:
 
-	- url: /new
-	- arguments:
-		+ username : String
-		+ password : String
+- url: /new
+- arguments:
+ + username : String
+ + password : String
 
-	> Creates a user
+> Creates a user
 
-###Deactivate
+###Deactivate:
 		
-	- url: /deactivate
-	- arguments:
-		+ username: String
-		+ password: String
+- url: /deactivate
+- arguments:
+ + username: String
+ + password: String
 
-	> Deactivates a user
+ > Deactivates a user
 
 ##Friend Service
 
@@ -49,28 +48,59 @@
 
 ###Add:
 
-	- url: /add
-	- arguments:
-		+ username : String
-		+ key : String
+- url: /add
+- arguments:
+ + username : String
+ + key : String
 
-	> adds a friend to key user
+> adds a friend to key user
 
 ###Remove:
 
-	- url: /remove
-	- arguments:
-		+ username : String
-		+ key : String
+- url: /remove
+- arguments:
+ + username : String
+ + key : String
 
-	 > removes a friend to key user
+> removes a friend to key user
 
 ###List:
-	- url: /list
-	- arguments:
-		+ username : String 
-		+ nbRes : Int
-		+ offset: Int
 
-	> List a user's friends
+- url: /list
+- arguments:
+ + username : String 
+ + nbRes : Int
+ + offset: Int
+
+> List a user's friends
+
+##Message Service
+
+###Base URL:
+`http://jwitter-url/message`
+
+###New
+
+- url: /new
+- arguments:
+
+> Creates new message
+
+###Delete
+
+- url: /delete
+- arguments:
+
+###List
+- url: /list
+- arguments:
+
+##Search Service
+
+###Base URL:
+`http://jwitter-url/search`
+
+###Message
+- url: /message
+- arguments:
 
