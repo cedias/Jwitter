@@ -31,33 +31,38 @@ public class FriendServices {
 			return ErrorMsg.invalidKey();
 			
 		}  catch (SQLException e) {
-			if(e.getErrorCode() == 1062)	
+		
+			if(e.getErrorCode() == 1062)//Duplicate entry Key
 				return ErrorMsg.otherError("You are already friends :)");
-			if(e.getErrorCode() == 1452)	
+			
+			if(e.getErrorCode() == 1452)//Key doesn't match FK Constraint
 				return ErrorMsg.userDoesntExist(addFriend);
 			
-			return ErrorMsg.otherError(e.getMessage()+" code: "+e.getErrorCode());
+			return ErrorMsg.bdError();
 		}
 	}
 	
-	public static JSONObject removeFriend(String key, String friend){
+	public static JSONObject removeFriend(String key, String remFriend){
 		try {
 			
+			int friend = Integer.parseInt(remFriend);
 			int user = AuthTools.keyValid(key);
-			int friendId = AuthTools.userExists(friend);
-		
-			FriendTools.removeFriend(user,friendId);
+			
+			if(friend == user)
+				return ErrorMsg.otherError("You can't unfriend yourself !");
+			
+			FriendTools.removeFriend(user,friend);
 			return JSONtools.ok();
 			
-		
+		} catch (NumberFormatException e) {
+			return ErrorMsg.wrongParameter();	
+			
 		} catch (KeyInvalidException e) {
 			return ErrorMsg.invalidKey();
 			
-		} catch (SQLException e) {
-			return ErrorMsg.bdError();
+		}  catch (SQLException e) {
 			
-		} catch (userDoesntExistException e) {
-			return ErrorMsg.userDoesntExist(friend);
+			return ErrorMsg.bdError();
 		}
 
 	}
