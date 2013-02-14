@@ -19,22 +19,25 @@ public class FriendServices {
 			int user = AuthTools.keyValid(key);
 			
 			if(friend == user)
-				return ErrorMsg.wrongParameter();
+				return ErrorMsg.otherError("You are already friend with yourself, aren't you ?");
 			
 			FriendTools.addFriend(user,friend);
 			return JSONtools.ok();
 			
+		} catch (NumberFormatException e) {
+			return ErrorMsg.wrongParameter();	
 			
-			} catch (SQLException e) {
-				return ErrorMsg.bdError();
-				
-			} catch (KeyInvalidException e) {
-				return ErrorMsg.invalidKey();
+		} catch (KeyInvalidException e) {
+			return ErrorMsg.invalidKey();
 			
-			} catch (NumberFormatException e) {
-				return ErrorMsg.wrongParameter();
-			}
-		
+		}  catch (SQLException e) {
+			if(e.getErrorCode() == 1062)	
+				return ErrorMsg.otherError("You are already friends :)");
+			if(e.getErrorCode() == 1452)	
+				return ErrorMsg.userDoesntExist(addFriend);
+			
+			return ErrorMsg.otherError(e.getMessage()+" code: "+e.getErrorCode());
+		}
 	}
 	
 	public static JSONObject removeFriend(String key, String friend){

@@ -27,7 +27,7 @@ public class AuthTools {
 			ResultSet res = stt.executeQuery("Select * from User u where u.login='"+login+"';");
 		
 			if(res.next()==true){
-				id = res.getInt(0);
+				id = res.getInt(1);
 			}
 			else
 			{
@@ -58,7 +58,7 @@ public class AuthTools {
 			ResultSet res = stt.executeQuery("Select * from User u where u.id='"+id+"';");
 		
 			if(res.next()==true){
-				username = res.getString(1);
+				username = res.getString(2);
 			}
 			else
 			{
@@ -112,8 +112,8 @@ public class AuthTools {
 			Statement stt = c.createStatement();
 			ResultSet res = stt.executeQuery("Select * from Sessions s where s.key='"+key+"';");
 		
-			if(res.next()==true  && !res.getBoolean(2)){
-					id = res.getInt(1);
+			if(res.next()==true  && !res.getBoolean(3)){
+					id = res.getInt(2);
 			
 			}else
 			{

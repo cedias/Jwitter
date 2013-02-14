@@ -23,14 +23,16 @@ public class FriendTools {
 		Connection c = Database.getMySQLConnection();
 		Statement stt = c.createStatement();
 	    stt.executeUpdate(sql);
+	    
 	}
 
-	public static void removeFriend(int user, int friend) throws userDoesntExistException, SQLException {
+	public static void removeFriend(int user, int friend) throws  SQLException {
 		String sql = "DELETE FROM `dias_ghanem`.`Friends` WHERE `Friends`.`id_from` = "+user+" AND `Friends`.`id_to` = "+friend+";";
 		
 		Connection c = Database.getMySQLConnection();
 		Statement stt = c.createStatement();
 		stt.executeUpdate(sql);
+		
 	}
 
 	public static JSONObject listFriend(int user, int nbResults, int offset) throws SQLException, emptyResultException {
