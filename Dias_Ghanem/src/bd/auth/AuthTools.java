@@ -97,9 +97,6 @@ public class AuthTools {
 	}
 	
 	public static JSONObject login(int id, String password)throws wrongPasswordException {
-		//check credentials
-		//creates new session (use generatekey)
-		//returns session as JSONObject {id,login,key}
 		try {
 			Connection c = Database.getMySQLConnection();
 			Statement stt = c.createStatement();
@@ -168,30 +165,34 @@ public class AuthTools {
 	}
 	
 	private static String getKey(int id){
-		try {
+	try {
 			Connection c = Database.getMySQLConnection();
 			Statement stt = c.createStatement();
-			ResultSet res = stt.executeQuery("Select * from Sessions s where s.id'"+id+"';");
+			ResultSet res = stt.executeQuery("Select * from Sessions s where s.id_user='"+id+"';");
+			String key;
 			if(res.next()){
-				stt.close();
-				c.close();
-				return res.getString(2);
+				key = res.getString(1);
+				
 			}else{
-				return generateKey();
+				key = generateKey();
+				String query = "INSERT INTO `dias_ghanem`.`Sessions` (`key`, `id_user`, `expired`, `time`) VALUES ('"+key+"','"+id+"', '0', CURRENT_TIMESTAMP);";
+				stt.executeUpdate(query);
 			}
+			stt.close();
+			c.close();
+			return key;
 		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
+			return e.getMessage();
 		}
 	}
 	
-	private static String generateKey(){
+	public static String generateKey(){
 		String chars = "azertyuiopqsdfgERThjklmwwxcvbYUIOPQSDFGHJKLMWXCVBNn147825369AZ";
 		String key = "";
 		Random r = new Random();
 		for(int i = 0; i<32; i++){
 			int rand = r.nextInt(chars.length());
-			key+=chars.substring(rand,rand);
+			key+=chars.substring(rand,rand+1);
 		}
 		return key;
 	}

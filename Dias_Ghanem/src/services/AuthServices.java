@@ -56,7 +56,7 @@ public class AuthServices {
 		}
 		//multi-catch not allowed in 1.6, sniff :'(
 		catch (wrongPasswordException e) {
-			return ErrorMsg.otherError("kaka");
+			return ErrorMsg.wrongLogin();
 		}
 		
 		catch(SQLException e){
