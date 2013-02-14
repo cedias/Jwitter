@@ -4,16 +4,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import services.ErrorMsg;
-
-
 import bd.Database;
 import bd.exceptions.emptyResultException;
-import bd.exceptions.userDoesntExistException;
 
 public class FriendTools {
 

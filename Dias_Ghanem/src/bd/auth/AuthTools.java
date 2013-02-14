@@ -5,11 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Random;
-
-import javax.crypto.KeyGenerator;
-
 import org.json.JSONObject;
-
 import bd.Database;
 import bd.exceptions.KeyInvalidException;
 import bd.exceptions.userDoesntExistException;
@@ -147,7 +143,8 @@ public class AuthTools {
 		String key = "";
 		Random r = new Random();
 		for(int i = 0; i<32; i++){
-			key+=r.nextInt(chars.length());
+			int rand = r.nextInt(chars.length());
+			key+=chars.substring(rand,rand);
 		}
 		return key;
 	}
