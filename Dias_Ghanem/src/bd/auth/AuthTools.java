@@ -10,26 +10,70 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import bd.Database;
+import bd.exceptions.KeyInvalidException;
+import bd.exceptions.userDoesntExistException;
+import bd.exceptions.wrongPasswordException;
 
 
 
 public class AuthTools {
-//TODO
 	
-	public static boolean userExists(String login) throws SQLException{
+	public static int userExists(String login) throws SQLException, userDoesntExistException{
 		try {
-			Boolean exists;
+			int id;
 			Connection c = Database.getMySQLConnection();
 			Statement stt = c.createStatement();
 			ResultSet res = stt.executeQuery("Select * from User u where u.login='"+login+"';");
 		
-			exists = (res.next())?true:false;
+			if(res.next()==true){
+				id = res.getInt(0);
+			}
+			else
+			{
+				res.close();
+				stt.close();
+				c.close();
+				
+				throw new userDoesntExistException();
+			}
 			
 			res.close();
 			stt.close();
 			c.close();
 			
-			return exists;
+			return id;
+			
+		}catch (SQLException e) {
+			
+			throw new SQLException(e.getMessage());
+		}
+	}
+	
+	public static String userExists(int id) throws SQLException, userDoesntExistException {
+		try {
+			String username;
+			Connection c = Database.getMySQLConnection();
+			Statement stt = c.createStatement();
+			ResultSet res = stt.executeQuery("Select * from User u where u.id='"+id+"';");
+		
+			if(res.next()==true){
+				username = res.getString(1);
+			}
+			else
+			{
+				res.close();
+				stt.close();
+				c.close();
+				
+				throw new userDoesntExistException();
+			}
+			
+			res.close();
+			stt.close();
+			c.close();
+			
+			return username;
+			
 			
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -37,28 +81,61 @@ public class AuthTools {
 		}
 	}
 
-	public static boolean addUser(String login, String password, String nom , String prenom) throws SQLException {
+	public static boolean addUser(String login, String password, String nom , String prenom){
 		try{
 			Connection c = Database.getMySQLConnection();
 			Statement stt = c.createStatement();
 			int res = stt.executeUpdate("INSERT INTO User(login,password,nom,prenom) VALUES ('"+login+"','"+password+"','"+nom+"','"+prenom+"');");
 			stt.close();
 			c.close();
-			if(res == 0){
-				return false;
-			}else{
-				return true;
+			
+			return (res == 0)?false:true;
+			
+			
+		}catch (SQLException e) {
+			return false;
+		}
+	}
+	
+	public static JSONObject login(int username, String password)throws wrongPasswordException {
+		//check credentials
+		//creates new session
+		//returns session as JSONObject {id,login,key}
+		return null;
+	}
+	
+	public static int keyValid(String key) throws KeyInvalidException, SQLException {
+		try {
+			int id;
+			Connection c = Database.getMySQLConnection();
+			Statement stt = c.createStatement();
+			ResultSet res = stt.executeQuery("Select * from Sessions s where s.key='"+key+"';");
+		
+			if(res.next()==true  && !res.getBoolean(2)){
+					id = res.getInt(1);
+			
+			}else
+			{
+				res.close();
+				stt.close();
+				c.close();
+					
+				throw new KeyInvalidException();
 			}
+			
+			res.close();
+			stt.close();
+			c.close();
+			
+			return id;
+			
 		}catch (SQLException e) {
 			e.printStackTrace();
 			throw new SQLException(e.getMessage());
 		}
 	}
-
-	public static boolean keyValid(String key) {
-		return true;
-	}
 	
+
 	public static boolean passwordValid(String userName,String password){
 		return true;
 	}
@@ -67,9 +144,9 @@ public class AuthTools {
 		return true;
 	}
 
-	public static boolean logout() {
+	public static void logout() throws KeyInvalidException {
 		//removes it from the table of active keys in the bd
-		return true;
+		return;
 	}
 
 	public static boolean deactivate() {
@@ -110,5 +187,9 @@ public class AuthTools {
 			return (char)(65 + r.nextInt(25));
 		}
 	}
+
+	
+
+	
 
 }

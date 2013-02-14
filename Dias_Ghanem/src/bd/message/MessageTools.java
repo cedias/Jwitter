@@ -2,21 +2,19 @@ package bd.message;
 
 import org.json.JSONObject;
 
+import bd.exceptions.emptyResultException;
+
 public class MessageTools {
 
-	public static boolean postMessage(String key,String message){
+	public static boolean postMessage(int user,String message){
 		return true;
 	}
 
-	public static boolean idValid(String messageId) {
+	public static boolean deleteMessage(String messageId) {
 		return true;
 	}
 
-	public static boolean deleteMessage(String key, String messageId) {
-		return true;
-	}
-
-	public static JSONObject listMessages(String username, int nb, int off) {
+	public static JSONObject listMessages(int userId, int nb, int off) throws emptyResultException {
 		return null;
 	}
 }

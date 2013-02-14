@@ -4,47 +4,54 @@ import java.sql.SQLException;
 
 import org.json.JSONObject;
 
+import bd.exceptions.KeyInvalidException;
+import bd.exceptions.userDoesntExistException;
 import bd.friend.FriendTools;
 import bd.auth.AuthTools;
 
 public class FriendServices {
 	
-	public static JSONObject addFriend(String key, String friend){
+	public static JSONObject addFriend(String key, String addFriend){
 		try {
-			if(!AuthTools.keyValid(key)){
-				return ErrorMsg.invalidKey();
-			}
-			if(!AuthTools.userExists(friend))
-			{
-				return ErrorMsg.userDoesntExist(friend);
-			}			
-			if(FriendTools.addFriend(key,friend))
-			{
+			int friend = Integer.parseInt(addFriend);
+			int user = AuthTools.keyValid(key);
+			
+			
+			if(FriendTools.addFriend(user,friend))
 				 return JSONtools.ok();
-			}
-			else
-			{
-				return ErrorMsg.bdError();
-			}
-		} catch (SQLException e) {
+			
+			//else
 			return ErrorMsg.bdError();
-		}
+			
+			
+			} catch (SQLException e) {
+				return ErrorMsg.bdError();
+				
+			} catch (KeyInvalidException e) {
+				return ErrorMsg.invalidKey();
+			
+			} catch (NumberFormatException e) {
+				return ErrorMsg.wrongParameter();
+			}
 		
 	}
 	
 	public static JSONObject removeFriend(String key, String friend){
+		try {
+			
+			int user = AuthTools.keyValid(key);
 		
-		if(!AuthTools.keyValid(key)){
-			return ErrorMsg.invalidKey();
-		}
 		
-		
-		if(FriendTools.removeFriend(key,friend))
-		{
+		if(FriendTools.removeFriend(user,friend))
 			return JSONtools.ok();
-		}
-		else
-		{
+		
+		return ErrorMsg.bdError();
+			
+		
+		} catch (KeyInvalidException e) {
+			return ErrorMsg.invalidKey();
+			
+		} catch (SQLException e) {
 			return ErrorMsg.bdError();
 		}
 
@@ -56,12 +63,10 @@ public class FriendServices {
 			int nb = Integer.parseInt(nbResults);
 			int off = Integer.parseInt(offset);
 		
-			if(!AuthTools.userExists(login))
-			{
-				return ErrorMsg.userDoesntExist(login);
-			}
+			int user = AuthTools.userExists(login);
 			
-			JSONObject json = FriendTools.listFriend(login,nb,off);
+			
+			JSONObject json = FriendTools.listFriend(user,nb,off);
 			
 			if(json == null){
 				return ErrorMsg.emptyResult();
@@ -71,12 +76,14 @@ public class FriendServices {
 			
 		}
 		
-		catch(NumberFormatException E)
-		{
-		
+		catch(NumberFormatException E) {
 			return ErrorMsg.wrongParameter();
+			
 		} catch (SQLException e) {
 			return ErrorMsg.bdError();
+			
+		} catch (userDoesntExistException e) {
+			return ErrorMsg.userDoesntExist(login);
 		}
 	}
 	

@@ -28,14 +28,6 @@
 	<url-pattern>/user/logout</url-pattern>
 </servlet-mapping>
 
-<servlet>
-	<servlet-name>Deactivate</servlet-name>
-	<servlet-class>servlets.auth.DeactivateAuthServlet</servlet-class>
-</servlet>
-<servlet-mapping>
-	<servlet-name>Deactivate</servlet-name>
-	<url-pattern>/user/deactivate</url-pattern>
-</servlet-mapping>
  <servlet>
         <servlet-name>AddFriend</servlet-name>
       	<servlet-class>servlets.friend.AddFriendServlet</servlet-class>
