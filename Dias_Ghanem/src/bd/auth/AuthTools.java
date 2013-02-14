@@ -5,11 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Random;
-
-import javax.crypto.KeyGenerator;
-
 import org.json.JSONObject;
-
 import bd.Database;
 import bd.exceptions.KeyInvalidException;
 import bd.exceptions.userDoesntExistException;
@@ -27,7 +23,7 @@ public class AuthTools {
 			ResultSet res = stt.executeQuery("Select * from User u where u.login='"+login+"';");
 		
 			if(res.next()==true){
-				id = res.getInt(0);
+				id = res.getInt(1);
 			}
 			else
 			{
@@ -58,7 +54,7 @@ public class AuthTools {
 			ResultSet res = stt.executeQuery("Select * from User u where u.id='"+id+"';");
 		
 			if(res.next()==true){
-				username = res.getString(1);
+				username = res.getString(2);
 			}
 			else
 			{
@@ -112,8 +108,8 @@ public class AuthTools {
 			Statement stt = c.createStatement();
 			ResultSet res = stt.executeQuery("Select * from Sessions s where s.key='"+key+"';");
 		
-			if(res.next()==true  && !res.getBoolean(2)){
-					id = res.getInt(1);
+			if(res.next()==true  && !res.getBoolean(3)){
+					id = res.getInt(2);
 			
 			}else
 			{
@@ -147,7 +143,8 @@ public class AuthTools {
 		String key = "";
 		Random r = new Random();
 		for(int i = 0; i<32; i++){
-			key+=r.nextInt(chars.length());
+			int rand = r.nextInt(chars.length());
+			key+=chars.substring(rand,rand);
 		}
 		return key;
 	}
