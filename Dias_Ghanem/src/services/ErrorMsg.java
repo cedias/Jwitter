@@ -13,7 +13,7 @@ public class ErrorMsg {
 	
 	public static JSONObject userDoesntExist(String username)
 	{
-		return JSONtools.error("Username "+ username +"doesn't exist", 20);
+		return JSONtools.error("User "+ username +" doesn't exist", 20);
 	}
 	
 	public static JSONObject wrongParameter()
@@ -35,7 +35,6 @@ public class ErrorMsg {
 	{
 		return JSONtools.error(message, 999);
 	}
-
 	
 	public static JSONObject emptyResult()
 	{

@@ -18,9 +18,9 @@ public class ListFriendServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 	
-		String login = req.getParameter("login");
-		String nbResults = req.getParameter("nbResults");
-		String offset = req.getParameter("offset");
+		String login = req.getParameter("user");
+		String nbResults = req.getParameter("nb");
+		String offset = req.getParameter("off");
 		
 		JSONObject json = FriendServices.listFriends(login,nbResults, offset);
 		
