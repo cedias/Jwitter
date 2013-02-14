@@ -69,7 +69,12 @@ public class FriendServices {
 	
 	public static JSONObject listFriends(String login, String nbResults ,String offset){
 		try{
-			
+			//default
+			if(offset == null|| offset=="")
+				offset = "0";
+			if(nbResults == null || nbResults=="")
+				nbResults = "10";
+					
 			int nb = Integer.parseInt(nbResults);
 			int off = Integer.parseInt(offset);
 			int user = AuthTools.userExists(login);

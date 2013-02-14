@@ -36,7 +36,7 @@ public class FriendTools {
 	}
 
 	public static JSONObject listFriend(int user, int nbResults, int offset) throws SQLException, emptyResultException {
-		String sql = "SELECT f.id_to, u.login, f.time  FROM Friends f, User u WHERE id_from = "+user+" AND f.id_to = u.id LIMIT "+offset+" , "+(offset + nbResults);
+		String sql = "SELECT f.id_to, u.login, f.time  FROM Friends f, User u WHERE id_from = "+user+" AND f.id_to = u.id LIMIT "+offset+" , "+nbResults;
 		
 		Connection c = Database.getMySQLConnection();
 		Statement stt = c.createStatement();
