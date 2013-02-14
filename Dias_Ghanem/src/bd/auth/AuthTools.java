@@ -135,7 +135,7 @@ public class AuthTools {
 			Statement stt = c.createStatement();
 			ResultSet res = stt.executeQuery("Select * from Sessions s where s.key='"+key+"';");
 		
-			if(res.next()==true  && !res.getBoolean(3)){
+			if(res.next()==true){
 					id = res.getInt(2);
 			
 			}else
@@ -159,9 +159,17 @@ public class AuthTools {
 		}
 	}
 
-	public static void logout() throws KeyInvalidException {
-		//put the field expired of the key to true
-		return;
+	public static void logout(String key) throws KeyInvalidException {
+		try {
+			AuthTools.keyValid(key);
+			Connection c = Database.getMySQLConnection();
+			Statement stt = c.createStatement();
+			String sql = "UPDATE `Sessions` SET `expired`=1 WHERE `key` = '" + key+"';";
+			stt.executeUpdate(sql);
+		} catch (SQLException e) {
+			throw new KeyInvalidException();
+		}
+		
 	}
 	
 	private static String getKey(int id){
@@ -170,9 +178,8 @@ public class AuthTools {
 			Statement stt = c.createStatement();
 			ResultSet res = stt.executeQuery("Select * from Sessions s where s.id_user='"+id+"';");
 			String key;
-			if(res.next()){
-				key = res.getString(1);
-				
+			if(res.next() && !res.getBoolean(3)){
+				key = res.getString(1);			
 			}else{
 				key = generateKey();
 				String query = "INSERT INTO `dias_ghanem`.`Sessions` (`key`, `id_user`, `expired`, `time`) VALUES ('"+key+"','"+id+"', '0', CURRENT_TIMESTAMP);";

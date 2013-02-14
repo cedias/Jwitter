@@ -70,12 +70,12 @@ public class AuthServices {
 			if(key == null)
 				return ErrorMsg.wrongParameter();
 			
-			AuthTools.logout();
+			AuthTools.logout(key);
 			return JSONtools.ok();
 		
 		}
 		catch(KeyInvalidException e){
-			return ErrorMsg.invalidKey();
+			return ErrorMsg.otherError("test");
 		}
 		
 		catch(Exception e){
