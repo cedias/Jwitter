@@ -5,12 +5,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Random;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 import bd.Database;
 import bd.exceptions.KeyInvalidException;
 import bd.exceptions.userDoesntExistException;
 import bd.exceptions.wrongPasswordException;
-
+import services.ErrorMsg;
 
 
 public class AuthTools {
@@ -94,11 +96,39 @@ public class AuthTools {
 		}
 	}
 	
-	public static JSONObject login(int username, String password)throws wrongPasswordException {
+	public static JSONObject login(int id, String password)throws wrongPasswordException {
 		//check credentials
 		//creates new session (use generatekey)
 		//returns session as JSONObject {id,login,key}
-		return null;
+		try {
+			Connection c = Database.getMySQLConnection();
+			Statement stt = c.createStatement();
+			ResultSet res = stt.executeQuery("Select * from User u where u.id="+id+";");
+			res.next();
+			if(password.contentEquals(res.getString(5))){
+				String key = getKey(id);
+				JSONObject json = new JSONObject();
+				json.put("id", id);
+				json.put("login",res.getString(2));
+				json.put("key",key);
+				res.close();
+				stt.close();
+				c.close();	
+				return json;
+			}
+			else
+			{
+				res.close();
+				stt.close();
+				c.close();
+				throw new wrongPasswordException();
+			}			
+		}catch (SQLException e) {
+			return ErrorMsg.otherError(e.getMessage());
+		} catch (JSONException e) {
+			return ErrorMsg.otherError(e.getMessage());
+		}
+		
 	}
 	
 	public static int keyValid(String key) throws KeyInvalidException, SQLException {
@@ -137,7 +167,24 @@ public class AuthTools {
 		return;
 	}
 	
-	//totally unsecure Crap
+	private static String getKey(int id){
+		try {
+			Connection c = Database.getMySQLConnection();
+			Statement stt = c.createStatement();
+			ResultSet res = stt.executeQuery("Select * from Sessions s where s.id'"+id+"';");
+			if(res.next()){
+				stt.close();
+				c.close();
+				return res.getString(2);
+			}else{
+				return generateKey();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	private static String generateKey(){
 		String chars = "azertyuiopqsdfgERThjklmwwxcvbYUIOPQSDFGHJKLMWXCVBNn147825369AZ";
 		String key = "";
