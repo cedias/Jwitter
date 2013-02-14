@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import org.json.JSONObject;
 
 import bd.exceptions.KeyInvalidException;
+import bd.exceptions.emptyResultException;
 import bd.exceptions.userDoesntExistException;
 import bd.friend.FriendTools;
 import bd.auth.AuthTools;
@@ -13,15 +14,15 @@ public class FriendServices {
 	
 	public static JSONObject addFriend(String key, String addFriend){
 		try {
+			
 			int friend = Integer.parseInt(addFriend);
 			int user = AuthTools.keyValid(key);
 			
+			if(friend == user)
+				return ErrorMsg.wrongParameter();
 			
-			if(FriendTools.addFriend(user,friend))
-				 return JSONtools.ok();
-			
-			//else
-			return ErrorMsg.bdError();
+			FriendTools.addFriend(user,friend);
+			return JSONtools.ok();
 			
 			
 			} catch (SQLException e) {
@@ -40,12 +41,10 @@ public class FriendServices {
 		try {
 			
 			int user = AuthTools.keyValid(key);
+			int friendId = AuthTools.userExists(friend);
 		
-		
-		if(FriendTools.removeFriend(user,friend))
+			FriendTools.removeFriend(user,friendId);
 			return JSONtools.ok();
-		
-		return ErrorMsg.bdError();
 			
 		
 		} catch (KeyInvalidException e) {
@@ -53,30 +52,23 @@ public class FriendServices {
 			
 		} catch (SQLException e) {
 			return ErrorMsg.bdError();
+			
+		} catch (userDoesntExistException e) {
+			return ErrorMsg.userDoesntExist(friend);
 		}
 
 	}
 	
 	public static JSONObject listFriends(String login, String nbResults ,String offset){
-		
 		try{
+			
 			int nb = Integer.parseInt(nbResults);
 			int off = Integer.parseInt(offset);
-		
 			int user = AuthTools.userExists(login);
-			
-			
-			JSONObject json = FriendTools.listFriend(user,nb,off);
-			
-			if(json == null){
-				return ErrorMsg.emptyResult();
-			}
 
-			return json;
+			return  FriendTools.listFriend(user,nb,off);
 			
-		}
-		
-		catch(NumberFormatException E) {
+		} catch(NumberFormatException E) {
 			return ErrorMsg.wrongParameter();
 			
 		} catch (SQLException e) {
@@ -84,6 +76,9 @@ public class FriendServices {
 			
 		} catch (userDoesntExistException e) {
 			return ErrorMsg.userDoesntExist(login);
+			
+		} catch (emptyResultException e) {
+			return ErrorMsg.emptyResult();
 		}
 	}
 	
