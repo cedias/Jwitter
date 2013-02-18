@@ -17,51 +17,39 @@ public class AuthServices {
 			if(login == null || password == null || nom == null || prenom == null)
 				return ErrorMsg.wrongParameter();
 				
-			AuthTools.userExists(login); //throws Exception if doesn't exists
+			AuthTools.userExists(login); 
 			
-		
 		}
-		
 		catch(userDoesntExistException e){
-			
 			if(AuthTools.addUser(login,password,nom,prenom))
 				return JSONtools.ok();
 			
-			return ErrorMsg.bdError();
-			
-		}
-		
+			return ErrorMsg.bdError();			
+		}		
 		catch (SQLException e) {
 			return ErrorMsg.bdError();
-		}
-		
+		}		
 		return ErrorMsg.bdError();
 	}
 
 	
 	public static JSONObject login(String username,String password){
-		try{
-			
+		try{		
 			if(username == null || password == null)
 				return ErrorMsg.wrongParameter();
-			
-			
-			int userid = AuthTools.userExists(username);
-			
+
+			int userid = AuthTools.userExists(username);			
 			return AuthTools.login(userid,password);
 			
 		}
 		catch(userDoesntExistException e){
 			return ErrorMsg.wrongLogin();
 		}
-		//multi-catch not allowed in 1.6, sniff :'(
 		catch (wrongPasswordException e) {
 			return ErrorMsg.wrongLogin();
-		}
-		
+		}		
 		catch(SQLException e){
-			return ErrorMsg.bdError();
-			
+			return ErrorMsg.otherError(e.getMessage());	
 		}
 	}
 	
@@ -70,14 +58,13 @@ public class AuthServices {
 			if(key == null)
 				return ErrorMsg.wrongParameter();
 			
-			AuthTools.logout();
+			AuthTools.logout(key);
 			return JSONtools.ok();
 		
 		}
 		catch(KeyInvalidException e){
 			return ErrorMsg.invalidKey();
-		}
-		
+		}	
 		catch(Exception e){
 			return ErrorMsg.bdError();
 		}
