@@ -63,7 +63,7 @@ public class AuthServices {
 		
 		}
 		catch(KeyInvalidException e){
-			return ErrorMsg.otherError("test");
+			return ErrorMsg.invalidKey();
 		}	
 		catch(Exception e){
 			return ErrorMsg.bdError();
