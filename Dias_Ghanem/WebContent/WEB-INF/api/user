@@ -1,0 +1,109 @@
+{
+    "apiVersion": "0.1",
+    "swaggerVersion": "1.0",
+    "basePath": "http://localhost",
+    "resourcePath": "/user",
+    "apis": [
+        {
+            "path": "/new",
+            "description": "Create an user account",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "notes": "Create an user account",
+                    "nickname": "newUser",
+                    "summary": "Create an user account",
+                    "parameters": [
+                        {
+                            "name": "login",
+                            "description": "the desired login",
+                            "dataType": "string",
+                            "required": true,
+                            "allowMultiple": false,
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "password",
+                            "description": "the desired password",
+                            "dataType": "string",
+                            "required": true,
+                            "allowMultiple": false,
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "nom",
+                            "description": "your last name",
+                            "dataType": "string",
+                            "required": true,
+                            "allowMultiple": false,
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "prenom",
+                            "description": "your first name",
+                            "dataType": "string",
+                            "required": true,
+                            "allowMultiple": false,
+                            "paramType": "query"
+                        }
+                    ],
+                    "errorResponses": [ ]
+                }
+            ]
+        },
+        {
+            "path": "/login",
+            "description": "login",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "notes": "Login and get a session key",
+                    "nickname": "Login",
+                    "summary": "Login to get a session key",
+                    "parameters": [
+                        {
+                            "name": "username",
+                            "description": "your username",
+                            "dataType": "string",
+                            "required": true,
+                            "allowMultiple": false,
+                            "paramType": "query"
+                        },
+                        {
+                            "name": "password",
+                            "description": "your password",
+                            "dataType": "string",
+                            "required": true,
+                            "allowMultiple": false,
+                            "paramType": "query"
+                        }
+                    ],
+                    "errorResponses": [ ]
+                }
+            ]
+        },
+        {
+            "path": "/logout",
+            "description": "logout",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "notes": "Logout",
+                    "nickname": "Login",
+                    "summary": "Logout",
+                    "parameters": [
+                        {
+                            "name": "key",
+                            "description": "your session key",
+                            "dataType": "string",
+                            "required": true,
+                            "allowMultiple": false,
+                            "paramType": "query"
+                        }
+                    ],
+                    "errorResponses": [ ]
+                }
+            ]
+        }
+    ]
+}
