@@ -49,7 +49,7 @@ public class AuthServices {
 			return ErrorMsg.wrongLogin();
 		}		
 		catch(SQLException e){
-			return ErrorMsg.otherError(e.getMessage());	
+			return ErrorMsg.bdError();	
 		}
 	}
 	
