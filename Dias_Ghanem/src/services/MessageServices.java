@@ -18,10 +18,10 @@ public class MessageServices {
 			if(key==null || message==null)
 				return ErrorMsg.wrongParameter();
 			
-			int user = AuthTools.keyValid(key);
-			MessageTools.postMessage(user, message);
-			return JSONtools.ok();
-			
+			int id = AuthTools.keyValid(key);
+			String user = AuthTools.userExists(id);
+			return 	MessageTools.postMessage(id,user, message);
+				
 		} 
 		
 		catch (KeyInvalidException e) {
@@ -29,6 +29,8 @@ public class MessageServices {
 		} 
 			
 		catch (SQLException e) {
+			return ErrorMsg.bdError();
+		} catch (userDoesntExistException e) {
 			return ErrorMsg.bdError();
 		}		
 	}
@@ -39,9 +41,7 @@ public class MessageServices {
 				return ErrorMsg.wrongParameter();
 		
 			AuthTools.keyValid(key);
-			MessageTools.deleteMessage(messageId);
-			return JSONtools.ok();
-			
+			return MessageTools.deleteMessage(messageId);
 			}
 		
 		catch(KeyInvalidException e){
