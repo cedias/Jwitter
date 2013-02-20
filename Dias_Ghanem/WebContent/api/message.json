@@ -1,18 +1,18 @@
 {
     "apiVersion": "1.0",
     "swaggerVersion": "1.0",
-    "basePath": "http://localhost",
-    "resourcePath": "/friend",
+    "basePath": "http://li328.lip6.fr:8280/Dias_Ghanem_API",
+    "resourcePath": "/message",
     "apis": [
         {
-            "path": "/add",
-            "description": "add a friend",
+            "path": "/message/post",
+            "description": "post a message",
             "operations": [
                 {
                     "httpMethod": "GET",
-                    "notes": "Follow a folk on Jwitter",
-                    "nickname": "addFriend",
-                    "summary": "Follow a folk on Jwitter",
+                    "notes": "Post a message on Jwitter",
+                    "nickname": "postMessage",
+                    "summary": "Post a message on Jwitter",
                     "parameters": [
                         {
                             "name": "key",
@@ -23,9 +23,9 @@
                             "paramType": "query"
                         },
                         {
-                            "name": "friend_id",
-                            "description": "your new friend id",
-                            "dataType": "int",
+                            "name": "message",
+                            "description": "your message",
+                            "dataType": "string",
                             "required": true,
                             "allowMultiple": false,
                             "paramType": "query"
@@ -36,14 +36,14 @@
             ]
         },
         {
-            "path": "/delete",
-            "description": "Unfriend a folk",
+            "path": "/message/delete",
+            "description": "delete a message",
             "operations": [
                 {
                     "httpMethod": "GET",
-                    "notes": "Unfriend a folk",
-                    "nickname": "removeFriend",
-                    "summary": "Unfriend a folk",
+                    "notes": "Delete one of your messages on Jwitter",
+                    "nickname": "deleteMessage",
+                    "summary": "Delete one of your messages on Jwitter",
                     "parameters": [
                         {
                             "name": "key",
@@ -54,8 +54,8 @@
                             "paramType": "query"
                         },
                         {
-                            "name": "friend_id",
-                            "description": "the folk's id",
+                            "name": "message_id",
+                            "description": "the message's id",
                             "dataType": "int",
                             "required": true,
                             "allowMultiple": false,
@@ -68,14 +68,14 @@
             ]
         },
         {
-            "path": "/list",
-            "description": "list friends",
+            "path": "/message/list",
+            "description": "list messages",
             "operations": [
                 {
                     "httpMethod": "GET",
-                    "notes": "List a user's friends",
-                    "nickname": "listFriends",
-                    "summary": "List a user's friends",
+                    "notes": "List Jwitter messages",
+                    "nickname": "listMessage",
+                    "summary": "List Jwitter messages",
                     "parameters": [
                         {
                             "name": "user_id",

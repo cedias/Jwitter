@@ -1,11 +1,11 @@
 {
     "apiVersion": "0.1",
     "swaggerVersion": "1.0",
-    "basePath": "http://localhost",
+    "basePath": "http://li328.lip6.fr:8280/Dias_Ghanem_API",
     "resourcePath": "/user",
     "apis": [
         {
-            "path": "/new",
+            "path": "/user/new",
             "description": "Create an user account",
             "operations": [
                 {
@@ -52,7 +52,7 @@
             ]
         },
         {
-            "path": "/login",
+            "path": "/user/login",
             "description": "login",
             "operations": [
                 {
@@ -83,7 +83,7 @@
             ]
         },
         {
-            "path": "/logout",
+            "path": "/user/logout",
             "description": "logout",
             "operations": [
                 {

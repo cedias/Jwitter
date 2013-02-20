@@ -80,6 +80,8 @@
 	 <servlet-mapping>
 	 	<servlet-name>ListMessage</servlet-name>
 	 	<url-pattern>/message/list</url-pattern>
-	 </servlet-mapping> 
+	 </servlet-mapping>
+
+	 
 </web-app>
  
