@@ -1,7 +1,7 @@
 {
     "apiVersion": "0.1",
     "swaggerVersion": "1.0",
-    "basePath": "http://li328.lip6.fr:8280/Dias_Ghanem_API",
+    "basePath": "http://li328.lip6.fr:8280/Dias_Ghanem",
     "resourcePath": "/user",
     "apis": [
         {
