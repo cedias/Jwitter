@@ -1,64 +1,90 @@
 package services;
 
+import java.sql.SQLException;
+
 import org.json.JSONObject;
 
 import bd.auth.AuthTools;
+import bd.exceptions.KeyInvalidException;
+import bd.exceptions.emptyResultException;
+import bd.exceptions.userDoesntExistException;
 import bd.message.MessageTools;
 
 public class MessageServices {
 
 	public static JSONObject newMessage(String key,String message){
-		if(key==null || message==null){
-			return ErrorMsg.wrongParameter();
-		}
-		if(!AuthTools.keyValid(key)){
-			return ErrorMsg.invalidKey();
-		}else{
-			if(MessageTools.postMessage(key, message)){
-				return JSONtools.ok();
-			}else{
-				return ErrorMsg.bdError();
-			}
-		}
+		try {
+			
+			if(key==null || message==null)
+				return ErrorMsg.wrongParameter();
+			
+			int user = AuthTools.keyValid(key);
+			MessageTools.postMessage(user, message);
+			return JSONtools.ok();
+			
+		} 
+		
+		catch (KeyInvalidException e) {
+				return ErrorMsg.invalidKey();
+		} 
+			
+		catch (SQLException e) {
+			return ErrorMsg.bdError();
+		}		
 	}
 
 	public static JSONObject deleteMessage(String key, String messageId) {
-		if( key==null || messageId==null){
-			return ErrorMsg.wrongParameter();
-		}
-		if(!AuthTools.keyValid(key)){
+		try{	
+			if(key==null || messageId==null)
+				return ErrorMsg.wrongParameter();
+		
+			AuthTools.keyValid(key);
+			MessageTools.deleteMessage(messageId);
+			return JSONtools.ok();
+			
+			}
+		
+		catch(KeyInvalidException e){
 			return ErrorMsg.invalidKey();
 		}
-		if(!MessageTools.idValid(messageId)){
-			return ErrorMsg.invalidMessageId();
-		}
-		if(!MessageTools.deleteMessage(key,messageId)){
+		
+		catch (SQLException e) {
 			return ErrorMsg.bdError();
-		}else{
-			return JSONtools.ok();
 		}
 	}
+	
 
-	public static JSONObject listMessages(String username,
-			String nbMessage, String offset) {
-			if( username==null || nbMessage == null || offset == null){
-			return ErrorMsg.wrongParameter();
-			}
-		try{
+	public static JSONObject listMessages(String username, String nbMessage, String offset) {
+		try{	
+			if( username==null || nbMessage == null || offset == null)
+				return ErrorMsg.wrongParameter();
+			
 			JSONObject json;
 			int nb = Integer.parseInt(nbMessage);
 			int off = Integer.parseInt(offset);
-			if(!AuthTools.userExists(username))
-			{
-				return ErrorMsg.userDoesntExist(username);
-			}
-			json = MessageTools.listMessages(username,nb,off);			
-			if(json == null){
-				return ErrorMsg.emptyResult();
-			}
-			return json;			
-		}catch(NumberFormatException E){
+			int user = AuthTools.userExists(username);
+			
+			json = MessageTools.listMessages(user,nb,off);
+			
+			return json;
+			
+		}
+		catch(NumberFormatException E){
 			return ErrorMsg.wrongParameter();
 		}
+		
+		catch (userDoesntExistException e) {
+			return ErrorMsg.userDoesntExist(username);
+		}
+		
+		catch (emptyResultException e) {
+			return ErrorMsg.emptyResult();
+		}
+		
+		catch (SQLException e) {
+			return ErrorMsg.bdError();
+		}
+		
+		
 	}
 }
