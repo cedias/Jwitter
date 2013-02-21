@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import services.FriendServices;
+import servlets.GetParameters;
 
 public class ListFriendServlet extends HttpServlet {
 
@@ -18,12 +19,13 @@ public class ListFriendServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 	
-		String login = req.getParameter("user");
-		String nbResults = req.getParameter("nb");
-		String offset = req.getParameter("off");
+		String login = req.getParameter(GetParameters.login);
+		String nbResults = req.getParameter(GetParameters.maxResults);
+		String offset = req.getParameter(GetParameters.offset);
 		
 		JSONObject json = FriendServices.listFriends(login,nbResults, offset);
 		
+		resp.setContentType("text/plain");
 		resp.getWriter().print(json);
 		
 	}

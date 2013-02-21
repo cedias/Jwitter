@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import services.MessageServices;
+import servlets.GetParameters;
 
 
 public class DeleteMessageServlet extends HttpServlet {
@@ -22,9 +23,11 @@ public class DeleteMessageServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-			String key = req.getParameter("key");
-			String messageId= req.getParameter("messageId");
+			String key = req.getParameter(GetParameters.key);
+			String messageId= req.getParameter(GetParameters.message_id);
 			JSONObject json = MessageServices.deleteMessage(key,messageId);
+			
+			resp.setContentType("text/plain");
 			resp.getWriter().print(json);
 	}
 
