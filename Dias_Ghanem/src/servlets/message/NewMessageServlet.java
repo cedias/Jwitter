@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import services.MessageServices;
+import servlets.GetParameters;
 
 public class NewMessageServlet extends HttpServlet {
 
@@ -21,9 +22,11 @@ public class NewMessageServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-			String key = req.getParameter("key");
-			String message = req.getParameter("message");
+			String key = req.getParameter(GetParameters.key);
+			String message = req.getParameter(GetParameters.message);
 			JSONObject json = MessageServices.newMessage(key, message);
+			
+			resp.setContentType("text/plain");
 			resp.getWriter().print(json);
 	}
 

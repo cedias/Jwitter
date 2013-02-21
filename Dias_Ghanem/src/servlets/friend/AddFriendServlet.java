@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import services.FriendServices;
+import servlets.GetParameters;
 
 public class AddFriendServlet extends HttpServlet {
 
@@ -19,11 +20,12 @@ public class AddFriendServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		String key = req.getParameter("key");
-		String friend = req.getParameter("friend");
+		String key = req.getParameter(GetParameters.key);
+		String friend = req.getParameter(GetParameters.friend_id);
 		
 		JSONObject json = FriendServices.addFriend(key, friend);
 		
+		resp.setContentType("text/plain");
 		resp.getWriter().print(json);
 		
 		
