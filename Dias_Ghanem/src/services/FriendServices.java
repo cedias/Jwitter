@@ -10,8 +10,21 @@ import bd.exceptions.userDoesntExistException;
 import bd.friend.FriendTools;
 import bd.auth.AuthTools;
 
+/**
+ * Friend API static methods
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ *
+ */
 public class FriendServices {
 	
+	/**
+	 * Add a friend to the key related user
+	 * @param key auth key
+	 * @param addFriend id of the friend you want to add
+	 * @return JSONObject: ok if everything want well
+	 * 
+	 */
 	public static JSONObject addFriend(String key, String addFriend){
 		try {
 			
@@ -42,6 +55,12 @@ public class FriendServices {
 		}
 	}
 	
+	/**
+	 * remove a friend to the key related user
+	 * @param key auth key
+	 * @param remFriend friend id to remove
+	 * @return ok if everything went well
+	 */
 	public static JSONObject removeFriend(String key, String remFriend){
 		try {
 			
@@ -67,6 +86,13 @@ public class FriendServices {
 
 	}
 	
+	/**
+	 *  List friends by login (string)
+	 * @param login String user login
+	 * @param nbResults max number of results to return
+	 * @param offset
+	 * @return JSONObject => [messages...]
+	 */
 	public static JSONObject listFriends(String login, String nbResults ,String offset){
 		try{
 			//default
