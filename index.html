@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Jwitter API by cedias</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>Jwitter API</h1>
+        <p>twitter in tomcat API</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/cedias/Jwitter" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/cedias/Jwitter/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/cedias/Jwitter/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h1>User Service</h1>
+
+<h2>Base URL:</h2>
+
+<p><code>http://jwitter-url/user</code></p>
+
+<h2>Login:</h2>
+
+<ul>
+<li>url: /login</li>
+<li>arguments:
+
+<ul>
+<li>username: String</li>
+<li>password: String</li>
+</ul>
+</li>
+</ul><blockquote>
+<p>Returns a session key</p>
+</blockquote>
+
+<h2>Logout:</h2>
+
+<ul>
+<li>url: /logout</li>
+<li>arguments:
+
+<ul>
+<li>key: String</li>
+</ul>
+</li>
+</ul><blockquote>
+<p>Closes a session key</p>
+</blockquote>
+
+<h3>New:</h3>
+
+<ul>
+<li>url: /new</li>
+<li>arguments:
+
+<ul>
+<li>username : String</li>
+<li>password : String</li>
+</ul>
+</li>
+</ul><blockquote>
+<p>Creates a user</p>
+</blockquote>
+
+<h2>Deactivate:</h2>
+
+<ul>
+<li>url: /deactivate</li>
+<li>
+<p>arguments:</p>
+
+<ul>
+<li>username: String</li>
+<li>password: String</li>
+</ul>
+<blockquote>
+<p>Deactivates a user</p>
+</blockquote>
+</li>
+</ul><h1>Friend Service</h1>
+
+<h2>Base URL:</h2>
+
+<p><code>http://jwitter-url/friend</code></p>
+
+<h2>Add:</h2>
+
+<ul>
+<li>url: /add</li>
+<li>arguments:
+
+<ul>
+<li>username : String</li>
+<li>key : String</li>
+</ul>
+</li>
+</ul><blockquote>
+<p>adds a friend to key user</p>
+</blockquote>
+
+<h2>Remove:</h2>
+
+<ul>
+<li>url: /remove</li>
+<li>arguments:
+
+<ul>
+<li>username : String</li>
+<li>key : String</li>
+</ul>
+</li>
+</ul><blockquote>
+<p>removes a friend to key user</p>
+</blockquote>
+
+<h2>List:</h2>
+
+<ul>
+<li>url: /list</li>
+<li>arguments:
+
+<ul>
+<li>username : String </li>
+<li>nbRes : Int</li>
+<li>offset: Int</li>
+</ul>
+</li>
+</ul><blockquote>
+<p>List a user's friends</p>
+</blockquote>
+
+<h1>Message Service</h1>
+
+<h2>Base URL:</h2>
+
+<p><code>http://jwitter-url/message</code></p>
+
+<h2>New</h2>
+
+<ul>
+<li>url: /new</li>
+<li>arguments:</li>
+</ul><blockquote>
+<p>Creates new message</p>
+</blockquote>
+
+<h2>Delete</h2>
+
+<ul>
+<li>url: /delete</li>
+<li>arguments:</li>
+</ul><h2>List</h2>
+
+<ul>
+<li>url: /list</li>
+<li>arguments:</li>
+</ul><h1>Search Service</h1>
+
+<h2>Base URL:</h2>
+
+<p><code>http://jwitter-url/search</code></p>
+
+<h2>Message</h2>
+
+<ul>
+<li>url: /message</li>
+<li>arguments:</li>
+</ul>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/cedias">cedias</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
