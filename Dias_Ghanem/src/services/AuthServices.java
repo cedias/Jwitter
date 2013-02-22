@@ -16,15 +16,18 @@ public class AuthServices {
 			
 			if(login == null || password == null || nom == null || prenom == null)
 				return ErrorMsg.wrongParameter();
-				
-			AuthTools.userExists(login); 
+			if(login == "" || password == "" || nom == "" || prenom ==""){
+				return ErrorMsg.emptyField();
+			}
+			Integer test = AuthTools.userExists(login);
+			if ( test != null){
+				return ErrorMsg.userAlreadyExists(login);
+			}
 			
 		}
-		catch(userDoesntExistException e){
+		catch(userDoesntExistException e){		
 			if(AuthTools.addUser(login,password,nom,prenom))
 				return JSONtools.ok();
-			
-			return ErrorMsg.bdError();			
 		}		
 		catch (SQLException e) {
 			return ErrorMsg.bdError();
