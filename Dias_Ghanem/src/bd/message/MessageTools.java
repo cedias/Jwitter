@@ -20,7 +20,7 @@ import bd.exceptions.emptyResultException;
 
 public class MessageTools {
 	
-	public static JSONObject postMessage(int id,String login,String message){
+	public static JSONObject postMessage(int user_id,String login,String message){
 		try {
 			JSONObject json = new JSONObject();
 			Mongo m = new Mongo("li328.lip6.fr",27130);
@@ -28,19 +28,13 @@ public class MessageTools {
 			DBCollection collection = db.getCollection("messages");
 			BasicDBObject obj = new BasicDBObject();
 			
-			obj.put("id",id);
+			obj.put("id",user_id);
 			obj.put("login",login);
 			obj.put("message",message);
 			collection.insert(obj);
 			
-			//parceque charles a dit que le message id sera a rien et moi j'ai trouve que si c'est utile parceque
-			//imaginons ilya un user qui a fait un faute d'orthographe et au meme temps il a un amis un peu grammer naiz
-			//qui s'appele aussi charles donc cet user aurait envie de changer son msg tout suite donc c'est mieux 
-			//de lui donne son cle tout suite.
-			
 			json.put("message", message);
 			json.put("message_id",obj.get("_id").toString());
-			json.put("confirmation", "ok");
 			return json;
 			
 		} catch (UnknownHostException e) {
@@ -76,13 +70,13 @@ public class MessageTools {
 			int i = 1;
 			
 			JSONObject json = new JSONObject();
-			Mongo m = new Mongo("li328.lip6.fr",27130);
+			Mongo m = new Mongo(BDStatic.mongoDb_host,BDStatic.mongoDb_port);
 			DB db = m.getDB(BDStatic.mysql_db);
 			DBCollection collection = db.getCollection("messages");
 			BasicDBObject query = new BasicDBObject();			
 			
 			query.put("id",id);
-			DBCursor cursor = collection.find(query); 
+			DBCursor cursor = collection.find(query).limit(Integer.MAX_VALUE); 
 			
 			if(off > cursor.count())
 				return json;

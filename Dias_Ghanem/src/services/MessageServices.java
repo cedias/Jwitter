@@ -15,7 +15,7 @@ public class MessageServices {
 	public static JSONObject newMessage(String key,String message){
 		try {
 			
-			if(key==null || message==null)
+			if(key==null || message==null || message.isEmpty())
 				return ErrorMsg.wrongParameter();
 			
 			int id = AuthTools.keyValid(key);
