@@ -54,17 +54,20 @@ public class MessageServices {
 	}
 	
 
-	public static JSONObject listMessages(String username, String nbMessage, String offset) {
+	public static JSONObject listMessages(String id,String username, String nbMessage, String offset) {
 		try{	
-			if( username==null || nbMessage == null || offset == null)
+			if( (id==null && username==null) || nbMessage == null || offset == null)
 				return ErrorMsg.wrongParameter();
 			
 			JSONObject json;
 			int nb = Integer.parseInt(nbMessage);
 			int off = Integer.parseInt(offset);
-			int user = AuthTools.userExists(username);
-			
-			json = MessageTools.listMessages(user,nb,off);
+			if(id==null && username!=null){
+				int user = AuthTools.userExists(username);
+				json = MessageTools.listMessages(user,nb,off);				
+			}else{
+				json = MessageTools.listMessages(Integer.parseInt(id), nb, off);
+			}
 			
 			return json;
 			
