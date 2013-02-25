@@ -14,7 +14,6 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.Mongo;
-import com.mongodb.WriteResult;
 
 import bd.BDStatic;
 import bd.exceptions.emptyResultException;
@@ -39,10 +38,11 @@ public class MessageTools {
 			//qui s'appele aussi charles donc cet user aurait envie de changer son msg tout suite donc c'est mieux 
 			//de lui donne son cle tout suite.
 			
-			json.put("message", obj.toString());
+			json.put("message", message);
+			json.put("message_id",obj.get("_id").toString());
 			json.put("confirmation", "ok");
-		
 			return json;
+			
 		} catch (UnknownHostException e) {
 			return ErrorMsg.bdError();
 		} catch (JSONException e) {
@@ -56,11 +56,15 @@ public class MessageTools {
 			DB db = m.getDB(BDStatic.mysql_db);
 			DBCollection collection = db.getCollection("messages");
 			BasicDBObject query = new BasicDBObject();	
-			//TODO
-			// problem here the variable is not correctly passed
-			query.put("message", "test");
+			
+			query.put("_id", new ObjectId(messageId));
 			collection.remove(query);
-			return ErrorMsg.otherError(query.toString());
+			if(collection.findOne(query) == null){
+				return JSONtools.ok();
+			}else{
+				return ErrorMsg.bdError();
+			}
+			
 		}catch (UnknownHostException e) {
 			return ErrorMsg.bdError();
 		}
