@@ -15,13 +15,13 @@ public class MessageServices {
 	public static JSONObject newMessage(String key,String message){
 		try {
 			
-			if(key==null || message==null)
+			if(key==null || message==null || message.isEmpty())
 				return ErrorMsg.wrongParameter();
 			
-			int user = AuthTools.keyValid(key);
-			MessageTools.postMessage(user, message);
-			return JSONtools.ok();
-			
+			int id = AuthTools.keyValid(key);
+			String user = AuthTools.userExists(id);
+			return 	MessageTools.postMessage(id,user, message);
+				
 		} 
 		
 		catch (KeyInvalidException e) {
@@ -29,6 +29,8 @@ public class MessageServices {
 		} 
 			
 		catch (SQLException e) {
+			return ErrorMsg.bdError();
+		} catch (userDoesntExistException e) {
 			return ErrorMsg.bdError();
 		}		
 	}
@@ -39,9 +41,7 @@ public class MessageServices {
 				return ErrorMsg.wrongParameter();
 		
 			AuthTools.keyValid(key);
-			MessageTools.deleteMessage(messageId);
-			return JSONtools.ok();
-			
+			return MessageTools.deleteMessage(messageId);
 			}
 		
 		catch(KeyInvalidException e){
@@ -54,17 +54,20 @@ public class MessageServices {
 	}
 	
 
-	public static JSONObject listMessages(String username, String nbMessage, String offset) {
+	public static JSONObject listMessages(String id,String username, String nbMessage, String offset) {
 		try{	
-			if( username==null || nbMessage == null || offset == null)
+			if( (id==null && username==null) || nbMessage == null || offset == null)
 				return ErrorMsg.wrongParameter();
 			
 			JSONObject json;
 			int nb = Integer.parseInt(nbMessage);
 			int off = Integer.parseInt(offset);
-			int user = AuthTools.userExists(username);
-			
-			json = MessageTools.listMessages(user,nb,off);
+			if(id==null && username!=null){
+				int user = AuthTools.userExists(username);
+				json = MessageTools.listMessages(user,nb,off);				
+			}else{
+				json = MessageTools.listMessages(Integer.parseInt(id), nb, off);
+			}
 			
 			return json;
 			

@@ -7,5 +7,7 @@ public interface BDStatic {
 	public static String mysql_db   ="dias_ghanem";
 	public static String mysql_username = "dias_ghanem";
 	public static String mysql_password = "midg3tisfun";
+	public static String mongoDb_host = "li328.lip6.fr";
+	public static int mongoDb_port = 27130;
 	
 }
