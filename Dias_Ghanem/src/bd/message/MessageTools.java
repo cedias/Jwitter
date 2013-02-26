@@ -23,7 +23,7 @@ public class MessageTools {
 	public static JSONObject postMessage(int user_id,String login,String message){
 		try {
 			JSONObject json = new JSONObject();
-			Mongo m = new Mongo("li328.lip6.fr",27130);
+			Mongo m = new Mongo(BDStatic.mongoDb_host,BDStatic.mongoDb_port);
 			DB db = m.getDB(BDStatic.mysql_db);
 			DBCollection collection = db.getCollection("messages");
 			BasicDBObject obj = new BasicDBObject();
@@ -46,7 +46,7 @@ public class MessageTools {
 
 	public static JSONObject deleteMessage(String messageId) {
 		try{
-			Mongo m = new Mongo("li328.lip6.fr",27130);
+			Mongo m = new Mongo(BDStatic.mongoDb_host,BDStatic.mongoDb_port);
 			DB db = m.getDB(BDStatic.mysql_db);
 			DBCollection collection = db.getCollection("messages");
 			BasicDBObject query = new BasicDBObject();	
