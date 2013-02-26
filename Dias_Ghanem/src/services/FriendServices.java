@@ -69,6 +69,8 @@ public class FriendServices {
 	
 	public static JSONObject listFriends(String login, String nbResults ,String offset){
 		try{
+			if(login == null || login == "")
+				return ErrorMsg.wrongParameter();
 			//default
 			if(offset == null|| offset=="")
 				offset = "0";
