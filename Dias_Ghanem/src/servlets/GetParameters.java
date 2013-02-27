@@ -8,7 +8,7 @@ package servlets;
  *
  */
 public interface GetParameters {
-
+	
 	//auth
 	public static String login = "login";
 	public static String password = "pass";
@@ -22,10 +22,13 @@ public interface GetParameters {
 	//search
 	public static String maxResults = "maxr";
 	public static String offset = "off";
+	public static String query = "q";
+	public static String restrict_to_friends = "rtf";
 	
 	//other
 	public static String message = "msg";
 	public static String firstname = "fname";
 	public static String lastName = "lname"; 
+
 	
 }

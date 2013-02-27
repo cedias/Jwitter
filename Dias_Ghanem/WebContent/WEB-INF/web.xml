@@ -81,5 +81,14 @@
 	 	<servlet-name>ListMessage</servlet-name>
 	 	<url-pattern>/message/list</url-pattern>
 	 </servlet-mapping> 
+	 
+	 <servlet>
+	 	<servlet-name>SearchMessage</servlet-name>
+	 	<servlet-class>servlets.search.SearchMsgServlet</servlet-class>
+	 </servlet>
+	 <servlet-mapping>
+	 	<servlet-name>SearchMessage</servlet-name>
+	 	<url-pattern>/search/message</url-pattern>
+	 </servlet-mapping>
 </web-app>
  
