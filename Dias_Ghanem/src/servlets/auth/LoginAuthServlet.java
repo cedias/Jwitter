@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import services.AuthServices;
+import servlets.GetParameters;
 
 public class LoginAuthServlet extends HttpServlet {
 
@@ -22,11 +23,12 @@ public class LoginAuthServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 			
-			String username = req.getParameter("username");
-			String password = req.getParameter("password");
+			String username = req.getParameter(GetParameters.login);
+			String password = req.getParameter(GetParameters.password);
 			
-			JSONObject json = AuthServices.login(username, password);			
+			JSONObject json = AuthServices.login(username, password);
 			
+			resp.setContentType("text/plain");
 			resp.getWriter().print(json);
 	}
 	

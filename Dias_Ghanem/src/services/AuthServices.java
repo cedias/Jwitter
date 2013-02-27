@@ -14,17 +14,18 @@ public class AuthServices {
 	public static JSONObject newUser(String login ,String password,String nom,String prenom){		
 		try{
 			
-			if(login == null || password == null || nom == null || prenom == null)
+			if(login == null || login =="" || password == null || password == "" || nom == null || nom =="" || prenom == null || prenom == "")
 				return ErrorMsg.wrongParameter();
-				
-			AuthTools.userExists(login); 
+			
+			Integer test = AuthTools.userExists(login);
+			if ( test != null){
+				return ErrorMsg.userAlreadyExists(login);
+			}
 			
 		}
-		catch(userDoesntExistException e){
+		catch(userDoesntExistException e){		
 			if(AuthTools.addUser(login,password,nom,prenom))
 				return JSONtools.ok();
-			
-			return ErrorMsg.bdError();			
 		}		
 		catch (SQLException e) {
 			return ErrorMsg.bdError();
