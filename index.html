@@ -18,9 +18,21 @@
 
       <header>
         <h1>Jwitter API</h1>
-        <p>API for twitter in tomcat</p>
+        <p>twitter in tomcat</p>
       </header>
 
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/cedias/Jwitter" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/cedias/Jwitter/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/cedias/Jwitter/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
 
     <div class="wrapper">
       <nav>
@@ -41,34 +53,34 @@
 </ul><p>All of these services are reachable using the HTTP protocol over GET method.
 Arguments and Errors are standardized.</p>
 
-<h3>Arguments</h3>
+<h2>Arguments</h2>
 
-<h4>Authentification</h4>
+<h3>Authentification</h3>
 
 <ul>
 <li>user's login := login</li>
 <li>user's password := pass</li>
 <li>user's session key := key</li>
-</ul><h4>id</h4>
+</ul><h3>id</h3>
 
 <ul>
 <li>user's id := uid</li>
 <li>friend's id := fid</li>
 <li>message's id := mid</li>
-</ul><h4>Search/Lists</h4>
+</ul><h3>Search/Lists</h3>
 
 <ul>
 <li>Maximum results := maxr</li>
 <li>Results' offset := off</li>
 <li>Query := q</li>
 <li>Restrict to user's friend := rtf</li>
-</ul><h4>Miscellaneous</h4>
+</ul><h3>Miscellaneous</h3>
 
 <ul>
 <li>a message := msg</li>
 <li>a first name := fname</li>
 <li>a last name := lname</li>
-</ul><h3>Error-Codes</h3>
+</ul><h2>Error-Codes</h2>
 
 <ul>
 <li>3  : User Already Exists</li>
@@ -232,8 +244,9 @@ Arguments and Errors are standardized.</p>
 <li>invalid key : 403</li>
 </ul>
 </li>
-</ul><p><code>http://jwitter-url/friend/list?login=jacktheboss</code>
-<code>http://jwitter-url/friend/list?login=jacktheboss&amp;off=10&amp;maxr=8</code></p>
+</ul><pre><code>http://jwitter-url/friend/list?login=jacktheboss
+http://jwitter-url/friend/list?login=jacktheboss&amp;off=10&amp;maxr=8
+</code></pre>
 
 <blockquote>
 <p>List a user's friends</p>
@@ -310,10 +323,11 @@ Arguments and Errors are standardized.</p>
 <li>result is empty : 398</li>
 </ul>
 </li>
-</ul><p><code>http://jwitter-url/message/list?uid=12</code>
-<code>http://jwitter-url/message/list?login=jack</code>
-<code>http://jwitter-url/message/list?uid=12&amp;off=12&amp;maxr=5</code>
-<code>http://jwitter-url/message/list?login=jack&amp;off=12&amp;maxr=5</code></p>
+</ul><pre><code>http://jwitter-url/message/list?uid=12
+http://jwitter-url/message/list?login=jack
+http://jwitter-url/message/list?uid=12&amp;off=12&amp;maxr=5
+http://jwitter-url/message/list?login=jack&amp;off=12&amp;maxr=5
+</code></pre>
 
 <blockquote>
 <p>list all user's message</p>
