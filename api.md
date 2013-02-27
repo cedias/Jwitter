@@ -61,7 +61,7 @@ Arguments and Errors are standardized.
 - error codes:
  + wrong login : 291
 
-> http://jwitter-url/user/login?login=user&pass=pass
+`http://jwitter-url/user/login?login=user&pass=pass`
 
 > Returns a session key
 
@@ -73,7 +73,7 @@ Arguments and Errors are standardized.
 - error codes:
  + invalid key : 403
 
-> http://jwitter-url/user/logout?key=key
+`http://jwitter-url/user/logout?key=key`
 
 > Expires a session key
 
@@ -88,7 +88,7 @@ Arguments and Errors are standardized.
 - error codes:
  + user already exists : 3
 
-> http://jwitter-url/user/new?login=user&pass=pass&fname=james&lname=darwin
+`http://jwitter-url/user/new?login=user&pass=pass&fname=james&lname=darwin`
 
 > Creates a user
 
@@ -110,7 +110,7 @@ Arguments and Errors are standardized.
  + already friends : 999
 
 
-> http://jwitter-url/friend/add?fid=42&key=supersecretkey
+`http://jwitter-url/friend/add?fid=42&key=supersecretkey`
 
 > adds a friend to key user
 
@@ -123,7 +123,7 @@ Arguments and Errors are standardized.
 - error codes:
  + invalid key : 403
 
-> http://jwitter-url/friend/remove?fid=42&key=supersecretkey
+`http://jwitter-url/friend/remove?fid=42&key=supersecretkey`
 
 > removes a friend to key user
 
@@ -139,8 +139,8 @@ Arguments and Errors are standardized.
  + result is empty : 398
  + invalid key : 403
 
-> http://jwitter-url/friend/list?login=jacktheboss
-> http://jwitter-url/friend/list?login=jacktheboss&off=10&maxr=8
+`http://jwitter-url/friend/list?login=jacktheboss`
+`http://jwitter-url/friend/list?login=jacktheboss&off=10&maxr=8`
 
 > List a user's friends
 
@@ -158,7 +158,7 @@ Arguments and Errors are standardized.
 - error codes:
  + invalid key : 403
 
-> http://jwitter-url/message/new?key=thisisakey&msg=helloworld
+`http://jwitter-url/message/new?key=thisisakey&msg=helloworld`
 
 > Post a new message
 
@@ -171,7 +171,7 @@ Arguments and Errors are standardized.
 - error codes:
  + invalid key : 403
 
-> http://jwitter-url/message/new?key=thisisakey&mid=42
+`http://jwitter-url/message/new?key=thisisakey&mid=42`
 
 > Delete a message
 
@@ -185,10 +185,10 @@ Arguments and Errors are standardized.
  + user doesn't exist : 20
  + result is empty : 398
 
-> http://jwitter-url/message/list?uid=12
-> http://jwitter-url/message/list?login=jack
-> http://jwitter-url/message/list?uid=12&off=12&maxr=5
-> http://jwitter-url/message/list?login=jack&off=12&maxr=5
+`http://jwitter-url/message/list?uid=12`
+`http://jwitter-url/message/list?login=jack`
+`http://jwitter-url/message/list?uid=12&off=12&maxr=5`
+`http://jwitter-url/message/list?login=jack&off=12&maxr=5`
 
 > list all user's message
 
