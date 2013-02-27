@@ -14,21 +14,21 @@ Arguments and Errors are standardized.
 
 ###Arguments
 
-- Authentification
+####Authentification
 
  + user's login := login
  + user's password := pass
  + user's session key := key
 	
-	
-- id
+
+####id
 
  + user's id := uid
  + friend's id := fid
  + message's id := mid
 	
 
-- Search/Lists
+####Search/Lists
 
  + Maximum results := maxr
  + Results' offset := off
@@ -36,7 +36,7 @@ Arguments and Errors are standardized.
  + Restrict to user's friend := rtf
 	
 
-- Miscellaneous 
+####Miscellaneous 
 
  + a message := msg
  + a first name := fname
