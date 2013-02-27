@@ -20,46 +20,129 @@
         <h1>Jwitter API</h1>
         <p>twitter in tomcat API</p>
       </header>
-        
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/cedias/Jwitter" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/cedias/Jwitter/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/cedias/Jwitter/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
 
     <div class="wrapper">
       <nav>
         <ul></ul>
       </nav>
       <section>
-        <h1>User Service</h1>
+        <h1>Jwitter API</h1>
 
-<h2>Base URL:</h2>
+<hr><h2>General Overview</h2>
+
+<p>Jwitter api has 4 distinct services:</p>
+
+<ul>
+<li>User : handles authentification and sessions</li>
+<li>Friend : handles friends</li>
+<li>Message : handles messages</li>
+<li>Search : handles messages searchs</li>
+</ul><p>All of these services are reachable using the HTTP protocol over GET method.
+Arguments and Errors are standardized.</p>
+
+<h3>Arguments</h3>
+
+<h4>Authentification</h4>
+
+<ul>
+<li>user's login := login</li>
+<li>user's password := pass</li>
+<li>user's session key := key</li>
+</ul><h4>id</h4>
+
+<ul>
+<li>user's id := uid</li>
+<li>friend's id := fid</li>
+<li>message's id := mid</li>
+</ul><h4>Search/Lists</h4>
+
+<ul>
+<li>Maximum results := maxr</li>
+<li>Results' offset := off</li>
+<li>Query := q</li>
+<li>Restrict to user's friend := rtf</li>
+</ul><h4>Miscellaneous</h4>
+
+<ul>
+<li>a message := msg</li>
+<li>a first name := fname</li>
+<li>a last name := lname</li>
+</ul><h3>Error-Codes</h3>
+
+<ul>
+<li>3  : User Already Exists</li>
+<li>20 : Invalid User</li>
+<li>56 : Invalid Message ID</li>
+<li>84 : Parameters Error</li>
+<li>291 : Wrong Login</li>
+<li>398 : Empty Result</li>
+<li>403 : Invalid Key</li>
+<li>900 : Database Error</li>
+<li>999 : Other Error</li>
+</ul><p>Error n° 84 and 900 can always happen.</p>
+
+<h2>User Service</h2>
+
+<h3>Base URL:</h3>
 
 <p><code>http://jwitter-url/user</code></p>
 
-<h2>Login:</h2>
+<h3>Login:</h3>
 
 <ul>
 <li>url: /login</li>
 <li>arguments:
 
 <ul>
-<li>username: String</li>
-<li>password: String</li>
+<li>username: login</li>
+<li>password: pass</li>
 </ul>
 </li>
-</ul><blockquote>
+<li>error codes:
+
+<ul>
+<li>wrong login : 291</li>
+</ul>
+</li>
+</ul><p><code>http://jwitter-url/user/login?login=user&amp;pass=pass</code></p>
+
+<blockquote>
 <p>Returns a session key</p>
 </blockquote>
 
-<h2>Logout:</h2>
+<h3>Logout:</h3>
 
 <ul>
 <li>url: /logout</li>
 <li>arguments:
 
 <ul>
-<li>key: String</li>
+<li>session key: key</li>
 </ul>
 </li>
-</ul><blockquote>
-<p>Closes a session key</p>
+<li>error codes:
+
+<ul>
+<li>invalid key : 403</li>
+</ul>
+</li>
+</ul><p><code>http://jwitter-url/user/logout?key=key</code></p>
+
+<blockquote>
+<p>Expires a session key</p>
 </blockquote>
 
 <h3>New:</h3>
@@ -69,118 +152,184 @@
 <li>arguments:
 
 <ul>
-<li>username : String</li>
-<li>password : String</li>
+<li>username : login</li>
+<li>password : pass</li>
+<li>first name : fname</li>
+<li>last name : lname</li>
 </ul>
 </li>
-</ul><blockquote>
+<li>error codes:
+
+<ul>
+<li>user already exists : 3</li>
+</ul>
+</li>
+</ul><p><code>http://jwitter-url/user/new?login=user&amp;pass=pass&amp;fname=james&amp;lname=darwin</code></p>
+
+<blockquote>
 <p>Creates a user</p>
 </blockquote>
 
-<h2>Deactivate:</h2>
+<h2>Friend Service</h2>
 
-<ul>
-<li>url: /deactivate</li>
-<li>
-<p>arguments:</p>
-
-<ul>
-<li>username: String</li>
-<li>password: String</li>
-</ul>
-<blockquote>
-<p>Deactivates a user</p>
-</blockquote>
-</li>
-</ul><h1>Friend Service</h1>
-
-<h2>Base URL:</h2>
+<h3>Base URL:</h3>
 
 <p><code>http://jwitter-url/friend</code></p>
 
-<h2>Add:</h2>
+<h3>Add:</h3>
 
 <ul>
 <li>url: /add</li>
 <li>arguments:
 
 <ul>
-<li>username : String</li>
-<li>key : String</li>
+<li>friend id : fid</li>
+<li>session key : key</li>
 </ul>
 </li>
-</ul><blockquote>
+<li>error codes:
+
+<ul>
+<li>user doesn't exist : 20</li>
+<li>invalid key : 403</li>
+<li>already friends : 999</li>
+</ul>
+</li>
+</ul><p><code>http://jwitter-url/friend/add?fid=42&amp;key=supersecretkey</code></p>
+
+<blockquote>
 <p>adds a friend to key user</p>
 </blockquote>
 
-<h2>Remove:</h2>
+<h3>Remove:</h3>
 
 <ul>
 <li>url: /remove</li>
 <li>arguments:
 
 <ul>
-<li>username : String</li>
-<li>key : String</li>
+<li>friend id : fid</li>
+<li>key : key</li>
 </ul>
 </li>
-</ul><blockquote>
+<li>error codes:
+
+<ul>
+<li>invalid key : 403</li>
+</ul>
+</li>
+</ul><p><code>http://jwitter-url/friend/remove?fid=42&amp;key=supersecretkey</code></p>
+
+<blockquote>
 <p>removes a friend to key user</p>
 </blockquote>
 
-<h2>List:</h2>
+<h3>List:</h3>
 
 <ul>
 <li>url: /list</li>
 <li>arguments:
 
 <ul>
-<li>username : String </li>
-<li>nbRes : Int</li>
-<li>offset: Int</li>
+<li>username : login </li>
+<li>[ max results returned : maxr - default = 10 ]</li>
+<li>[ offset: off - default = 0 ]</li>
 </ul>
 </li>
-</ul><blockquote>
+<li>error codes:
+
+<ul>
+<li>user doesn't exist : 20</li>
+<li>result is empty : 398</li>
+<li>invalid key : 403</li>
+</ul>
+</li>
+</ul><p><code>http://jwitter-url/friend/list?login=jacktheboss</code>
+<code>http://jwitter-url/friend/list?login=jacktheboss&amp;off=10&amp;maxr=8</code></p>
+
+<blockquote>
 <p>List a user's friends</p>
 </blockquote>
 
-<h1>Message Service</h1>
+<h2>Message Service</h2>
 
-<h2>Base URL:</h2>
+<h3>Base URL:</h3>
 
 <p><code>http://jwitter-url/message</code></p>
 
-<h2>New</h2>
+<h3>New</h3>
 
 <ul>
 <li>url: /new</li>
-<li>arguments:</li>
-</ul><blockquote>
-<p>Creates new message</p>
+<li>arguments:
+
+<ul>
+<li>key : key</li>
+<li>message : msg</li>
+</ul>
+</li>
+<li>error codes:
+
+<ul>
+<li>invalid key : 403</li>
+</ul>
+</li>
+</ul><p><code>http://jwitter-url/message/new?key=thisisakey&amp;msg=helloworld</code></p>
+
+<blockquote>
+<p>Post a new message</p>
 </blockquote>
 
-<h2>Delete</h2>
+<h3>Delete</h3>
 
 <ul>
 <li>url: /delete</li>
-<li>arguments:</li>
-</ul><h2>List</h2>
+<li>arguments:
+
+<ul>
+<li>key : key</li>
+<li>message id : mid</li>
+</ul>
+</li>
+<li>error codes:
+
+<ul>
+<li>invalid key : 403</li>
+</ul>
+</li>
+</ul><p><code>http://jwitter-url/message/new?key=thisisakey&amp;mid=42</code></p>
+
+<blockquote>
+<p>Delete a message</p>
+</blockquote>
+
+<h3>List</h3>
 
 <ul>
 <li>url: /list</li>
-<li>arguments:</li>
-</ul><h1>Search Service</h1>
-
-<h2>Base URL:</h2>
-
-<p><code>http://jwitter-url/search</code></p>
-
-<h2>Message</h2>
+<li>arguments:
 
 <ul>
-<li>url: /message</li>
-<li>arguments:</li>
+<li>user id : uid or username : login</li>
+<li>[ max results returned : maxr - default = 100 ]</li>
+<li>[ offset: off - default = 0 ]</li>
 </ul>
+</li>
+<li>error codes:
+
+<ul>
+<li>user doesn't exist : 20</li>
+<li>result is empty : 398</li>
+</ul>
+</li>
+</ul><p><code>http://jwitter-url/message/list?uid=12</code>
+<code>http://jwitter-url/message/list?login=jack</code>
+<code>http://jwitter-url/message/list?uid=12&amp;off=12&amp;maxr=5</code>
+<code>http://jwitter-url/message/list?login=jack&amp;off=12&amp;maxr=5</code></p>
+
+<blockquote>
+<p>list all user's message</p>
+</blockquote>
       </section>
       <footer>
         <p>Project maintained by <a href="https://github.com/cedias">cedias</a></p>
