@@ -12,23 +12,23 @@ Jwitter api has 4 distinct services:
 All of these services are reachable using the HTTP protocol over GET method.
 Arguments and Errors are standardized.
 
-###Arguments
+##Arguments
 
-####Authentification
+###Authentification
 
  + user's login := login
  + user's password := pass
  + user's session key := key
 	
 
-####id
+###id
 
  + user's id := uid
  + friend's id := fid
  + message's id := mid
 	
 
-####Search/Lists
+###Search/Lists
 
  + Maximum results := maxr
  + Results' offset := off
@@ -36,13 +36,13 @@ Arguments and Errors are standardized.
  + Restrict to user's friend := rtf
 	
 
-####Miscellaneous 
+###Miscellaneous 
 
  + a message := msg
  + a first name := fname
  + a last name := lname
 
-### Error-Codes
+## Error-Codes
 
 - 3  : User Already Exists
 - 20 : Invalid User
@@ -59,7 +59,7 @@ Error n° 84 and 900 can always happen.
 ##User Service
 
 ###Base URL:
-`http://jwitter-url/user`
+```http://jwitter-url/user```
 
 ###Login:
 
@@ -70,7 +70,7 @@ Error n° 84 and 900 can always happen.
 - error codes:
  + wrong login : 291
 
-`http://jwitter-url/user/login?login=user&pass=pass`
+```http://jwitter-url/user/login?login=user&pass=pass```
 
 > Returns a session key
 
@@ -82,7 +82,7 @@ Error n° 84 and 900 can always happen.
 - error codes:
  + invalid key : 403
 
-`http://jwitter-url/user/logout?key=key`
+```http://jwitter-url/user/logout?key=key```
 
 > Expires a session key
 
@@ -97,7 +97,7 @@ Error n° 84 and 900 can always happen.
 - error codes:
  + user already exists : 3
 
-`http://jwitter-url/user/new?login=user&pass=pass&fname=james&lname=darwin`
+```http://jwitter-url/user/new?login=user&pass=pass&fname=james&lname=darwin```
 
 > Creates a user
 
@@ -105,7 +105,7 @@ Error n° 84 and 900 can always happen.
 ##Friend Service
 
 ###Base URL:
-`http://jwitter-url/friend`
+```http://jwitter-url/friend```
 
 ###Add:
 
@@ -119,7 +119,7 @@ Error n° 84 and 900 can always happen.
  + already friends : 999
 
 
-`http://jwitter-url/friend/add?fid=42&key=supersecretkey`
+```http://jwitter-url/friend/add?fid=42&key=supersecretkey```
 
 > adds a friend to key user
 
@@ -132,7 +132,7 @@ Error n° 84 and 900 can always happen.
 - error codes:
  + invalid key : 403
 
-`http://jwitter-url/friend/remove?fid=42&key=supersecretkey`
+```http://jwitter-url/friend/remove?fid=42&key=supersecretkey```
 
 > removes a friend to key user
 
@@ -148,15 +148,15 @@ Error n° 84 and 900 can always happen.
  + result is empty : 398
  + invalid key : 403
 
-`http://jwitter-url/friend/list?login=jacktheboss`
-`http://jwitter-url/friend/list?login=jacktheboss&off=10&maxr=8`
+```http://jwitter-url/friend/list?login=jacktheboss```
+```http://jwitter-url/friend/list?login=jacktheboss&off=10&maxr=8```
 
 > List a user's friends
 
 ##Message Service
 
 ###Base URL:
-`http://jwitter-url/message`
+```http://jwitter-url/message```
 
 ###New
 
@@ -167,7 +167,7 @@ Error n° 84 and 900 can always happen.
 - error codes:
  + invalid key : 403
 
-`http://jwitter-url/message/new?key=thisisakey&msg=helloworld`
+```http://jwitter-url/message/new?key=thisisakey&msg=helloworld```
 
 > Post a new message
 
@@ -180,7 +180,7 @@ Error n° 84 and 900 can always happen.
 - error codes:
  + invalid key : 403
 
-`http://jwitter-url/message/new?key=thisisakey&mid=42`
+```http://jwitter-url/message/new?key=thisisakey&mid=42```
 
 > Delete a message
 
@@ -194,10 +194,9 @@ Error n° 84 and 900 can always happen.
  + user doesn't exist : 20
  + result is empty : 398
 
-`http://jwitter-url/message/list?uid=12`
-`http://jwitter-url/message/list?login=jack`
-`http://jwitter-url/message/list?uid=12&off=12&maxr=5`
-`http://jwitter-url/message/list?login=jack&off=12&maxr=5`
+```http://jwitter-url/message/list?uid=12```
+```http://jwitter-url/message/list?login=jack```
+```http://jwitter-url/message/list?uid=12&off=12&maxr=5```
+```http://jwitter-url/message/list?login=jack&off=12&maxr=5```
 
 > list all user's message
-
