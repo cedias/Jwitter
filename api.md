@@ -15,22 +15,29 @@ Arguments and Errors are standardized.
 ###Arguments
 
 - Authentification
+
  + user's login := login
  + user's password := pass
  + user's session key := key
 	
+	
 - id
+
  + user's id := uid
  + friend's id := fid
  + message's id := mid
 	
+
 - Search/Lists
+
  + Maximum results := maxr
  + Results' offset := off
  + Query := q
  + Restrict to user's friend := rtf
 	
+
 - Miscellaneous 
+
  + a message := msg
  + a first name := fname
  + a last name := lname
@@ -44,8 +51,10 @@ Arguments and Errors are standardized.
 - 291 : Wrong Login
 - 398 : Empty Result
 - 403 : Invalid Key
-- 900 : BD Error
+- 900 : Database Error
 - 999 : Other Error
+
+Error n° 84 and 900 can always happen.
 
 ##User Service
 
