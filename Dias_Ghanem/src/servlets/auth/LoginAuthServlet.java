@@ -15,10 +15,19 @@ import servlets.GetParameters;
 public class LoginAuthServlet extends HttpServlet {
 
 	/**
+	 * @author Charles-Emmanuel Dias
+	 * @author Marwan Ghanem
+	 * 
+	 * Login servlet
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @throws wrongParameter
+	 * @throws wrongLogin
+	 * @throws bdError
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {

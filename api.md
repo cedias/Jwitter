@@ -1,45 +1,47 @@
 #Jwitter API
 ----------
-
 ##User Service
 
 ###Base URL:
 `http://jwitter-url/user`
-  
+
 ###Login:
 
 - url: /login
 - arguments:
- + username: String
- + password: String
+ + username: login
+ + password: pass
+- error-codes:
+ + wrongLogin
 
+> http://jwitter-url/user/login?login=user&pass=pass
 > Returns a session key
 
 ###Logout:
 		
 - url: /logout
 - arguments:
- + key: String
+ + session key: key
+- error-codes:
+ + invalidKey
 
-> Closes a session key
+> http://jwitter-url/user/logout?key=key
+> Expires a session key
 
 ###New:
 
 - url: /new
 - arguments:
- + username : String
- + password : String
+ + username : login
+ + password : pass
+ + first name : fname
+ + last name : lname
+- error-codes:
+ + userAlreadyExists
 
+> http://jwitter-url/user/new?login=user&pass=pass&fname=james&lname=darwin
 > Creates a user
 
-###Deactivate:
-		
-- url: /deactivate
-- arguments:
- + username: String
- + password: String
-
- > Deactivates a user
 
 ##Friend Service
 

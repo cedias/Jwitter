@@ -14,13 +14,23 @@ import services.AuthServices;
 import servlets.GetParameters;
 
 
+/**
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ * 
+ * Create user servlet
+ * 
+ */
 public class NewAuthServlet extends HttpServlet {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
+	/**
+	* @throws wrongParameter
+	* @throws userAlreadyExists
+	* @throws bdError
+	*/
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
