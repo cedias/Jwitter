@@ -148,8 +148,10 @@ Error n° 84 and 900 can always happen.
  + result is empty : 398
  + invalid key : 403
 
-`http://jwitter-url/friend/list?login=jacktheboss
-http://jwitter-url/friend/list?login=jacktheboss&off=10&maxr=8`
+```
+http://jwitter-url/friend/list?login=jacktheboss
+http://jwitter-url/friend/list?login=jacktheboss&off=10&maxr=8
+```
 
 > List a user's friends
 
@@ -194,10 +196,12 @@ http://jwitter-url/friend/list?login=jacktheboss&off=10&maxr=8`
  + user doesn't exist : 20
  + result is empty : 398
 
-`http://jwitter-url/message/list?uid=12
+```
+http://jwitter-url/message/list?uid=12
 http://jwitter-url/message/list?login=jack
 http://jwitter-url/message/list?uid=12&off=12&maxr=5
-http://jwitter-url/message/list?login=jack&off=12&maxr=5`
+http://jwitter-url/message/list?login=jack&off=12&maxr=5
+```
 
 > list all user's message
 
