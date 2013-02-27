@@ -12,10 +12,25 @@ import org.json.JSONObject;
 import services.FriendServices;
 import servlets.GetParameters;
 
+
+/**
+ * add Friend servlet
+ *  
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ *
+ */
 public class AddFriendServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @throws wrongParameter
+	 * @throws invalidKey
+	 * @throws userDoesntExist
+	 * @throws bdError
+	 * @throws otherError => already friends
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {

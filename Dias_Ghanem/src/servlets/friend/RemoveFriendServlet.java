@@ -12,10 +12,19 @@ import org.json.JSONObject;
 import services.FriendServices;
 import servlets.GetParameters;
 
+/**
+ * remove Friend servlet
+ *  
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ *
+ */
 public class RemoveFriendServlet extends HttpServlet {
 
 	/**
-	 * 
+	 * @throws keyInvalid
+	 * @throws wrongParameter
+	 * @throws otherError => yourself
 	 */
 	private static final long serialVersionUID = 1L;
 
