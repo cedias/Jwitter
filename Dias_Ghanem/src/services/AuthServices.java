@@ -14,11 +14,9 @@ public class AuthServices {
 	public static JSONObject newUser(String login ,String password,String nom,String prenom){		
 		try{
 			
-			if(login == null || password == null || nom == null || prenom == null)
+			if(login == null || login =="" || password == null || password == "" || nom == null || nom =="" || prenom == null || prenom == "")
 				return ErrorMsg.wrongParameter();
-			if(login == "" || password == "" || nom == "" || prenom ==""){
-				return ErrorMsg.emptyField();
-			}
+			
 			Integer test = AuthTools.userExists(login);
 			if ( test != null){
 				return ErrorMsg.userAlreadyExists(login);

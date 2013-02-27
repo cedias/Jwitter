@@ -50,8 +50,5 @@ public class ErrorMsg {
 		return JSONtools.error("Wrong username or password", 291);
 	}
 
-	public static JSONObject emptyField() {
-		return JSONtools.error("Fields cant be empty", 74);
-	}
 
 }
