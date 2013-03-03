@@ -1,14 +1,22 @@
 package bd.search;
 
 import java.net.UnknownHostException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import services.ErrorMsg;
+import services.FriendServices;
 
 import bd.BDStatic;
+import bd.Database;
+import bd.friend.FriendTools;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
@@ -30,9 +38,15 @@ public class SearchTools {
 			BasicDBObject query = new BasicDBObject();	
 			BasicDBObject regex = new BasicDBObject();
 			String queryString = q.replace(',','|');
-			
+						
 			regex.put("$regex",queryString);
 			query.put("message",regex);
+			if(rtf == 1){
+				String friends = listFriends(id_user);
+				regex.clear();
+				regex.put("$regex", friends);
+				query.put("id",regex);
+			}
 			
 			DBCursor cursor = collection.find(query).limit(Integer.MAX_VALUE); 
 			if(offset > cursor.count())
@@ -51,4 +65,32 @@ public class SearchTools {
 			return ErrorMsg.bdError();
 		}
 	}
+	
+	public static String listFriends(int id_user){
+		String sql = "SELECT f.id_to, u.login, f.time  FROM Friends f, User u WHERE id_from = "+id_user+" AND f.id_to = u.id";
+		String friends = "";
+		
+		
+		try {
+			Connection c = Database.getMySQLConnection();
+			Statement stt = c.createStatement();
+			ResultSet res = stt.executeQuery(sql);
+					
+			if(res.isLast()){;
+				return null;
+			}
+			while(res.next()){
+				friends = friends + res.getInt(1);
+				friends = friends + '|';
+			}
+			friends = friends.substring(0, friends.length()-1);
+			stt.close();
+			c.close();
+			return friends;
+			
+		} catch (SQLException e) {
+			return null;
+		}		
+	}
 }
+
