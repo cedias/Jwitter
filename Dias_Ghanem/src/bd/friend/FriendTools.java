@@ -18,8 +18,10 @@ public class FriendTools {
 		Connection c = Database.getMySQLConnection();
 		Statement stt = c.createStatement();
 	    stt.executeUpdate(sql);
-	    
+	    stt.close();
+	    c.close();
 	}
+
 
 	public static void removeFriend(int user, int friend) throws  SQLException {
 		String sql = "DELETE FROM `dias_ghanem`.`Friends` WHERE `Friends`.`id_from` = "+user+" AND `Friends`.`id_to` = "+friend+";";
@@ -27,6 +29,8 @@ public class FriendTools {
 		Connection c = Database.getMySQLConnection();
 		Statement stt = c.createStatement();
 		stt.executeUpdate(sql);
+		stt.close();
+	    c.close();
 		
 	}
 
@@ -54,6 +58,9 @@ public class FriendTools {
 				json.accumulate("friends", oneUser);
 			}
 			
+			res.close();
+			stt.close();
+			c.close();
 			return json;
 		
 		}
