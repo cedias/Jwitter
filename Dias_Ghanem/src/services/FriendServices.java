@@ -67,19 +67,29 @@ public class FriendServices {
 
 	}
 	
-	public static JSONObject listFriends(String login, String nbResults ,String offset){
+	public static JSONObject listFriends(String uid, String login, String nbResults ,String offset){
 		try{
-			if(login == null || login == "")
+			if(login == null || login == "" || uid == null || uid == "")
 				return ErrorMsg.wrongParameter();
+			
 			//default
 			if(offset == null|| offset=="")
 				offset = "0";
 			if(nbResults == null || nbResults=="")
 				nbResults = "10";
-					
+			
 			int nb = Integer.parseInt(nbResults);
 			int off = Integer.parseInt(offset);
-			int user = AuthTools.userExists(login);
+			int user;
+			
+			if(uid == "" || uid == null){
+				user = AuthTools.userExists(login);
+			
+			} else {
+				user = Integer.parseInt(uid);
+				login = AuthTools.userExists(user);
+			}
+			
 
 			return  FriendTools.listFriend(user,nb,off);
 			

@@ -20,10 +20,11 @@ public class ListFriendServlet extends HttpServlet {
 			throws ServletException, IOException {
 	
 		String login = req.getParameter(GetParameters.login);
+		String user_id = req.getParameter(GetParameters.user_id);
 		String nbResults = req.getParameter(GetParameters.maxResults);
 		String offset = req.getParameter(GetParameters.offset);
 		
-		JSONObject json = FriendServices.listFriends(login,nbResults, offset);
+		JSONObject json = FriendServices.listFriends(user_id,login,nbResults, offset);
 		
 		resp.setContentType("text/plain");
 		resp.getWriter().print(json);
