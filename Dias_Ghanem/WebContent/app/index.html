@@ -7,52 +7,104 @@
 <body>
 
 	<div id="header">
+
 		<h1> Jwitter </h1>
-		<form action="#" id="search_form">
-		 	<input type="text" placeholder="Search for message" id="search_field" />
-		 	<input type="submit" value="go" />
-		</form>
-		<div>
-			<form action="#" id="connexion_form">
-		 	<input type="text" placeholder="Login"/>
-		 	<input type="text" placeholder="Password"/>
-		 	<input type="submit" value="ok" />
-		</form>
+
+		<div id="search">
+			<form action="#" id="search_form">
+				<div id="search_form_div">
+				 	<input type="text" placeholder="Search..." id="search_field" />
+				 	<label for="rtf">Only Friends:</label>
+				 	<input type="checkbox" name="rtf" id="rtf" />
+			 	</div>
+			 	<input type="submit" value="go" />
+			</form>
 		</div>
+
+		<div id="session_info">
+			<form action="#">
+				<input type="text" placeholder="login" />
+				<input type="text" placeholder="password"/>
+				<input type="submit" value="login" />
+				<a href="#">Signup</a>
+			</form>
+			
+		</div>
+
 	</div>
 
 	<div id="container">
-		<div id="content">
-
-			<form id="message_form">
-
-				<textarea placeholder="Write a message" id="add_message" maxlength="150" wrap="hard"></textarea>
+		<div id="content_form" >
+			<form id="message_form" >
+				<textarea placeholder="What's on your mind ?" id="add_message" maxlength="150" wrap="hard"></textarea>
 
 				<input type="submit" value="post" id="post_message" />
 			</form>
+		</div>
+
+		<div id="content_message" class="content_background">
 			<div id="messages">
+				<h2>Jweets</h2>
 				<div class="message">
-					<p>
+					<p class="message_text">
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum voluptatem esse fugit adipisci earum dignissimos veniam corrupti architecto illum eum accusantium consectetur odio non reprehenderit magni at nesciunt voluptas ad?
 					</p>
+					<span class="message_info"> <a href="#">user</a> posted on <b>march 23</b> </span>
 				</div>
 
 				<div class="message">
-					<p>
+					<p class="message_text">
 						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum voluptatem esse fugit adipisci earum dignissimos veniam corrupti architecto illum eum accusantium consectetur odio non reprehenderit magni at nesciunt voluptas ad?
 					</p>
+					<span class="message_info"> <a href="#">user</a> posted on march 23 </span>
+				</div>
+
+				<div class="message">
+					<p class="message_text">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum voluptatem esse fugit adipisci earum dignissimos veniam corrupti architecto illum eum accusantium consectetur odio non reprehenderit magni at nesciunt voluptas ad?
+					</p>
+					<span class="message_info"> <a href="#">user</a> posted on march 23 </span>
+				</div>
+
+				<div class="message">
+					<p class="message_text">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum voluptatem esse fugit adipisci earum dignissimos veniam corrupti architecto illum eum accusantium consectetur odio non reprehenderit magni at nesciunt voluptas ad?
+					</p>
+					<span class="message_info"> <a href="#">user</a> posted on march 23 </span>
+				</div>
+
+				<div class="message">
+					<p class="message_text">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum voluptatem esse fugit adipisci earum dignissimos veniam corrupti architecto illum eum accusantium consectetur odio non reprehenderit magni at nesciunt voluptas ad?
+					</p>
+					<span class="message_info"> <a href="#">user</a> posted on march 23 </span>
+				</div>
+
+				<div class="message">
+					<p class="message_text">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum voluptatem esse fugit adipisci earum dignissimos veniam corrupti architecto illum eum accusantium consectetur odio non reprehenderit magni at nesciunt voluptas ad?
+					</p>
+					<span class="message_info"> <a href="#">user</a> posted on march 23 </span>
+				</div>
+
+				<div class="message">
+					<p class="message_text">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum voluptatem esse fugit adipisci earum dignissimos veniam corrupti architecto illum eum accusantium consectetur odio non reprehenderit magni at nesciunt voluptas ad?
+					</p>
+					<span class="message_info"> <a href="#">user</a> posted on march 23 </span>
+				</div>
+
+				<div class="message">
+					<p class="message_text">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum voluptatem esse fugit adipisci earum dignissimos veniam corrupti architecto illum eum accusantium consectetur odio non reprehenderit magni at nesciunt voluptas ad?
+					</p>
+					<span class="message_info"> <a href="#">user</a> posted on march 23 </span>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<div id="footer">
-	 <h2>Jwitter - a java twitter</h2>
-	 <ul>
-	 	<li>Charles-Emmanuel Dias</li>
-	 	<li>Marwan Ghanem</li>
-	 </ul>
-	</div>
+
 </body>
 
 </html>

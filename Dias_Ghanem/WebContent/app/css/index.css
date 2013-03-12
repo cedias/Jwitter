@@ -1,75 +1,178 @@
 *
 {
-/*border: 1px solid black;*/
-margin:0px;
+/*border: 1px solid black;
+*/margin:0px;
+    font-family: 'Myriad-Pro', 'Myriad', helvetica, arial, sans-serif;  
+
 
 }
 
-body{
-
+a {
+	color: #00B4CC;
 }
 
-h1{
-	margin-left: 25px;
-	display: inline;
+body {
+background: #6e7676; /* Old browsers */
+background: -moz-linear-gradient(top, #6e7676 0%, #4ce9fe 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6e7676), color-stop(100%,#4ce9fe)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #6e7676 0%,#4ce9fe 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #6e7676 0%,#4ce9fe 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #6e7676 0%,#4ce9fe 100%); /* IE10+ */
+background: linear-gradient(to bottom, #6e7676 0%,#4ce9fe 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6e7676', endColorstr='#4ce9fe',GradientType=0 ); /* IE6-9 */
 }
+
+h2 {
+	margin-left: 15px;
+	margin-bottom: 8px;
+}
+
+/*input
+{
+padding: 0;
+margin: 0;
+border: 0;
+border: none;
+}
+*/
+
+
+/*HEADER*/
 
 #header{
-
+	height: 70px;
+	padding-top: 15px;
 	background-color: #343838;
 	color: #00DFFC;
-	border-bottom: 3px solid #005F6B;
-	padding-bottom: 15px;
-	padding-top: 15px;
+	border-bottom: 7px groove #005F6B;
+}
+
+#header > * {
+	display: inline-block;
+	vertical-align:top;
+}
+
+#header > h1{
+	text-align: center;
+	width: 20%;
+	font-size: 40px;
+    font-family: 'Myriad-Pro', 'Myriad', helvetica, arial, sans-serif;  
+    text-shadow: 2px 3px 3px #292929;
 
 }
 
+/*search*/
+#search{
+	width: 60%;
+}
 
+#search_form > input[type="submit"]{
+	vertical-align: top;
+	margin-left: 5px;
+	height:36px;
+	width:36px;
+}
+
+#search_form{
+	width: 50%;
+	margin: auto;
+}
+
+#search_form_div{
+	width: 80%;
+	display: inline-block;
+}
 
 #search_field{
 	height: 30px;
+	width: 100%;
+	margin: auto;
 }
 
-#connexion_form > *{
-	display: block;
+/* session info*/
+
+#session_info {
+	width: 15%;
 }
 
-#container{
-
+#session_info > input[type="text"]{
+width: 80%;
 }
 
-#content
+
+
+/*CONTENT*/
+
+.content_background
 {
-	width: 70%;
 	margin:auto;
+	margin-top: 15px;
 	padding-top: 10px;
-	padding-left: 10px;
-	padding-right: 10px;
+	padding-bottom: 10px;
+	background-color: white;
+	box-shadow: 8px 8px 12px #aaa;
+	border-radius: 12px;
+
+	}
+
+/* message form */
+#content_form {
+	width: 50%;
+	margin:auto;
+	margin-top: 15px;
 }
 
+#message_form{
+	margin: auto;
+	margin-bottom: 10px;
+}
 
 #add_message
 {
-	width: 90%;
-	height: 50px;
+	width: 89%;
+	height: 49px;
 	resize:none;
+	vertical-align: bottom;
+
 }
 
 #post_message
 {
-	position: relative;
-	height: 60px;
+	vertical-align: bottom;
+	height: 55px;
+	margin-left: auto;
+	width: 9%;
+}
+
+/*Jweet feed*/
+
+#content_message {
+	width: 70%;
 }
 
 #messages {
-	width: 90%;
+	width: 97%;
 	margin :auto;
+	border: 1px solid #e8e8e8;
+	border-radius: 12px;
+	padding-top: 10px;
+	padding-bottom: 20px;
 }
-
-#footer{
-
-}
-
 .message {
-	margin-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-top:  1px solid #e8e8e8;
 }
+
+.message:hover {
+	background-color: #e8e8e8;
+}
+
+.message_text {
+
+	padding: 5px 5px 5px 5px;
+
+}
+
+
+/*FOOTER*/
