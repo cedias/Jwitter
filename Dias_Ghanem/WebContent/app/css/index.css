@@ -64,6 +64,7 @@ border: none;
 	font-size: 50px;
     font-family: 'Myriad-Pro', 'Myriad', helvetica, arial, sans-serif;  
     text-shadow: 2px 3px 3px #292929;
+    margin-top: 10px;
 
 }
 
@@ -118,8 +119,8 @@ width: 80%;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	background-color: white;
-	box-shadow: 8px 8px 12px #aaa;
 	border-radius: 12px;
+	background-color: rgb(237, 246, 252);
 
 	}
 
@@ -167,6 +168,7 @@ width: 80%;
 	border-radius: 12px;
 	padding-top: 10px;
 	padding-bottom: 20px;
+	background-color: #fff;
 }
 .message {
 	padding-left: 10px;
