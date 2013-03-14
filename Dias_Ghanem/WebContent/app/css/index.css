@@ -95,7 +95,7 @@ h2 {
 	width: 15%;
 }
 
-#session_info > input[type="text"]{
+#session_info > form > input[type="text"]{
 width: 80%;
 }
 
