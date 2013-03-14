@@ -3,8 +3,10 @@
 *
 {
 /*border: 1px solid black;
-*/margin:0px;
-    font-family: 'Myriad-Pro', 'Myriad', helvetica, arial, sans-serif;  
+*/
+	margin:0px;
+ 	font-family: 'Myriad-Pro', 'Myriad', helvetica, arial, sans-serif;
+ 	font-size: 13px; 
 
 
 }
@@ -14,7 +16,6 @@ a {
 }
 
 body {
-
 
 
 background: #6e7676; /* Old browsers */
@@ -67,9 +68,9 @@ h2 {
 
 #search_form > input[type="submit"]{
 	vertical-align: top;
-	margin-left: 5px;
-	height:36px;
-	width:36px;
+	margin-left: 3px;
+	height:33px;
+	width:33px;
 }
 
 #search_form{
@@ -95,8 +96,12 @@ h2 {
 	width: 15%;
 }
 
-#session_info > form > input[type="text"]{
-width: 80%;
+#session_info > form {
+	width: 100%;
+	max-width: 150px;
+}
+#session_info > form > input[type="submit"]{
+width: 55px;
 }
 
 
@@ -117,20 +122,20 @@ width: 80%;
 
 /* message form */
 #content_form {
-	width: 50%;
+	width:25%;
 	margin:auto;
 	margin-top: 15px;
+		min-width: 279px;
 }
 
 #message_form{
 	margin: auto;
 	margin-bottom: 10px;
-	min-width: 450px;
 }
 
 #add_message
 {
-	width: 85%;
+	width: 77%;
 	height: 49px;
 	resize:none;
 	vertical-align: bottom;
@@ -141,15 +146,16 @@ width: 80%;
 #post_message
 {
 	vertical-align: bottom;
-	height: 55px;
+	height: 53px;
 	margin-left: auto;
-	width: 55px;
+	width: 53px;
 }
 
 /*Jweet feed*/
 
 #content_message {
-	width: 70%;
+	width: 50%;
+	min-width: 557px;
 }
 
 #messages {
@@ -161,6 +167,7 @@ width: 80%;
 	padding-bottom: 20px;
 	background-color: #fff;
 }
+
 .message {
 	padding-left: 10px;
 	padding-right: 10px;
@@ -179,3 +186,17 @@ width: 80%;
 
 
 /*FOOTER*/
+
+#footer{
+	height: 150px;
+	margin-top: 25px;
+	padding-top: 5px;
+	background-color: #343838;
+	color: #00DFFC;
+	border-top: 7px solid #000000;
+}
+
+ #footer > p 
+ {
+ 	text-align: center;
+ }
