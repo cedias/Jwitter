@@ -59,6 +59,12 @@ public class MessageServices {
 			if( (id==null && username==null) || nbMessage == null || offset == null)
 				return ErrorMsg.wrongParameter();
 			
+			//default
+			if(offset == null|| offset=="")
+				offset = "0";
+			if(nbMessage == null || nbMessage=="")
+				nbMessage = "10";
+		
 			JSONObject json;
 			int nb = Integer.parseInt(nbMessage);
 			int off = Integer.parseInt(offset);
