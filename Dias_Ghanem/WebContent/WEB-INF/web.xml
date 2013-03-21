@@ -81,5 +81,14 @@
 	 	<servlet-name>ListMessage</servlet-name>
 	 	<url-pattern>/message/list</url-pattern>
 	 </servlet-mapping> 
+	 
+	 <servlet>
+	 	<servlet-name>Whois</servlet-name>
+	 	<servlet-class>servlets.whois.WhoIsServlet</servlet-class>
+	 </servlet>
+	 <servlet-mapping>
+	 	<servlet-name>Whois</servlet-name>
+	 	<url-pattern>/search/whois</url-pattern>
+	 </servlet-mapping>
 </web-app>
  

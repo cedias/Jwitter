@@ -69,5 +69,27 @@ public class FriendTools {
 			return ErrorMsg.bdError();
 		}
 	}
+	public static int numFriend(int user) throws SQLException{
+		String sql = "SELECT f.id_to, u.login, f.time  FROM Friends f, User u WHERE id_from = "+user+" AND f.id_to = u.id";
+		
+		Connection c = Database.getMySQLConnection();
+		Statement stt = c.createStatement();
+		ResultSet res = stt.executeQuery(sql);
+		
+		if(!res.next())
+			return -1;
+		
+		int cpt = 0;
+		res.beforeFirst();
+		
+		while(res.next()) {
+			cpt++;
+		}
+		
+		res.close();
+		stt.close();
+		c.close();
+		return cpt;
+	}
 	
 }

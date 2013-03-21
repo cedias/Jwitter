@@ -24,9 +24,10 @@ public class WhoIsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
+		String id = req.getParameter(GetParameters.user_id);
 		String username = req.getParameter(GetParameters.login);
 		
-		JSONObject json = WhoIsServices.whoIs(username);
+		JSONObject json = WhoIsServices.whoIs(id,username);
 		
 		resp.setContentType("text/plain");
 		resp.getWriter().print(json);
