@@ -1,6 +1,7 @@
 package bd.message;
 
 import java.net.UnknownHostException;
+import java.util.Date;
 
 import org.bson.types.ObjectId;
 import org.json.JSONException;
@@ -31,6 +32,7 @@ public class MessageTools {
 			obj.put("id",user_id);
 			obj.put("login",login);
 			obj.put("message",message);
+			obj.put("date",new Date().toString());
 			collection.insert(obj);
 			
 			json.put("message", message);
