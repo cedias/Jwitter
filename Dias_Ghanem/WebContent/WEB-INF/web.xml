@@ -3,7 +3,7 @@
  
  <servlet>
         <servlet-name>NewUser</servlet-name>
-      	<servlet-class>servlets.auth.NewAuthServlet</servlet-class>
+      	<servlet-class>servlets.user.NewUserServlet</servlet-class>
 </servlet>
 <servlet-mapping>
         <servlet-name>NewUser</servlet-name>
@@ -12,7 +12,7 @@
 
 <servlet>
 	<servlet-name>Login</servlet-name>
-	<servlet-class>servlets.auth.LoginAuthServlet</servlet-class>
+	<servlet-class>servlets.user.LoginUserServlet</servlet-class>
 </servlet>
 <servlet-mapping>
 	<servlet-name>Login</servlet-name>
@@ -21,12 +21,21 @@
 
 <servlet>
 	<servlet-name>Logout</servlet-name>
-	<servlet-class>servlets.auth.LogoutAuthServlet</servlet-class>
+	<servlet-class>servlets.user.LogoutUserServlet</servlet-class>
 </servlet>
 <servlet-mapping>
 	<servlet-name>Logout</servlet-name>
 	<url-pattern>/user/logout</url-pattern>
 </servlet-mapping>
+
+<servlet>
+	 	<servlet-name>Whois</servlet-name>
+	 	<servlet-class>servlets.user.WhoIsServlet</servlet-class>
+	 </servlet>
+ <servlet-mapping>
+	 	<servlet-name>Whois</servlet-name>
+	 	<url-pattern>/user/whois</url-pattern>
+ </servlet-mapping>
 
  <servlet>
         <servlet-name>AddFriend</servlet-name>
@@ -82,13 +91,6 @@
 	 	<url-pattern>/message/list</url-pattern>
 	 </servlet-mapping> 
 	 
-	 <servlet>
-	 	<servlet-name>Whois</servlet-name>
-	 	<servlet-class>servlets.whois.WhoIsServlet</servlet-class>
-	 </servlet>
-	 <servlet-mapping>
-	 	<servlet-name>Whois</servlet-name>
-	 	<url-pattern>/search/whois</url-pattern>
-	 </servlet-mapping>
+	 
 </web-app>
  

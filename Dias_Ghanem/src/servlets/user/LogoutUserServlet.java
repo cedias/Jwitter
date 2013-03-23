@@ -1,4 +1,4 @@
-plpackage servlets.auth;
+package servlets.user;
 
 import java.io.IOException;
 
@@ -7,15 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import org.json.JSONObject;
 
-import services.AuthServices;
+import services.UserServices;
 import servlets.GetParameters;
 
-
-public class NewAuthServlet extends HttpServlet {
-
+public class LogoutUserServlet extends HttpServlet{
+	
 	/**
 	 * 
 	 */
@@ -25,14 +23,11 @@ public class NewAuthServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-			String login = req.getParameter(GetParameters.login);
-			String password = req.getParameter(GetParameters.password);
-			String nom = req.getParameter(GetParameters.lastName);
-			String prenom = req.getParameter(GetParameters.firstname);
-			
-			JSONObject json = AuthServices.newUser(login,password,nom,prenom);
+			String key = req.getParameter(GetParameters.key);
+			JSONObject json = UserServices.logout(key);
 			
 			resp.setContentType("text/plain");
-			resp.getWriter().println(json.toString());
+			resp.getWriter().print(json);
 	}
+
 }

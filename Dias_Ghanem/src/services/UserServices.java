@@ -1,15 +1,23 @@
 package services;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import bd.auth.AuthTools;
+import bd.Database;
 import bd.exceptions.KeyInvalidException;
+import bd.exceptions.emptyResultException;
 import bd.exceptions.userDoesntExistException;
 import bd.exceptions.wrongPasswordException;
+import bd.friend.FriendTools;
+import bd.message.MessageTools;
+import bd.user.UserTools;
 
-public class AuthServices {
+public class UserServices {
 	
 	public static JSONObject newUser(String login ,String password,String nom,String prenom){		
 		try{
@@ -17,14 +25,14 @@ public class AuthServices {
 			if(login == null || login =="" || password == null || password == "" || nom == null || nom =="" || prenom == null || prenom == "")
 				return ErrorMsg.wrongParameter();
 			
-			Integer test = AuthTools.userExists(login);
+			Integer test = UserTools.userExists(login);
 			if ( test != null){
 				return ErrorMsg.userAlreadyExists(login);
 			}
 			
 		}
 		catch(userDoesntExistException e){		
-			if(AuthTools.addUser(login,password,nom,prenom))
+			if(UserTools.addUser(login,password,nom,prenom))
 				return JSONtools.ok();
 		}		
 		catch (SQLException e) {
@@ -39,8 +47,8 @@ public class AuthServices {
 			if(username == null || password == null)
 				return ErrorMsg.wrongParameter();
 
-			int userid = AuthTools.userExists(username);			
-			return AuthTools.login(userid,password);
+			int userid = UserTools.userExists(username);			
+			return UserTools.login(userid,password);
 			
 		}
 		catch(userDoesntExistException e){
@@ -59,7 +67,7 @@ public class AuthServices {
 			if(key == null)
 				return ErrorMsg.wrongParameter();
 			
-			AuthTools.logout(key);
+			UserTools.logout(key);
 			return JSONtools.ok();
 		
 		}
@@ -69,5 +77,12 @@ public class AuthServices {
 		catch(Exception e){
 			return ErrorMsg.bdError();
 		}
+	}
+	
+	public static JSONObject whoIs(String id,String username) {
+		if((username==null || username=="")){
+			return ErrorMsg.wrongParameter();
+		}		
+		return UserTools.whoIs(id, username);
 	}
 }

@@ -4,11 +4,11 @@ import java.sql.SQLException;
 
 import org.json.JSONObject;
 
-import bd.auth.AuthTools;
 import bd.exceptions.KeyInvalidException;
 import bd.exceptions.emptyResultException;
 import bd.exceptions.userDoesntExistException;
 import bd.message.MessageTools;
+import bd.user.UserTools;
 
 public class MessageServices {
 
@@ -18,8 +18,8 @@ public class MessageServices {
 			if(key==null || message==null || message.isEmpty())
 				return ErrorMsg.wrongParameter();
 			
-			int id = AuthTools.keyValid(key);
-			String user = AuthTools.userExists(id);
+			int id = UserTools.keyValid(key);
+			String user = UserTools.userExists(id);
 			return 	MessageTools.postMessage(id,user, message);
 				
 		} 
@@ -40,7 +40,7 @@ public class MessageServices {
 			if(key==null || messageId==null)
 				return ErrorMsg.wrongParameter();
 		
-			AuthTools.keyValid(key);
+			UserTools.keyValid(key);
 			return MessageTools.deleteMessage(messageId);
 			}
 		
@@ -69,7 +69,7 @@ public class MessageServices {
 			int nb = Integer.parseInt(nbMessage);
 			int off = Integer.parseInt(offset);
 			if(id==null && username!=null){
-				int user = AuthTools.userExists(username);
+				int user = UserTools.userExists(username);
 				json = MessageTools.listMessages(user,nb,off);				
 			}else{
 				json = MessageTools.listMessages(Integer.parseInt(id), nb, off);
