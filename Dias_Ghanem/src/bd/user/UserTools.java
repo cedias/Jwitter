@@ -201,13 +201,13 @@ public class UserTools {
 			
 			
 		} catch (SQLException e) {
-			return ErrorMsg.bdError();
+			return ErrorMsg.otherError(e.toString());
 		} catch (userDoesntExistException e) {
 			return ErrorMsg.userDoesntExist(username);
 		} catch (JSONException e) {
-			return ErrorMsg.bdError();
+			return ErrorMsg.otherError(e.toString());
 		} catch (emptyResultException e) {
-			return ErrorMsg.bdError();
+			return ErrorMsg.otherError(e.toString());
 		}	
 		return json;
 	}

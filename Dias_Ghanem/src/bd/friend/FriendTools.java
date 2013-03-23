@@ -70,7 +70,7 @@ public class FriendTools {
 		}
 	}
 	public static int numFriend(int user) throws SQLException{
-		String sql = "SELECT f.id_to, u.login, f.time  FROM Friends f, User u WHERE id_from = "+user+" AND f.id_to = u.id";
+		String sql = "SELECT COUNT(*) FROM `Friends` WHERE `id_from` =" + user;
 		
 		Connection c = Database.getMySQLConnection();
 		Statement stt = c.createStatement();
@@ -78,14 +78,9 @@ public class FriendTools {
 		
 		if(!res.next())
 			return -1;
-		
-		int cpt = 0;
 		res.beforeFirst();
-		
-		while(res.next()) {
-			cpt++;
-		}
-		
+		res.next();
+		int cpt = res.getInt(1);
 		res.close();
 		stt.close();
 		c.close();
