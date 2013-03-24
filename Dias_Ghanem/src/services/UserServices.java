@@ -79,10 +79,10 @@ public class UserServices {
 		}
 	}
 	
-	public static JSONObject whoIs(String id,String username) {
+	public static JSONObject info(String id,String username) {
 		if((username==null || username=="")){
 			return ErrorMsg.wrongParameter();
 		}		
-		return UserTools.whoIs(id, username);
+		return UserTools.info(id, username);
 	}
 }

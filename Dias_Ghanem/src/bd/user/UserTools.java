@@ -168,7 +168,7 @@ public class UserTools {
 		
 	}
 	
-	public static JSONObject whoIs(String id,String username){
+	public static JSONObject info(String id,String username){
 		JSONObject json = new JSONObject();
 		try {
 

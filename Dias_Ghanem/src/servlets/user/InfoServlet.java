@@ -13,7 +13,7 @@ import services.UserServices;
 import services.MessageServices;
 import servlets.GetParameters;
 
-public class WhoIsServlet extends HttpServlet {
+public class InfoServlet extends HttpServlet {
 
 	/**
 	 * 
@@ -27,7 +27,7 @@ public class WhoIsServlet extends HttpServlet {
 		String id = req.getParameter(GetParameters.user_id);
 		String username = req.getParameter(GetParameters.login);
 		
-		JSONObject json = UserServices.whoIs(id,username);
+		JSONObject json = UserServices.info(id,username);
 		
 		resp.setContentType("text/plain");
 		resp.getWriter().print(json);

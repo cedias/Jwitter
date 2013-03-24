@@ -29,12 +29,12 @@
 </servlet-mapping>
 
 <servlet>
-	 	<servlet-name>Whois</servlet-name>
-	 	<servlet-class>servlets.user.WhoIsServlet</servlet-class>
+	 	<servlet-name>Info</servlet-name>
+	 	<servlet-class>servlets.user.InfoServlet</servlet-class>
 	 </servlet>
  <servlet-mapping>
-	 	<servlet-name>Whois</servlet-name>
-	 	<url-pattern>/user/whois</url-pattern>
+	 	<servlet-name>Info</servlet-name>
+	 	<url-pattern>/user/info</url-pattern>
  </servlet-mapping>
 
  <servlet>
