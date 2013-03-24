@@ -69,5 +69,22 @@ public class FriendTools {
 			return ErrorMsg.bdError();
 		}
 	}
+	public static int numFriend(int user) throws SQLException{
+		String sql = "SELECT COUNT(*) FROM `Friends` WHERE `id_from` =" + user;
+		
+		Connection c = Database.getMySQLConnection();
+		Statement stt = c.createStatement();
+		ResultSet res = stt.executeQuery(sql);
+		
+		if(!res.next())
+			return -1;
+		res.beforeFirst();
+		res.next();
+		int cpt = res.getInt(1);
+		res.close();
+		stt.close();
+		c.close();
+		return cpt;
+	}
 	
 }

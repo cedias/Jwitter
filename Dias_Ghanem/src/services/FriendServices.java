@@ -8,7 +8,7 @@ import bd.exceptions.KeyInvalidException;
 import bd.exceptions.emptyResultException;
 import bd.exceptions.userDoesntExistException;
 import bd.friend.FriendTools;
-import bd.auth.AuthTools;
+import bd.user.UserTools;
 
 public class FriendServices {
 	
@@ -16,7 +16,7 @@ public class FriendServices {
 		try {
 			
 			int friend = Integer.parseInt(addFriend);
-			int user = AuthTools.keyValid(key);
+			int user = UserTools.keyValid(key);
 			
 			if(friend == user)
 				return ErrorMsg.otherError("You are already friend with yourself, aren't you ?");
@@ -46,7 +46,7 @@ public class FriendServices {
 		try {
 			
 			int friend = Integer.parseInt(remFriend);
-			int user = AuthTools.keyValid(key);
+			int user = UserTools.keyValid(key);
 			
 			if(friend == user)
 				return ErrorMsg.otherError("You can't unfriend yourself !");
@@ -83,11 +83,11 @@ public class FriendServices {
 			int user;
 			
 			if(uid == "" || uid == null){
-				user = AuthTools.userExists(login);
+				user = UserTools.userExists(login);
 			
 			} else {
 				user = Integer.parseInt(uid);
-				login = AuthTools.userExists(user);
+				login = UserTools.userExists(user);
 			}
 			
 
