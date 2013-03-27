@@ -1,20 +1,11 @@
 package services;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
-import java.sql.Statement;
-
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import bd.Database;
 import bd.exceptions.KeyInvalidException;
-import bd.exceptions.emptyResultException;
 import bd.exceptions.userDoesntExistException;
 import bd.exceptions.wrongPasswordException;
-import bd.friend.FriendTools;
-import bd.message.MessageTools;
 import bd.user.UserTools;
 
 public class UserServices {

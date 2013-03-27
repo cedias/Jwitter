@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import services.UserServices;
-import services.MessageServices;
 import servlets.GetParameters;
 
 public class InfoServlet extends HttpServlet {
