@@ -5,26 +5,26 @@ function Environnement(context){
 	this.users = [];
 	this.context = context;  // takes "connected" or "disconnected"
 	if(context === "connected")
-		this.connectContext();
+		this._connectContext();
 	else
-		this.disconnectContext();
+		this._disconnectContext();
 }
 
 Environnement.prototype.switchContext = function(){
 	
 	if(this.context ===  "connected"){
-		this.disconnectContext();
+		this._disconnectContext();
 		this.context = "disconnected";
 	}
 	else if(this.context === "disconnected"){
-		this.connectContext();
+		this._connectContext();
 		this.context = "connected";
 	}
 };
 
 
 /* Sets the DOM to "connected" context */	
-Environnement.prototype.connectContext = function(){
+Environnement.prototype._connectContext = function(){
 	var postId = $("#content_form");
 	var loginId = $("#login");
 	var logoutId = $("#logout");
@@ -36,7 +36,7 @@ Environnement.prototype.connectContext = function(){
 
 
 /* Sets the DOM to "disconnected" context */	
-Environnement.prototype.disconnectContext = function(){	
+Environnement.prototype._disconnectContext = function(){	
 	var postId = $("#content_form");
 	var loginId = $("#login");
 	var logoutId = $("#logout");

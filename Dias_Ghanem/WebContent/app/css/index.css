@@ -176,6 +176,7 @@ width: 55px;
 
 .message:hover {
 	background-color: #e8e8e8;
+	cursor: pointer;
 }
 
 .message_text {
