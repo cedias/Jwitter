@@ -86,7 +86,7 @@ public class MessageTools {
 			cursor.skip(off);
 			
 			while(cursor.hasNext() && i <= nb){
-				json.accumulate("message", cursor.next());	
+				json.accumulate("messages", cursor.next());	
 				i++;
 			}
 			return json;
@@ -95,6 +95,28 @@ public class MessageTools {
 			}catch (JSONException e) {
 				return ErrorMsg.bdError();
 			}
+	}
+	
+	
+	public static JSONObject allMessages(){			
+		try {
+			
+			JSONObject json = new JSONObject();
+			Mongo m = new Mongo(BDStatic.mongoDb_host,BDStatic.mongoDb_port);
+			DB db = m.getDB(BDStatic.mysql_db);
+			DBCollection collection = db.getCollection("messages");			
+			DBCursor cursor = collection.find(); 
+			
+			while(cursor.hasNext()){
+				json.accumulate("messages", cursor.next());	
+			}
+			
+			return json;
+		} catch (UnknownHostException e) {
+			return ErrorMsg.bdError();
+		} catch (JSONException e) {
+			return ErrorMsg.bdError();
+		}
 	}
 }
 
