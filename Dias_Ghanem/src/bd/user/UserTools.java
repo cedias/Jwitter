@@ -134,7 +134,13 @@ public class UserTools {
 			ResultSet res = stt.executeQuery("Select * from Sessions s where s.key='"+key+"';");
 		
 			if(res.next()==true){
-					id = res.getInt(2);		
+					id = res.getInt(2);
+					if(res.getInt(3) == 1){
+						res.close();
+						stt.close();
+						c.close();			
+						throw new KeyInvalidException();
+					}
 			}else{
 				res.close();
 				stt.close();
