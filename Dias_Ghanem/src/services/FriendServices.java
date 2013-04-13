@@ -39,6 +39,9 @@ public class FriendServices {
 				return ErrorMsg.userDoesntExist(addFriend);
 			
 			return ErrorMsg.bdError();
+			
+		} catch (userDoesntExistException e) {
+			return ErrorMsg.bdError();
 		}
 	}
 	
@@ -62,6 +65,9 @@ public class FriendServices {
 			
 		}  catch (SQLException e) {
 			
+			return ErrorMsg.bdError();
+			
+		} catch (userDoesntExistException e) {
 			return ErrorMsg.bdError();
 		}
 
