@@ -91,6 +91,7 @@ public class FriendTools {
 		return cpt;
 	}
 	
+	/* Get friend count of id*/
 	public static int friendCound(int id) throws SQLException, userDoesntExistException {
 		String sql = "SELECT friendCount FROM  `User` WHERE  `id` ="+id;
 		
@@ -109,15 +110,17 @@ public class FriendTools {
 		return count;
 	}
 	
+	/* Increment friend count of id*/
 	public static void incrementFriendCount(int id) throws SQLException, userDoesntExistException {
 		String sql = "UPDATE User SET friendCount=friendCount+1 WHERE id="+id;
 		Connection c = Database.getMySQLConnection();
 		Statement stt = c.createStatement();
-		stt.executeQuery(sql);;
+		stt.executeQuery(sql);
 		stt.close();
 		c.close();
 	}
 	
+	/* Decrement friend count of id*/
 	public static void decrementFriendCount(int id) throws SQLException, userDoesntExistException {
 		String sql = "UPDATE User SET friendCount=friendCount-1 WHERE id="+id;
 		Connection c = Database.getMySQLConnection();
