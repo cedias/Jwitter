@@ -115,7 +115,7 @@ public class FriendTools {
 		String sql = "UPDATE User SET friendCount=friendCount+1 WHERE id="+id;
 		Connection c = Database.getMySQLConnection();
 		Statement stt = c.createStatement();
-		stt.executeQuery(sql);
+		stt.executeUpdate(sql);
 		stt.close();
 		c.close();
 	}
@@ -125,7 +125,7 @@ public class FriendTools {
 		String sql = "UPDATE User SET friendCount=friendCount-1 WHERE id="+id;
 		Connection c = Database.getMySQLConnection();
 		Statement stt = c.createStatement();
-		stt.executeQuery(sql);
+		stt.executeUpdate(sql);
 		stt.close();
 		c.close();
 		
