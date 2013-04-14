@@ -70,10 +70,42 @@ public class UserServices {
 		}
 	}
 	
-	public static JSONObject info(String id,String username) {
-		if((username==null || username=="")){
+	
+	public static JSONObject info(String id,String login, String key) {
+		try {
+			
+		
+		if((login==null || login=="") && (id==null || id=="")){
 			return ErrorMsg.wrongParameter();
-		}		
-		return UserTools.info(id, username);
+		}
+		
+		int loggedUser = -1;
+		int idInfo = -1;
+		
+		if(id != null && id != ""){
+			idInfo = Integer.parseInt(id);
+			UserTools.userExists(idInfo);
+		}
+		else{
+			idInfo = UserTools.userExists(login);
+		}
+		
+		if(key != null && key != "")
+			loggedUser = UserTools.keyValid(key);
+		
+		
+		return UserTools.info(idInfo, loggedUser);
+		
+		
+		} catch (KeyInvalidException e) {
+			return ErrorMsg.invalidKey();
+		} catch (SQLException e) {
+			return ErrorMsg.bdError();
+		} catch (userDoesntExistException e) {
+			if(login == null)
+				return ErrorMsg.userDoesntExist(id);
+			else			
+				return ErrorMsg.userDoesntExist(login);
+		}
 	}
 }
