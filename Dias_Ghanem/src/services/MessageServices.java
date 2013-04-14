@@ -54,37 +54,31 @@ public class MessageServices {
 	}
 	
 
-	public static JSONObject listMessages(String id,String username, String nbMessage, String offset) {
+	public static JSONObject listMessages(String id,String username, String nbMessage, String offset, String last) {
 		try{	
 			
-			JSONObject json;
-			
-			if( id==null && username==null && nbMessage==null && offset==null){
-				return MessageTools.allMessages();
-			
-			}else{
-			
-				if( (id==null && username==null))
-					return ErrorMsg.wrongParameter();
+			//default
+			int off = 0;
+			int nb = 100;
+			int user = -1;
 				
-				//default
-				if(offset == null|| offset=="")
-					offset = "0";
-				if(nbMessage == null || nbMessage=="")
-					nbMessage = "10";
+			if(offset != null && offset != "")
+				off = Integer.parseInt(offset);
 			
-				
-				int nb = Integer.parseInt(nbMessage);
-				int off = Integer.parseInt(offset);
-				
-				if(id==null && username!=null){
-					int user = UserTools.userExists(username);
-					json = MessageTools.listMessages(user,nb,off);				
-				}else{
-					json = MessageTools.listMessages(Integer.parseInt(id), nb, off);
-				}
-				return json;
+			if(nbMessage != null && nbMessage!="")
+				nb = Integer.parseInt(nbMessage);
+	
+			
+			if(id != null && id != ""){
+				user = Integer.parseInt(id);
+				UserTools.userExists(user);
 			}
+				
+			if(username != null && username != "" && user == -10)
+				user = UserTools.userExists(username);
+				
+			return MessageTools.listMessages(user,nb,off,last);				
+			
 		}
 		catch(NumberFormatException E){
 			return ErrorMsg.wrongParameter();
@@ -101,7 +95,6 @@ public class MessageServices {
 		catch (SQLException e) {
 			return ErrorMsg.bdError();
 		}
-		
 		
 	}
 }
