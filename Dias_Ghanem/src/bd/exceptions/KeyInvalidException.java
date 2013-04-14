@@ -1,11 +1,12 @@
 package bd.exceptions;
 
 /**
- * 
+ * Exception if key is invalid (doesn't exist or expired)
+ *  
  * @author Charles-Emmanuel Dias
  * @author Marwan Ghanem
  *
- * Exception if key is invalid (doesn't exist or expired)
+
  */
 public class KeyInvalidException extends Exception {
 

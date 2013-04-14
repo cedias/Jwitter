@@ -19,11 +19,12 @@ import services.ErrorMsg;
 
 
 /**
+ * static methods for Auth/User operations in the databases
  * 
  * @author Charles-Emmanuel Dias
  * @author Marwan Ghanem
  *
- * static methods for Auth/User operations in the databases 
+
  */
 public class UserTools {
 	

@@ -12,11 +12,12 @@ import bd.exceptions.emptyResultException;
 import bd.exceptions.userDoesntExistException;
 
 /**
+ * static methods for friend operations in the databases
  * 
  * @author Charles-Emmanuel Dias
  * @author Marwan Ghanem
  *
- * static methods for friend operations in the databases 
+
  */
 public class FriendTools {
 

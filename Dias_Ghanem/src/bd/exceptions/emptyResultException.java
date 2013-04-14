@@ -1,11 +1,11 @@
 package bd.exceptions;
 
 /**
+ * Exception if result is empty
  * 
  * @author Charles-Emmanuel Dias
  * @author Marwan Ghanem
  *
- * Exception if result is empty
  */
 public class emptyResultException extends Exception {
 

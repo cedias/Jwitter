@@ -12,6 +12,7 @@ import bd.user.UserTools;
 
 /**
  * Message API static methods
+ * 
  * @author Charles-Emmanuel Dias
  * @author Marwan Ghanem
  */

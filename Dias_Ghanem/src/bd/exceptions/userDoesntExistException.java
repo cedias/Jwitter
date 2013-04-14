@@ -2,11 +2,11 @@ package bd.exceptions;
 
 
 /**
+ * Exception if user doesn't exist 
  * 
  * @author Charles-Emmanuel Dias
  * @author Marwan Ghanem
  *
- * Exception if user doesn't exist
  */
 public class userDoesntExistException extends Exception {
 

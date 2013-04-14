@@ -13,11 +13,9 @@ import services.UserServices;
 import servlets.GetParameters;
 
 /**
+ * Login servlet
  * @author Charles-Emmanuel Dias
  * @author Marwan Ghanem
- * 
- * Login servlet
- * 
  */
 public class LoginUserServlet extends HttpServlet {
 

@@ -10,6 +10,7 @@ import bd.user.UserTools;
 
 /**
  * User API static methods
+ * 
  * @author Charles-Emmanuel Dias
  * @author Marwan Ghanem
  *

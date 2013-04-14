@@ -16,11 +16,9 @@ import servlets.GetParameters;
 
 
 /**
+ * New user servlet
  * @author Charles-Emmanuel Dias
  * @author Marwan Ghanem
- * 
- * new user servlet
- * 
  */
 public class NewUserServlet extends HttpServlet {
 

@@ -22,11 +22,12 @@ import bd.exceptions.emptyResultException;
 
 
 /**
+ * static methods for message operations in the databases
  * 
  * @author Charles-Emmanuel Dias
  * @author Marwan Ghanem
  *
- * static methods for message operations in the databases 
+
  */
 public class MessageTools {
 	

@@ -10,11 +10,10 @@ import javax.sql.DataSource;
 
 
 /**
+ * MySQL Database class
  * 
  * @author Charles-Emmanuel Dias
  * @author Marwan Ghanem
- *
- *  MySQL Database class
  */
 public class Database {
 

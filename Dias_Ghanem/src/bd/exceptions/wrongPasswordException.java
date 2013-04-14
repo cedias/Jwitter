@@ -2,11 +2,11 @@ package bd.exceptions;
 
 
 /**
+ * Exception if password is wrong
  * 
  * @author Charles-Emmanuel Dias
  * @author Marwan Ghanem
  *
- * Exception if password is wrong
  */
 public class wrongPasswordException extends Exception {
 

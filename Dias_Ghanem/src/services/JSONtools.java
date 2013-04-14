@@ -5,10 +5,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
+ * JSON messages helpers 
+ * 
  * @author Charles-Emmanuel Dias
  * @author Marwan Ghanem
- * 
- * JSON messages helpers 
  */
 public class JSONtools {
 

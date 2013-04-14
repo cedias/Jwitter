@@ -1,11 +1,10 @@
 package bd;
 
 /**
+ * Configuration for databases
  * 
  * @author Charles-Emmanuel Dias
  * @author Marwan Ghanem
- *
- * Configuration for databases
  */
 public interface BDStatic {
 
