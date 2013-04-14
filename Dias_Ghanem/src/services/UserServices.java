@@ -8,8 +8,23 @@ import bd.exceptions.userDoesntExistException;
 import bd.exceptions.wrongPasswordException;
 import bd.user.UserTools;
 
+/**
+ * User API static methods
+ * 
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ *
+ */
 public class UserServices {
 	
+	/**
+	 * Create a new user
+	 * @param login
+	 * @param password
+	 * @param nom
+	 * @param prenom
+	 * @return status message
+	 */
 	public static JSONObject newUser(String login ,String password,String nom,String prenom){		
 		try{
 			
@@ -33,6 +48,12 @@ public class UserServices {
 	}
 
 	
+	/**
+	 * log a user in
+	 * @param username
+	 * @param password
+	 * @return JSON(id,login,key)
+	 */
 	public static JSONObject login(String username,String password){
 		try{		
 			if(username == null || password == null)
@@ -53,6 +74,11 @@ public class UserServices {
 		}
 	}
 	
+	/**
+	 * log a user out
+	 * @param key
+	 * @return status message
+	 */
 	public static JSONObject logout(String key){
 		try{
 			if(key == null)
@@ -70,7 +96,13 @@ public class UserServices {
 		}
 	}
 	
-	
+	/**
+	 * get a user info
+	 * @param id user id to get info from
+	 * @param login user login to get info from
+	 * @param key who is asking
+	 * @return JSON(resp)
+	 */
 	public static JSONObject info(String id,String login, String key) {
 		try {
 			

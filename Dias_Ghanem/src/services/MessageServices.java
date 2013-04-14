@@ -10,8 +10,21 @@ import bd.exceptions.userDoesntExistException;
 import bd.message.MessageTools;
 import bd.user.UserTools;
 
+/**
+ * Message API static methods
+ * 
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ */
 public class MessageServices {
 
+	
+	/**
+	 * Post a new message
+	 * @param key
+	 * @param message
+	 * @return status message
+	 */
 	public static JSONObject newMessage(String key,String message){
 		try {
 			
@@ -35,6 +48,13 @@ public class MessageServices {
 		}		
 	}
 
+	
+	/**
+	 * delete a message
+	 * @param key
+	 * @param messageId
+	 * @return status message
+	 */
 	public static JSONObject deleteMessage(String key, String messageId) {
 		try{	
 			if(key==null || messageId==null)
@@ -53,7 +73,16 @@ public class MessageServices {
 		}
 	}
 	
-
+	
+	/**
+	 * List messages from last to first
+	 * @param id list only user id messages
+	 * @param username list only user username messages
+	 * @param nbMessage max number of messages in response
+	 * @param offset offset in message list
+	 * @param last message where to stop
+	 * @return messages list
+	 */
 	public static JSONObject listMessages(String id,String username, String nbMessage, String offset, String last) {
 		try{	
 			

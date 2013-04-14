@@ -12,12 +12,15 @@ import org.json.JSONObject;
 import services.MessageServices;
 import servlets.GetParameters;
 
-
+/**
+ * delete message servlet
+ *  
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ *
+ */
 public class DeleteMessageServlet extends HttpServlet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Override

@@ -12,7 +12,16 @@ import org.json.JSONObject;
 import services.FriendServices;
 import servlets.GetParameters;
 
+
+/**
+ * list Friend servlet
+ *  
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ *
+ */
 public class ListFriendServlet extends HttpServlet {
+
 
 	private static final long serialVersionUID = 1L;
 	@Override

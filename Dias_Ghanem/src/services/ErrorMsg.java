@@ -2,10 +2,15 @@ package services;
 
 import org.json.JSONObject;
 
+/**
+ * Standard JSON error messages
+ * https://gist.github.com/cedias/6181764a2b050b6c9070 <== Error Messages
+ * 
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ */
 public class ErrorMsg {
 	
-	// https://gist.github.com/cedias/6181764a2b050b6c9070 <== Error Messages
-
 	public static JSONObject userAlreadyExists(String username)
 	{
 		return JSONtools.error("User "+ username +" already exists", 3);

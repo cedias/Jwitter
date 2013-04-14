@@ -12,11 +12,17 @@ import org.json.JSONObject;
 import services.UserServices;
 import servlets.GetParameters;
 
+
+/**
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ * 
+ * Logout servlet
+ * 
+ */
 public class LogoutUserServlet extends HttpServlet{
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	@Override
