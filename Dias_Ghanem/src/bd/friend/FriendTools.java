@@ -30,8 +30,11 @@ public class FriendTools {
 		
 		Connection c = Database.getMySQLConnection();
 		Statement stt = c.createStatement();
-		stt.executeUpdate(sql);
-		decrementFriendCount(user);
+		int rc = stt.executeUpdate(sql);
+		
+		if(rc != 0)
+			decrementFriendCount(user);
+		
 		stt.close();
 	    c.close();
 		
