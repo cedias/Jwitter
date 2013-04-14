@@ -1,4 +1,4 @@
-package servlets.auth;
+package servlets.user;
 
 import java.io.IOException;
 
@@ -10,18 +10,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
-import services.AuthServices;
+import services.UserServices;
 import servlets.GetParameters;
+
 
 
 /**
  * @author Charles-Emmanuel Dias
  * @author Marwan Ghanem
  * 
- * Create user servlet
+ * new user servlet
  * 
  */
-public class NewAuthServlet extends HttpServlet {
+public class NewUserServlet extends HttpServlet {
+
 
 	
 	private static final long serialVersionUID = 1L;
@@ -40,7 +42,7 @@ public class NewAuthServlet extends HttpServlet {
 			String nom = req.getParameter(GetParameters.lastName);
 			String prenom = req.getParameter(GetParameters.firstname);
 			
-			JSONObject json = AuthServices.newUser(login,password,nom,prenom);
+			JSONObject json = UserServices.newUser(login,password,nom,prenom);
 			
 			resp.setContentType("text/plain");
 			resp.getWriter().println(json.toString());

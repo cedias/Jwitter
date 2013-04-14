@@ -1,4 +1,4 @@
-package servlets.auth;
+package servlets.user;
 
 import java.io.IOException;
 
@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
-import services.AuthServices;
+import services.UserServices;
 import servlets.GetParameters;
 
-public class LoginAuthServlet extends HttpServlet {
+public class LoginUserServlet extends HttpServlet {
 
 	/**
 	 * @author Charles-Emmanuel Dias
@@ -35,7 +35,7 @@ public class LoginAuthServlet extends HttpServlet {
 			String username = req.getParameter(GetParameters.login);
 			String password = req.getParameter(GetParameters.password);
 			
-			JSONObject json = AuthServices.login(username, password);
+			JSONObject json = UserServices.login(username, password);
 			
 			resp.setContentType("text/plain");
 			resp.getWriter().print(json);

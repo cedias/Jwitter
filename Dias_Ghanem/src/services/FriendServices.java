@@ -8,7 +8,7 @@ import bd.exceptions.KeyInvalidException;
 import bd.exceptions.emptyResultException;
 import bd.exceptions.userDoesntExistException;
 import bd.friend.FriendTools;
-import bd.auth.AuthTools;
+import bd.user.UserTools;
 
 /**
  * Friend API static methods
@@ -29,7 +29,7 @@ public class FriendServices {
 		try {
 			
 			int friend = Integer.parseInt(addFriend);
-			int user = AuthTools.keyValid(key);
+			int user = UserTools.keyValid(key);
 			
 			if(friend == user)
 				return ErrorMsg.otherError("You are already friend with yourself, aren't you ?");
@@ -52,6 +52,9 @@ public class FriendServices {
 				return ErrorMsg.userDoesntExist(addFriend);
 			
 			return ErrorMsg.bdError();
+			
+		} catch (userDoesntExistException e) {
+			return ErrorMsg.bdError();
 		}
 	}
 	
@@ -65,7 +68,7 @@ public class FriendServices {
 		try {
 			
 			int friend = Integer.parseInt(remFriend);
-			int user = AuthTools.keyValid(key);
+			int user = UserTools.keyValid(key);
 			
 			if(friend == user)
 				return ErrorMsg.otherError("You can't unfriend yourself !");
@@ -82,30 +85,46 @@ public class FriendServices {
 		}  catch (SQLException e) {
 			
 			return ErrorMsg.bdError();
+			
+		} catch (userDoesntExistException e) {
+			return ErrorMsg.bdError();
 		}
 
 	}
 	
+
 	/**
 	 *  List friends by login (string)
 	 * @param login String user login
+	 * @param uid String userid
 	 * @param nbResults max number of results to return
 	 * @param offset
 	 * @return JSONObject => [messages...]
 	 */
-	public static JSONObject listFriends(String login, String nbResults ,String offset){
+	public static JSONObject listFriends(String uid, String login, String nbResults ,String offset){
+
 		try{
-			if(login == null || login == "")
+			if((login == null || login == "") && (uid == null || uid == ""))
 				return ErrorMsg.wrongParameter();
+			
 			//default
 			if(offset == null|| offset=="")
 				offset = "0";
 			if(nbResults == null || nbResults=="")
 				nbResults = "10";
-					
+			
 			int nb = Integer.parseInt(nbResults);
 			int off = Integer.parseInt(offset);
-			int user = AuthTools.userExists(login);
+			int user;
+			
+			if(uid == "" || uid == null){
+				user = UserTools.userExists(login);
+			
+			} else {
+				user = Integer.parseInt(uid);
+				login = UserTools.userExists(user);
+			}
+			
 
 			return  FriendTools.listFriend(user,nb,off);
 			
