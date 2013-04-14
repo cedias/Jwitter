@@ -8,6 +8,14 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+
+/**
+ * 
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ *
+ *  MySQL Database class
+ */
 public class Database {
 
 	private static Database database;

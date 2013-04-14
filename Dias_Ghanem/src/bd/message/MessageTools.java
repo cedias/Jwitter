@@ -20,8 +20,24 @@ import com.mongodb.Mongo;
 import bd.BDStatic;
 import bd.exceptions.emptyResultException;
 
+
+/**
+ * 
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ *
+ * static methods for message operations in the databases 
+ */
 public class MessageTools {
 	
+	/**
+	 * Adds a message
+	 * 
+	 * @param user_id
+	 * @param login
+	 * @param message
+	 * @return message + message's id JSON
+	 */
 	public static JSONObject postMessage(int user_id,String login,String message){
 		try {
 			JSONObject json = new JSONObject();
@@ -48,6 +64,12 @@ public class MessageTools {
 		}
 	}
 
+	
+	/**
+	 * Removes a message from the database
+	 * @param messageId
+	 * @return ok message
+	 */
 	public static JSONObject deleteMessage(String messageId) {
 		try{
 			Mongo m = new Mongo(BDStatic.mongoDb_host,BDStatic.mongoDb_port);
@@ -71,6 +93,15 @@ public class MessageTools {
 		
 	}
 
+	/**
+	 *  List messages (from last to first) 
+	 * @param id if you only want one user's messages
+	 * @param nb max results
+	 * @param off offset
+	 * @param last a message id where to stop
+	 * @return JSON[message]
+	 * @throws emptyResultException
+	 */
 	public static JSONObject listMessages(int id, int nb, int off,String last) throws emptyResultException {
 		try {
 
