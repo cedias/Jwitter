@@ -4,8 +4,20 @@ package services;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ * 
+ * JSON messages helpers 
+ */
 public class JSONtools {
 
+	/**
+	 * Error Message
+	 * @param msg
+	 * @param errorCode
+	 * @return
+	 */
 	public static JSONObject error(String msg,int errorCode) {
 		JSONObject res = new JSONObject();
 		try {
@@ -17,7 +29,11 @@ public class JSONtools {
 		return res;
 		
 	}
-
+	
+	/**
+	 * Ok Message
+	 * @return
+	 */
 	public static JSONObject ok(){
 		JSONObject res = new JSONObject();
 		try {

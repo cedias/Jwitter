@@ -12,23 +12,19 @@ import org.json.JSONObject;
 import services.UserServices;
 import servlets.GetParameters;
 
+
+/**
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ * 
+ * Logout servlet
+ * 
+ */
 public class LogoutUserServlet extends HttpServlet{
 	
-	/**
-	 * @author Charles-Emmanuel Dias
-	 * @author Marwan Ghanem
-	 * 
-	 * Logout servlet
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
-	
-	/**
-	 * @throws wrongParameter
-	 * @throws invalidKey
-	 * @throws bdError
-	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {

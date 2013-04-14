@@ -22,12 +22,7 @@ import servlets.GetParameters;
  */
 public class ListFriendServlet extends HttpServlet {
 
-	/**
-	 * @throws userDoesntExist
-	 * @throws wrongparameters
-	 * @throws bdError
-	 * @throws emptyResult
-	 */
+
 	private static final long serialVersionUID = 1L;
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)

@@ -24,13 +24,7 @@ public class AddFriendServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @throws wrongParameter
-	 * @throws invalidKey
-	 * @throws userDoesntExist
-	 * @throws bdError
-	 * @throws otherError => already friends
-	 */
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {

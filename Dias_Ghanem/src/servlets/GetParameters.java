@@ -5,7 +5,6 @@ package servlets;
  * @author Charles-Emmanuel Dias
  * @author Marwan Ghanem
  *
- *
  */
 public interface GetParameters {
 

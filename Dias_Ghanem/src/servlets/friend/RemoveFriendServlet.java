@@ -21,11 +21,7 @@ import servlets.GetParameters;
  */
 public class RemoveFriendServlet extends HttpServlet {
 
-	/**
-	 * @throws keyInvalid
-	 * @throws wrongParameter
-	 * @throws otherError => yourself
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	@Override
