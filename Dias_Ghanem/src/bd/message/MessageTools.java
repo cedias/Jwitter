@@ -14,6 +14,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import com.mongodb.Mongo;
 
 import bd.BDStatic;
@@ -37,6 +38,7 @@ public class MessageTools {
 			
 			json.put("message", message);
 			json.put("message_id",obj.get("_id").toString());
+			m.close();
 			return json;
 			
 		} catch (UnknownHostException e) {
@@ -55,6 +57,8 @@ public class MessageTools {
 			
 			query.put("_id", new ObjectId(messageId));
 			collection.remove(query);
+			
+			m.close();
 			if(collection.findOne(query) == null){
 				return JSONtools.ok();
 			}else{
@@ -67,9 +71,9 @@ public class MessageTools {
 		
 	}
 
-	public static JSONObject listMessages(int id, int nb, int off) throws emptyResultException {
+	public static JSONObject listMessages(int id, int nb, int off,String last) throws emptyResultException {
 		try {
-			int i = 1;
+
 			
 			JSONObject json = new JSONObject();
 			Mongo m = new Mongo(BDStatic.mongoDb_host,BDStatic.mongoDb_port);
@@ -77,19 +81,28 @@ public class MessageTools {
 			DBCollection collection = db.getCollection("messages");
 			BasicDBObject query = new BasicDBObject();			
 			
-			query.put("id",id);
-			DBCursor cursor = collection.find(query).limit(Integer.MAX_VALUE); 
+			if(id != -1)
+				query.put("id",id);
 			
-			if(off > cursor.count())
-				return json;
+			DBCursor cursor = collection.find(query).sort(new BasicDBObject("$natural",-1)).limit(nb).skip(off); 
 			
-			cursor.skip(off);
-			
-			while(cursor.hasNext() && i <= nb){
-				json.accumulate("messages", cursor.next());	
-				i++;
+			while(cursor.hasNext()){
+				DBObject next = cursor.next();
+				
+				if(last != null && last != "" && next.get("_id").toString().equals(last))
+				{
+					cursor.close();
+					m.close();
+					return json;
+				}
+				
+				json.accumulate("messages", next);
 			}
+			
+			cursor.close();
+			m.close();
 			return json;
+			
 			}catch (UnknownHostException e) {
 				return ErrorMsg.bdError();
 			}catch (JSONException e) {
@@ -97,26 +110,5 @@ public class MessageTools {
 			}
 	}
 	
-	
-	public static JSONObject allMessages(){			
-		try {
-			
-			JSONObject json = new JSONObject();
-			Mongo m = new Mongo(BDStatic.mongoDb_host,BDStatic.mongoDb_port);
-			DB db = m.getDB(BDStatic.mysql_db);
-			DBCollection collection = db.getCollection("messages");			
-			DBCursor cursor = collection.find(); 
-			
-			while(cursor.hasNext()){
-				json.accumulate("messages", cursor.next());	
-			}
-			
-			return json;
-		} catch (UnknownHostException e) {
-			return ErrorMsg.bdError();
-		} catch (JSONException e) {
-			return ErrorMsg.bdError();
-		}
-	}
 }
 

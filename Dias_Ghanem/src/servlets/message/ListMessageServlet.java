@@ -27,9 +27,10 @@ public class ListMessageServlet extends HttpServlet {
 			String username = req.getParameter(GetParameters.login);
 			String nbMessage = req.getParameter(GetParameters.maxResults);
 			String offset = req.getParameter(GetParameters.offset);
+			String last = req.getParameter(GetParameters.message_id);
 			
 
-			JSONObject json = MessageServices.listMessages(id,username,nbMessage,offset);
+			JSONObject json = MessageServices.listMessages(id,username,nbMessage,offset,last);
 			
 			resp.setContentType("text/plain");
 			resp.getWriter().print(json);

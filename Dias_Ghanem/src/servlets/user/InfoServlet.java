@@ -24,9 +24,10 @@ public class InfoServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		String id = req.getParameter(GetParameters.user_id);
-		String username = req.getParameter(GetParameters.login);
+		String login = req.getParameter(GetParameters.login);
+		String key = req.getParameter(GetParameters.key);
 		
-		JSONObject json = UserServices.info(id,username);
+		JSONObject json = UserServices.info(id,login,key);
 		
 		resp.setContentType("text/plain");
 		resp.getWriter().print(json);
