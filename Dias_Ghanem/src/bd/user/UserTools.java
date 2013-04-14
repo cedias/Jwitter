@@ -18,8 +18,23 @@ import bd.message.MessageTools;
 import services.ErrorMsg;
 
 
+/**
+ * static methods for Auth/User operations in the databases
+ * 
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ *
+
+ */
 public class UserTools {
 	
+	/**
+	 * Checks if user exists with it's username
+	 * @param login
+	 * @return the user id
+	 * @throws SQLException
+	 * @throws userDoesntExistException
+	 */
 	public static int userExists(String login) throws SQLException, userDoesntExistException{
 		try {
 			int id;
@@ -48,6 +63,13 @@ public class UserTools {
 		}
 	}
 	
+	/**
+	 * Checks if user exists with it's id
+	 * @param login
+	 * @return the user username
+	 * @throws SQLException
+	 * @throws userDoesntExistException
+	 */
 	public static String userExists(int id) throws SQLException, userDoesntExistException {
 		try {
 			String username;
@@ -77,6 +99,14 @@ public class UserTools {
 		}
 	}
 
+	/**
+	 * Adds a new user to database
+	 * @param login
+	 * @param password
+	 * @param nom
+	 * @param prenom
+	 * @return ok message
+	 */
 	public static boolean addUser(String login, String password, String nom , String prenom){
 		try{
 			Connection c = Database.getMySQLConnection();
@@ -94,6 +124,13 @@ public class UserTools {
 		}
 	}
 	
+	/**
+	 * Logs a user in
+	 * @param id
+	 * @param password
+	 * @return JSON(id,login,key)
+	 * @throws wrongPasswordException
+	 */
 	public static JSONObject login(int id, String password)throws wrongPasswordException {
 		try {
 			Connection c = Database.getMySQLConnection();
@@ -125,6 +162,13 @@ public class UserTools {
 		
 	}
 	
+	/**
+	 * Checks if a key is valid
+	 * @param key
+	 * @return userid of the key
+	 * @throws KeyInvalidException
+	 * @throws SQLException
+	 */
 	public static int keyValid(String key) throws KeyInvalidException, SQLException {
 		try {
 			
@@ -159,6 +203,11 @@ public class UserTools {
 		}
 	}
 
+	/**
+	 * Logout a user by expiring his key
+	 * @param key
+	 * @throws KeyInvalidException
+	 */
 	public static void logout(String key) throws KeyInvalidException {
 		try {	
 			UserTools.keyValid(key);
@@ -174,6 +223,13 @@ public class UserTools {
 		
 	}
 	
+	/**
+	 * Various user info
+	 * @param id
+	 * @param loggedUser who's asking?
+	 * @return JSON(id,login,first_name,last_name,friend_count,last_jweets[,friend_with])
+	 * @throws userDoesntExistException
+	 */
 	public static JSONObject info(int id,int loggedUser) throws userDoesntExistException{
 		JSONObject json = new JSONObject();
 		try {
@@ -215,6 +271,11 @@ public class UserTools {
 		return json;
 	}
 	
+	/**
+	 * get a key
+	 * @param id user
+	 * @return a key
+	 */
 	private static String getKey(int id){
 	try {
 			Connection c = Database.getMySQLConnection();
@@ -239,11 +300,10 @@ public class UserTools {
 		}
 	}
 	
-	/*
-	 * creation d'un cle et il retour dans un format de string
-	 * il va le sauvgarde dans le db apres
-	 * MAKING A STAND TWAT
-	 * 
+	
+	/**
+	 * generate random key
+	 * @return key 
 	 */
 	private static String generateKey() {
 		String key = "";
@@ -253,6 +313,10 @@ public class UserTools {
 		return key;
 	}	
 	
+	/**
+	 * generate random char
+	 * @return random char
+	 */
 	private static char randomChar(){		
 		Random r = new Random();
 		double rnd = Math.random();

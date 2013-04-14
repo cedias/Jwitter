@@ -12,12 +12,16 @@ import org.json.JSONObject;
 import services.UserServices;
 import servlets.GetParameters;
 
+/**
+ * Login servlet
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ */
 public class LoginUserServlet extends HttpServlet {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
+
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)

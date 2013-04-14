@@ -12,11 +12,16 @@ import org.json.JSONObject;
 import services.UserServices;
 import servlets.GetParameters;
 
+
+/**
+ * User info servlet
+ *  
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ *
+ */
 public class InfoServlet extends HttpServlet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Override
