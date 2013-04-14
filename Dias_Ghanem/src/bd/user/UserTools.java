@@ -174,42 +174,39 @@ public class UserTools {
 		
 	}
 	
-	public static JSONObject info(String id,String username){
+	public static JSONObject info(int id,int loggedUser) throws userDoesntExistException{
 		JSONObject json = new JSONObject();
 		try {
 
-			Integer exist = UserTools.userExists(username);
 			
 			Connection c = Database.getMySQLConnection();
 			Statement stt = c.createStatement();
-			ResultSet res = stt.executeQuery("Select * from User u where u.id="+exist+";");
+			ResultSet res = stt.executeQuery("Select * from User u where u.id="+id+";");
 			res.next();
-					
-			int numFriends = FriendTools.numFriend(exist);
 			
-			json.put("id", exist);
+			int numFriends = FriendTools.friendCound(id);
+			
+			json.put("id", id);
 			json.put("login",res.getString(2));
-			json.put("First name", res.getString(3));
-			json.put("Last name", res.getString(4));
+			json.put("first_name", res.getString(3));
+			json.put("last_name", res.getString(4));
 			
-			if(!(id==null || id=="")){
-				res = stt.executeQuery("SELECT *  FROM `Friends` WHERE `id_from` =" + id + " AND `id_to` = "+ exist +";");
+			if(loggedUser != -1){
+				res = stt.executeQuery("SELECT *  FROM `Friends` WHERE `id_from` =" + id + " AND `id_to` = "+ id +";");
 				if(res.next()){
-					json.put("friends with", "yes");
+					json.put("friend_with", "yes");
 				}else{
-					json.put("friends with", "no");
+					json.put("friend_with", "no");
 				}
 			}
 			
-			json.put("number of friends", numFriends);
-			json.put("Last 5 msgs", MessageTools.listMessages(exist, 5, 0));
+			json.put("friend_count", numFriends);
+			json.put("last_jweets", MessageTools.listMessages(id, 5, 0,null));
 			
 			
 			
 		} catch (SQLException e) {
 			return ErrorMsg.otherError(e.toString());
-		} catch (userDoesntExistException e) {
-			return ErrorMsg.userDoesntExist(username);
 		} catch (JSONException e) {
 			return ErrorMsg.otherError(e.toString());
 		} catch (emptyResultException e) {
