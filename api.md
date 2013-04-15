@@ -1,6 +1,27 @@
 #Jwitter API
 ----------
+
+**[General Overview](#general-overview)**
+/ [Services](#services)
+/ [Arguments](#arguments)
+/ [Error Codes](#error-codes)    
+**[User Service](#user-service)**
+/ [Login](#login)
+/ [Logout](#logout)
+/ [New](#new)
+/ [Info](#info)  
+**[Friend Service](#friend-service)**
+/ [Add](#add)
+/ [Remove](#remove)
+/ [List](#list)  
+**[Message Service](#message-service)**
+/ [Post](#post)
+/ [Delete](#delete)
+/ [List](#list-1)
+
 ##General Overview
+
+###Services
 
 Jwitter api has 4 distinct services:
 
@@ -12,23 +33,24 @@ Jwitter api has 4 distinct services:
 All of these services are reachable using the HTTP protocol over GET method.
 Arguments and Errors are standardized.
 
-##Arguments
+###Arguments
 
-###Authentification
+Since the GET protocol is using the URL to transmit calls arguments' names have been standardized and shrinked.
+####Authentification
 
  + user's login := login
  + user's password := pass
  + user's session key := key
 	
 
-###id
+####id
 
  + user's id := uid
  + friend's id := fid
  + message's id := mid
 	
 
-###Search/Lists
+####Search/Lists
 
  + Maximum results := maxr
  + Results' offset := off
@@ -36,13 +58,16 @@ Arguments and Errors are standardized.
  + Restrict to user's friend := rtf
 	
 
-###Miscellaneous 
+####Miscellaneous 
 
  + a message := msg
  + a first name := fname
  + a last name := lname
 
-## Error-Codes
+### Error-Codes
+
+Every API call can go wrong, whenever it does your JSON resp will look like this `{message:"error",error_code:code}`.
+This is the meaning of those codes
 
 - 3  : User Already Exists
 - 20 : Invalid User
@@ -203,9 +228,9 @@ http://jwitter-url/friend/list?login=jacktheboss&off=10&maxr=8
 ###Base URL:
 `http://jwitter-url/message`
 
-###New
+###Post
 
-- url: /new
+- url: /post
 - arguments:
  + key : key
  + message : msg
