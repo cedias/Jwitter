@@ -86,7 +86,8 @@ Error n° 84 and 900 can always happen.
 ###Base URL:
 `http://jwitter-url/user`
 
-###Login:
+###Login: 
+> Returns a session key
 
 - url: /login
 - arguments:
@@ -95,16 +96,17 @@ Error n° 84 and 900 can always happen.
 - error codes:
  + wrong login : 291
 
-`http://jwitter-url/user/login?login=user&pass=pass`
 
-> Returns a session key
+
+`http://jwitter-url/user/login?login=user&pass=pass`
 
 ```JSON
 {"id":33,"login":"user","key":"AwEs0m3K3yToUs3InJw177Er"}
 ```
 
 ###Logout:
-		
+> Expires a session key
+
 - url: /logout
 - arguments:
  + session key: key
@@ -113,13 +115,12 @@ Error n° 84 and 900 can always happen.
 
 `http://jwitter-url/user/logout?key=key`
 
-> Expires a session key
-
 ```JSON
 {"message":"ok"}
 ```
 
 ###New:
+> Creates a user
 
 - url: /new
 - arguments:
@@ -132,13 +133,13 @@ Error n° 84 and 900 can always happen.
 
 `http://jwitter-url/user/new?login=user&pass=pass&fname=james&lname=darwin`
 
-> Creates a user
-
 ```JSON
 {"message":"ok"}
 ```
 
 ###Info
+> Info on a user
+
 
 - url: /info
 - arguments:
@@ -150,9 +151,7 @@ Error n° 84 and 900 can always happen.
  http://Jwitter-url/user/info?login=user1
  http://Jwitter-url/user/info?uid=4&key=supersecretkey
  ```
-
- > Info on a user
-
+ 
  ```JSON
  {"id":1,"first_name":"Jean","friend_count":10,"last_name":"Guy","login":"jg398","last_jweets":{"messages":[{"message":"i believe i can fly","id":1,"_id":"51687c80e4b0c087485cf63d","login":"jg398","date":"Fri Apr 12 23:28:32 CEST 2013"},...]}}
  ```
@@ -164,6 +163,7 @@ Error n° 84 and 900 can always happen.
 `http://jwitter-url/friend`
 
 ###Add:
+> add a friend
 
 - url: /add
 - arguments:
@@ -177,13 +177,13 @@ Error n° 84 and 900 can always happen.
 
 `http://jwitter-url/friend/add?fid=42&key=supersecretkey`
 
-> adds a friend to key user
 
 ```JSON
 {"message":"ok"}
 ```
 
 ###Remove:
+> removes a friend
 
 - url: /remove
 - arguments:
@@ -194,13 +194,12 @@ Error n° 84 and 900 can always happen.
 
 `http://jwitter-url/friend/remove?fid=42&key=supersecretkey`
 
-> removes a friend to key user
-
 ```JSON
 {"message":"ok"}
 ```
 
 ###List:
+> List a user's friends
 
 - url: /list
 - arguments:
@@ -217,8 +216,6 @@ http://jwitter-url/friend/list?login=jacktheboss
 http://jwitter-url/friend/list?login=jacktheboss&off=10&maxr=8
 ```
 
-> List a user's friends
-
 ```JSON
 {"friends":[{"id":2,"login":"jack","date":"2013-02-14 17:14:22.0"},…]}
 ```
@@ -229,6 +226,7 @@ http://jwitter-url/friend/list?login=jacktheboss&off=10&maxr=8
 `http://jwitter-url/message`
 
 ###Post
+> Post a new message
 
 - url: /post
 - arguments:
@@ -239,13 +237,12 @@ http://jwitter-url/friend/list?login=jacktheboss&off=10&maxr=8
 
 `http://jwitter-url/message/new?key=thisisakey&msg=helloworld`
 
-> Post a new message
-
 ```JSON
 {"message":"Hello World !","message_id":"515feb36e4b0e4363f1bef2e"}
 ```
 
 ###Delete
+> Delete a message
 
 - url: /delete
 - arguments:
@@ -256,13 +253,13 @@ http://jwitter-url/friend/list?login=jacktheboss&off=10&maxr=8
 
 `http://jwitter-url/message/new?key=thisisakey&mid=42`
 
-> Delete a message
-
 ```JSON
 {"message":"ok"}
 ```
 
 ###List
+> list messages
+
 - url: /list
 - arguments:
  + [ only userid's messages : uid or username : login ]
@@ -280,8 +277,6 @@ http://jwitter-url/message/list?uid=12&off=12&maxr=5
 http://jwitter-url/message/list?login=jack&off=12&maxr=5
 http://jwitter-url/message/list?mid=515feb36e4b0e4363f1bef2e
 ```
-
-> list all user's message
 
 ```JSON
 {"message":[{"message":"I do really love apples","id":1,"_id":"512b3fd8e4b02d9a74da067c","login":"charles"},….]}
