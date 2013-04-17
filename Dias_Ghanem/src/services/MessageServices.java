@@ -103,7 +103,7 @@ public class MessageServices {
 				UserTools.userExists(user);
 			}
 				
-			if(username != null && username != "" && user == -10)
+			if(username != null && username != "" && user == -1)
 				user = UserTools.userExists(username);
 				
 			return MessageTools.listMessages(user,nb,off,last);				
