@@ -248,7 +248,7 @@ public class UserTools {
 			json.put("last_name", res.getString(4));
 			
 			if(loggedUser != -1){
-				res = stt.executeQuery("SELECT *  FROM `Friends` WHERE `id_from` =" + id + " AND `id_to` = "+ id +";");
+				res = stt.executeQuery("SELECT *  FROM `Friends` WHERE `id_from` =" + loggedUser + " AND `id_to` = "+ id +";");
 				if(res.next()){
 					json.put("friend_with", "yes");
 				}else{
