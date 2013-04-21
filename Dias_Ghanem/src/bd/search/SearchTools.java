@@ -2,27 +2,27 @@ package bd.search;
 
 import java.net.UnknownHostException;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import services.ErrorMsg;
-import services.FriendServices;
 
 import bd.BDStatic;
 import bd.Database;
-import bd.friend.FriendTools;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+import com.mongodb.MapReduceCommand;
+import com.mongodb.MapReduceOutput;
 import com.mongodb.Mongo;
+import com.mongodb.util.JSON;
 
 public class SearchTools {
 
@@ -38,15 +38,9 @@ public class SearchTools {
 			BasicDBObject query = new BasicDBObject();	
 			BasicDBObject regex = new BasicDBObject();
 			String queryString = q.replace(',','|');
-						
+	
 			regex.put("$regex",queryString);
 			query.put("message",regex);
-			if(rtf == 1){
-				String friends = listFriends(id_user);
-				regex.clear();
-				regex.put("$regex", friends);
-				query.put("id",regex);
-			}
 			
 			DBCursor cursor = collection.find(query).limit(Integer.MAX_VALUE); 
 			if(offset > cursor.count())
@@ -66,31 +60,52 @@ public class SearchTools {
 		}
 	}
 	
-	public static String listFriends(int id_user){
-		String sql = "SELECT f.id_to, u.login, f.time  FROM Friends f, User u WHERE id_from = "+id_user+" AND f.id_to = u.id";
-		String friends = "";
+	public static JSONObject calculateDF() throws UnknownHostException, JSONException, SQLException{
+		String map , reduce;
+		map = "function map(){  var text = this.message; var words = text.match(/\\w+/g); if(words == null) return; var df=[];  for(var i = 0;i< words.length;i++) df[words[i]]=1;";
+		map += "for(var mot in df){ emit(mot,{df:1}); }}";
 		
 		
-		try {
-			Connection c = Database.getMySQLConnection();
-			Statement stt = c.createStatement();
-			ResultSet res = stt.executeQuery(sql);
-					
-			if(res.isLast()){;
-				return null;
-			}
-			while(res.next()){
-				friends = friends + res.getInt(1);
-				friends = friends + '|';
-			}
-			friends = friends.substring(0, friends.length()-1);
-			stt.close();
-			c.close();
-			return friends;
-			
-		} catch (SQLException e) {
-			return null;
-		}		
-	}
-}
+		reduce = "function reduce(key, values){";
+		reduce += "var total =0;";
+		reduce += "for (var i =0; i< values.length;i++) {";
+		reduce += "total += values[i].df;}";	
+	    reduce += "return {df:total}}";
 
+	    Mongo m;
+		m = new Mongo(BDStatic.mongoDb_host,BDStatic.mongoDb_port);
+		DB db = m.getDB(BDStatic.mysql_db);
+		DBCollection collection = db.getCollection("messages");
+		
+		MapReduceCommand com = new MapReduceCommand(collection, map, reduce,null ,  MapReduceCommand.OutputType.INLINE, new BasicDBObject());
+		MapReduceOutput out = collection.mapReduce(com);
+		
+		JSONObject res = new JSONObject();
+		
+		Connection c = Database.getMySQLConnection();
+		Statement stt = c.createStatement();
+		
+		int total = 0;
+		for(DBObject result : out.results()){
+			String word = result.get("_id").toString();
+			DBObject value = (DBObject) result.get("value");
+			int df = (int) Double.parseDouble((value.get("df").toString()));
+			
+			String query = "UPDATE `DF` SET `df` = "+ df + " WHERE `DF`.`word` = '" + word + "' LIMIT 1 ";
+			
+			int valid = stt.executeUpdate(query);
+			
+			if(valid == 0){
+				query = "INSERT INTO `dias_ghanem`.`DF` (`word`, `df`) VALUES ('"+ word +"', '"+df+"');";
+				stt.execute(query);
+			}	
+			res.put(word, df);
+			total+=df;
+		}
+		String query = "UPDATE `DF` SET `df` = "+ total + " WHERE `DF`.`word` = '" + "_total" + "' LIMIT 1 ";
+		
+		return res;
+
+		}
+
+}
