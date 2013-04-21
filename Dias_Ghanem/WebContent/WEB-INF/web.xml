@@ -90,5 +90,14 @@
 	 	<servlet-name>SearchMessage</servlet-name>
 	 	<url-pattern>/search/message</url-pattern>
 	 </servlet-mapping>
+	 
+	 <servlet>
+	 	<servlet-name>MapReduceServlet</servlet-name>
+	 	<servlet-class>servlets.search.MapReduceServlet</servlet-class>
+	 </servlet>
+	 <servlet-mapping>
+	 	<servlet-name>MapReduceServlet</servlet-name>
+	 	<url-pattern>/search/reduce</url-pattern>
+	 </servlet-mapping>
 </web-app>
  

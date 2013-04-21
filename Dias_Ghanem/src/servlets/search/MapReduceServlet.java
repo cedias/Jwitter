@@ -24,11 +24,9 @@ public class MapReduceServlet extends HttpServlet {
 		
 		JSONObject json;
 		try {
-			json = SearchTools.calculateDF();
+			json = SearchTools.calculateTF();
 		} catch (JSONException e) {
 			json =  ErrorMsg.otherError("aint working");
-		} catch (SQLException e) {
-			json =  ErrorMsg.otherError(e.toString());
 		}
 		
 		resp.setContentType("text/plain");

@@ -107,5 +107,37 @@ public class SearchTools {
 		return res;
 
 		}
+	
+	public static JSONObject calculateTF() throws UnknownHostException, JSONException{
+		String reduce , map;
+		map = "function map(){  var text = this.message; var words = text.match(/\\w+/g); var tf=[];  for(var i = 0;i< words.length;i++) tf[words[i]]=1;";
+		map += "for(var mot in tf){ emit(mot,{tf:tf[mot],document:this.id}); }}";
+
+		
+		reduce = "function reduce(key, values){";	
+	    reduce += "return {key:values}}";
+		
+	    //reduce= "function reduce(key,values){ return {word:key , tfs : values }}";
+		
+	    Mongo m;
+		m = new Mongo(BDStatic.mongoDb_host,BDStatic.mongoDb_port);
+		DB db = m.getDB(BDStatic.mysql_db);
+		DBCollection collection = db.getCollection("messages");
+		
+		MapReduceCommand com = new MapReduceCommand(collection, map, reduce,null,MapReduceCommand.OutputType.INLINE, new BasicDBObject());
+		MapReduceOutput out = collection.mapReduce(com);
+		
+		JSONObject res = new JSONObject();
+		
+		for(DBObject result : out.results()){
+			String word = result.get("_id").toString();
+			DBObject value = (DBObject) result.get("value");
+			DBObject key = (DBObject) value.get("key");
+			String tf = (String) key.get("tf");
+			//int doc = (int) Double.parseDouble((value.get("document").toString()));
+			res.put(word, tf);
+		}
+		return res;
+	}
 
 }
