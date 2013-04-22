@@ -1,7 +1,7 @@
 package servlets.search;
 
 import java.io.IOException;
-import java.sql.SQLException;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,9 +14,14 @@ import org.json.JSONObject;
 import bd.search.SearchTools;
 
 import services.ErrorMsg;
-import services.SearchServices;
+
 
 public class MapReduceServlet extends HttpServlet {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
