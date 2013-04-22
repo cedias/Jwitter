@@ -14,6 +14,7 @@ import services.ErrorMsg;
 import bd.BDStatic;
 import bd.Database;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -61,6 +62,7 @@ public class SearchTools {
 	}
 	
 	public static JSONObject calculateDF() throws UnknownHostException, JSONException, SQLException{
+		
 		String map , reduce;
 		map = "function map(){  var text = this.message; var words = text.match(/\\w+/g); if(words == null) return; var df=[];  for(var i = 0;i< words.length;i++) df[words[i]]=1;";
 		map += "for(var mot in df){ emit(mot,{df:1}); }}";
@@ -109,35 +111,100 @@ public class SearchTools {
 		}
 	
 	public static JSONObject calculateTF() throws UnknownHostException, JSONException{
+		try{
 		String reduce , map;
-		map = "function map(){  var text = this.message; var words = text.match(/\\w+/g); var tf=[];  for(var i = 0;i< words.length;i++) tf[words[i]]=1;";
-		map += "for(var mot in tf){ emit(mot,{tf:tf[mot],document:this.id}); }}";
+		map = "function map(){  var text = this.message;" +
+				"var words = text.match(/\\w+/g);"+
+				"if(words == null) return;"+
+				"var tf=[];" +
+				"var did=ObjectId().str;"+
+				"for(var i = 0;i< words.length;i++){" +
+				"if (tf[words[i]] === undefined)" +
+					"tf[words[i]] = 0;" +
+				"tf[words[i]]++; }"+
+				"for(var mot in tf){ "+
+				"emit(mot,{tf:tf[mot],document:did}); }}";
 
 		
-		reduce = "function reduce(key, values){";	
-	    reduce += "return {key:values}}";
-		
-	    //reduce= "function reduce(key,values){ return {word:key , tfs : values }}";
+	    reduce= "function reduce(key,values){ "+
+	    		"return {key:key,tfs:values};" +
+	    		"}";
 		
 	    Mongo m;
 		m = new Mongo(BDStatic.mongoDb_host,BDStatic.mongoDb_port);
 		DB db = m.getDB(BDStatic.mysql_db);
 		DBCollection collection = db.getCollection("messages");
+		Connection c = Database.getMySQLConnection();
+		Statement stt = c.createStatement();
 		
 		MapReduceCommand com = new MapReduceCommand(collection, map, reduce,null,MapReduceCommand.OutputType.INLINE, new BasicDBObject());
 		MapReduceOutput out = collection.mapReduce(com);
 		
 		JSONObject res = new JSONObject();
 		
+		
+		/**
+		 * Output:
+		 * 	DBObject value: 
+				{"document":"51754dfeff5e7c67a49be98b","tf":1}
+				OR
+				{"tfs":[{"document":"51754dfeff5e7c67a49be97e","tf":1},{"document":"51754dfeff5e7c67a49be97f","tf":1}],"key":"Death"}
+		 */
+		
 		for(DBObject result : out.results()){
 			String word = result.get("_id").toString();
 			DBObject value = (DBObject) result.get("value");
-			DBObject key = (DBObject) value.get("key");
-			String tf = (String) key.get("tf");
-			//int doc = (int) Double.parseDouble((value.get("document").toString()));
-			res.put(word, tf);
+			String document;
+			int tf;
+			
+			if(!value.containsField("tfs")){
+				//simple case
+				document = value.get("document").toString();
+				tf = (int) Double.parseDouble(value.get("tf").toString());
+				res.accumulate("res",new JSONObject().put("word", word).put("doc", document).put("tf", tf));
+				
+				String query = "UPDATE `dias_ghanem`.`TF` SET `tf` = '"+tf+"' WHERE `TF`.`word` = '"+word+"' AND `TF`.`document` = '"+document+"';";
+				
+				int valid = stt.executeUpdate(query);
+				
+				if(valid == 0){
+					query = "INSERT INTO `dias_ghanem`.`TF` (`word` ,`document` ,`tf` )VALUES ('"+word+"', '"+document+"', '"+tf+"');";
+					stt.execute(query);
+				}	
+				
+			}
+			else
+			{
+				//multiple case
+				BasicDBList tfs = (BasicDBList) value.get("tfs");
+				for(Object elt : tfs){
+					DBObject el = (DBObject) elt;
+					document = el.get("document").toString();
+					tf = (int) Double.parseDouble(el.get("tf").toString());
+					res.accumulate("res",new JSONObject().put("word", word).put("doc", document).put("tf", tf));
+					
+					
+					String query = "UPDATE `dias_ghanem`.`TF` SET `tf` = '"+tf+"' WHERE `TF`.`word` = '"+word+"' AND `TF`.`document` = '"+document+"';";
+					
+					int valid = stt.executeUpdate(query);
+					
+					if(valid == 0){
+						query = "INSERT INTO `dias_ghanem`.`TF` (`word` ,`document` ,`tf` )VALUES ('"+word+"', '"+document+"', '"+tf+"');";
+						stt.execute(query);
+					}	
+					
+				}
+			}
+			/*String key = value.get("document").toString();
+			String tfstring = value.get("tf").toString();
+			 tf = (int) Double.parseDouble(tfstring);*/
+			
 		}
+		m.close();
 		return res;
+		}catch(SQLException e){
+			return ErrorMsg.otherError(e.getMessage());
+		}
 	}
 
 }
