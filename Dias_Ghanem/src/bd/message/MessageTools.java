@@ -119,7 +119,7 @@ public class MessageTools {
 			if(id != -1)
 				query.put("id",id);
 			
-			DBCursor cursor = collection.find(query).sort(new BasicDBObject("$natural",-1)).limit(nb).skip(off); 
+			DBCursor cursor = collection.find(query).sort(new BasicDBObject("date",-1)).limit(nb).skip(off); 
 			
 			while(cursor.hasNext()){
 				DBObject next = cursor.next();
