@@ -60,8 +60,8 @@ public class MessageServices {
 			if(key==null || messageId==null)
 				return ErrorMsg.wrongParameter();
 		
-			UserTools.keyValid(key);
-			return MessageTools.deleteMessage(messageId);
+			int userId = UserTools.keyValid(key);
+			return MessageTools.deleteMessage(messageId,userId);
 			}
 		
 		catch(KeyInvalidException e){
