@@ -16,6 +16,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
+import com.mongodb.WriteResult;
 
 import bd.BDStatic;
 import bd.exceptions.emptyResultException;
@@ -71,21 +72,23 @@ public class MessageTools {
 	 * @param messageId
 	 * @return ok message
 	 */
-	public static JSONObject deleteMessage(String messageId) {
+	public static JSONObject deleteMessage(String messageId,int userId) {
 		try{
 			Mongo m = new Mongo(BDStatic.mongoDb_host,BDStatic.mongoDb_port);
 			DB db = m.getDB(BDStatic.mysql_db);
 			DBCollection collection = db.getCollection("messages");
-			BasicDBObject query = new BasicDBObject();	
+			BasicDBObject query = new BasicDBObject();
 			
 			query.put("_id", new ObjectId(messageId));
-			collection.remove(query);
+			query.put("id",userId);	
+			WriteResult wr = collection.remove(query);
 			
-			m.close();
-			if(collection.findOne(query) == null){
+			if(wr.getN() == 1){
+				m.close();
 				return JSONtools.ok();
 			}else{
-				return ErrorMsg.bdError();
+				m.close();
+				return ErrorMsg.wrongParameter();
 			}
 			
 		}catch (UnknownHostException e) {
