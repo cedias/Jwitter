@@ -1,6 +1,7 @@
 package servlets.search;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 
 import javax.servlet.ServletException;
@@ -27,11 +28,14 @@ public class MapReduceServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		JSONObject json;
+		JSONObject json = null;
 		try {
-			json = SearchTools.calculateTF();
+			json = SearchTools.calculateDF();
 		} catch (JSONException e) {
 			json =  ErrorMsg.otherError("aint working");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		resp.setContentType("text/plain");

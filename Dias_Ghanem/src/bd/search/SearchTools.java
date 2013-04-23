@@ -104,7 +104,9 @@ public class SearchTools {
 			res.put(word, df);
 			total+=df;
 		}
-		String query = "UPDATE `DF` SET `df` = "+ total + " WHERE `DF`.`word` = '" + "_total" + "' LIMIT 1 ";
+		String query = "UPDATE  `dias_ghanem`.`DF` SET  `df` =  '" + total  +"' WHERE  `DF`.`word` =  '_total'";
+		stt.execute(query);
+		
 		
 		return res;
 
