@@ -1,4 +1,4 @@
-package bd.auth;
+package bd.user;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -10,13 +10,31 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import bd.Database;
 import bd.exceptions.KeyInvalidException;
+import bd.exceptions.emptyResultException;
 import bd.exceptions.userDoesntExistException;
 import bd.exceptions.wrongPasswordException;
+import bd.friend.FriendTools;
+import bd.message.MessageTools;
 import services.ErrorMsg;
 
 
-public class AuthTools {
+/**
+ * static methods for Auth/User operations in the databases
+ * 
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ *
+
+ */
+public class UserTools {
 	
+	/**
+	 * Checks if user exists with it's username
+	 * @param login
+	 * @return the user id
+	 * @throws SQLException
+	 * @throws userDoesntExistException
+	 */
 	public static int userExists(String login) throws SQLException, userDoesntExistException{
 		try {
 			int id;
@@ -45,6 +63,13 @@ public class AuthTools {
 		}
 	}
 	
+	/**
+	 * Checks if user exists with it's id
+	 * @param login
+	 * @return the user username
+	 * @throws SQLException
+	 * @throws userDoesntExistException
+	 */
 	public static String userExists(int id) throws SQLException, userDoesntExistException {
 		try {
 			String username;
@@ -74,6 +99,14 @@ public class AuthTools {
 		}
 	}
 
+	/**
+	 * Adds a new user to database
+	 * @param login
+	 * @param password
+	 * @param nom
+	 * @param prenom
+	 * @return ok message
+	 */
 	public static boolean addUser(String login, String password, String nom , String prenom){
 		try{
 			Connection c = Database.getMySQLConnection();
@@ -91,6 +124,13 @@ public class AuthTools {
 		}
 	}
 	
+	/**
+	 * Logs a user in
+	 * @param id
+	 * @param password
+	 * @return JSON(id,login,key)
+	 * @throws wrongPasswordException
+	 */
 	public static JSONObject login(int id, String password)throws wrongPasswordException {
 		try {
 			Connection c = Database.getMySQLConnection();
@@ -122,6 +162,13 @@ public class AuthTools {
 		
 	}
 	
+	/**
+	 * Checks if a key is valid
+	 * @param key
+	 * @return userid of the key
+	 * @throws KeyInvalidException
+	 * @throws SQLException
+	 */
 	public static int keyValid(String key) throws KeyInvalidException, SQLException {
 		try {
 			
@@ -131,7 +178,13 @@ public class AuthTools {
 			ResultSet res = stt.executeQuery("Select * from Sessions s where s.key='"+key+"';");
 		
 			if(res.next()==true){
-					id = res.getInt(2);		
+					id = res.getInt(2);
+					if(res.getInt(3) == 1){
+						res.close();
+						stt.close();
+						c.close();			
+						throw new KeyInvalidException();
+					}
 			}else{
 				res.close();
 				stt.close();
@@ -150,9 +203,14 @@ public class AuthTools {
 		}
 	}
 
+	/**
+	 * Logout a user by expiring his key
+	 * @param key
+	 * @throws KeyInvalidException
+	 */
 	public static void logout(String key) throws KeyInvalidException {
 		try {	
-			AuthTools.keyValid(key);
+			UserTools.keyValid(key);
 			Connection c = Database.getMySQLConnection();
 			Statement stt = c.createStatement();
 			
@@ -165,6 +223,59 @@ public class AuthTools {
 		
 	}
 	
+	/**
+	 * Various user info
+	 * @param id
+	 * @param loggedUser who's asking?
+	 * @return JSON(id,login,first_name,last_name,friend_count,last_jweets[,friend_with])
+	 * @throws userDoesntExistException
+	 */
+	public static JSONObject info(int id,int loggedUser) throws userDoesntExistException{
+		JSONObject json = new JSONObject();
+		try {
+
+			
+			Connection c = Database.getMySQLConnection();
+			Statement stt = c.createStatement();
+			ResultSet res = stt.executeQuery("Select * from User u where u.id="+id+";");
+			res.next();
+			
+			int numFriends = FriendTools.friendCound(id);
+			
+			json.put("id", id);
+			json.put("login",res.getString(2));
+			json.put("first_name", res.getString(3));
+			json.put("last_name", res.getString(4));
+			
+			if(loggedUser != -1){
+				res = stt.executeQuery("SELECT *  FROM `Friends` WHERE `id_from` =" + loggedUser + " AND `id_to` = "+ id +";");
+				if(res.next()){
+					json.put("friend_with", "yes");
+				}else{
+					json.put("friend_with", "no");
+				}
+			}
+			
+			json.put("friend_count", numFriends);
+			json.put("last_jweets", MessageTools.listMessages(id, 5, 0,null));
+			
+			
+			
+		} catch (SQLException e) {
+			return ErrorMsg.otherError(e.toString());
+		} catch (JSONException e) {
+			return ErrorMsg.otherError(e.toString());
+		} catch (emptyResultException e) {
+			return ErrorMsg.otherError(e.toString());
+		}	
+		return json;
+	}
+	
+	/**
+	 * get a key
+	 * @param id user
+	 * @return a key
+	 */
 	private static String getKey(int id){
 	try {
 			Connection c = Database.getMySQLConnection();
@@ -189,11 +300,10 @@ public class AuthTools {
 		}
 	}
 	
-	/*
-	 * creation d'un cle et il retour dans un format de string
-	 * il va le sauvgarde dans le db apres
-	 * MAKING A STAND TWAT
-	 * 
+	
+	/**
+	 * generate random key
+	 * @return key 
 	 */
 	private static String generateKey() {
 		String key = "";
@@ -203,6 +313,10 @@ public class AuthTools {
 		return key;
 	}	
 	
+	/**
+	 * generate random char
+	 * @return random char
+	 */
 	private static char randomChar(){		
 		Random r = new Random();
 		double rnd = Math.random();

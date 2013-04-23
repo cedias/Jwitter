@@ -4,7 +4,7 @@ import java.sql.SQLException;
 
 import org.json.JSONObject;
 
-import bd.auth.AuthTools;
+import bd.user.UserTools;
 import bd.exceptions.KeyInvalidException;
 import bd.search.SearchTools;
 
@@ -24,7 +24,7 @@ public class SearchServices {
 				rtf = Integer.parseInt(friends);
 			}
 			if(key != null && !key.isEmpty()){
-				id = AuthTools.keyValid(key);
+				id = UserTools.keyValid(key);
 			}
 			
 			return SearchTools.Search(id, query, rtf , Integer.parseInt(nbMessage) , Integer.parseInt(offset));

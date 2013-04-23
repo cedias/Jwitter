@@ -2,9 +2,9 @@ package servlets;
 
 /**
  * List of parameters for the API.
+ * 
  * @author Charles-Emmanuel Dias
  * @author Marwan Ghanem
- *
  *
  */
 public interface GetParameters {

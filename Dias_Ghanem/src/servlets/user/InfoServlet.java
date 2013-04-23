@@ -1,4 +1,4 @@
-package servlets.friend;
+package servlets.user;
 
 import java.io.IOException;
 
@@ -9,37 +9,34 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
-import services.FriendServices;
+import services.UserServices;
 import servlets.GetParameters;
 
 
 /**
- * list Friend servlet
+ * User info servlet
  *  
  * @author Charles-Emmanuel Dias
  * @author Marwan Ghanem
  *
  */
-public class ListFriendServlet extends HttpServlet {
-
+public class InfoServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-	
-		String login = req.getParameter(GetParameters.login);
-		String user_id = req.getParameter(GetParameters.user_id);
-		String nbResults = req.getParameter(GetParameters.maxResults);
-		String offset = req.getParameter(GetParameters.offset);
 		
-		JSONObject json = FriendServices.listFriends(user_id,login,nbResults, offset);
+		String id = req.getParameter(GetParameters.user_id);
+		String login = req.getParameter(GetParameters.login);
+		String key = req.getParameter(GetParameters.key);
+		
+		JSONObject json = UserServices.info(id,login,key);
 		
 		resp.setContentType("text/plain");
 		resp.getWriter().print(json);
-		
 	}
 
 	
-
 }

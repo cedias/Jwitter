@@ -4,22 +4,35 @@ import java.sql.SQLException;
 
 import org.json.JSONObject;
 
-import bd.auth.AuthTools;
 import bd.exceptions.KeyInvalidException;
 import bd.exceptions.emptyResultException;
 import bd.exceptions.userDoesntExistException;
 import bd.message.MessageTools;
+import bd.user.UserTools;
 
+/**
+ * Message API static methods
+ * 
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ */
 public class MessageServices {
 
+	
+	/**
+	 * Post a new message
+	 * @param key
+	 * @param message
+	 * @return status message
+	 */
 	public static JSONObject newMessage(String key,String message){
 		try {
 			
 			if(key==null || message==null || message.isEmpty())
 				return ErrorMsg.wrongParameter();
 			
-			int id = AuthTools.keyValid(key);
-			String user = AuthTools.userExists(id);
+			int id = UserTools.keyValid(key);
+			String user = UserTools.userExists(id);
 			return 	MessageTools.postMessage(id,user, message);
 				
 		} 
@@ -35,13 +48,20 @@ public class MessageServices {
 		}		
 	}
 
+	
+	/**
+	 * delete a message
+	 * @param key
+	 * @param messageId
+	 * @return status message
+	 */
 	public static JSONObject deleteMessage(String key, String messageId) {
 		try{	
 			if(key==null || messageId==null)
 				return ErrorMsg.wrongParameter();
 		
-			AuthTools.keyValid(key);
-			return MessageTools.deleteMessage(messageId);
+			int userId = UserTools.keyValid(key);
+			return MessageTools.deleteMessage(messageId,userId);
 			}
 		
 		catch(KeyInvalidException e){
@@ -53,23 +73,40 @@ public class MessageServices {
 		}
 	}
 	
-
-	public static JSONObject listMessages(String id,String username, String nbMessage, String offset) {
+	
+	/**
+	 * List messages from last to first
+	 * @param id list only user id messages
+	 * @param username list only user username messages
+	 * @param nbMessage max number of messages in response
+	 * @param offset offset in message list
+	 * @param last message where to stop
+	 * @return messages list
+	 */
+	public static JSONObject listMessages(String id,String username, String nbMessage, String offset, String last) {
 		try{	
-			if( (id==null && username==null) || nbMessage == null || offset == null)
-				return ErrorMsg.wrongParameter();
 			
-			JSONObject json;
-			int nb = Integer.parseInt(nbMessage);
-			int off = Integer.parseInt(offset);
-			if(id==null && username!=null){
-				int user = AuthTools.userExists(username);
-				json = MessageTools.listMessages(user,nb,off);				
-			}else{
-				json = MessageTools.listMessages(Integer.parseInt(id), nb, off);
+			//default
+			int off = 0;
+			int nb = 100;
+			int user = -1;
+				
+			if(offset != null && offset != "")
+				off = Integer.parseInt(offset);
+			
+			if(nbMessage != null && nbMessage!="")
+				nb = Integer.parseInt(nbMessage);
+	
+			
+			if(id != null && id != ""){
+				user = Integer.parseInt(id);
+				UserTools.userExists(user);
 			}
-			
-			return json;
+				
+			if(username != null && username != "" && user == -1)
+				user = UserTools.userExists(username);
+				
+			return MessageTools.listMessages(user,nb,off,last);				
 			
 		}
 		catch(NumberFormatException E){
@@ -87,7 +124,6 @@ public class MessageServices {
 		catch (SQLException e) {
 			return ErrorMsg.bdError();
 		}
-		
 		
 	}
 }

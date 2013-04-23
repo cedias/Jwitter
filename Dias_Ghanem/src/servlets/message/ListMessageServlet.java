@@ -12,11 +12,15 @@ import org.json.JSONObject;
 import services.MessageServices;
 import servlets.GetParameters;
 
+/**
+ * list messages servlet
+ *  
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ *
+ */
 public class ListMessageServlet extends HttpServlet {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -27,9 +31,10 @@ public class ListMessageServlet extends HttpServlet {
 			String username = req.getParameter(GetParameters.login);
 			String nbMessage = req.getParameter(GetParameters.maxResults);
 			String offset = req.getParameter(GetParameters.offset);
+			String last = req.getParameter(GetParameters.message_id);
 			
 
-			JSONObject json = MessageServices.listMessages(id,username,nbMessage,offset);
+			JSONObject json = MessageServices.listMessages(id,username,nbMessage,offset,last);
 			
 			resp.setContentType("text/plain");
 			resp.getWriter().print(json);

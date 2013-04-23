@@ -1,0 +1,3 @@
+[submodule "Dias_Ghanem/WebContent/webapp"]
+	path = Dias_Ghanem/WebContent/webapp
+	url = https://github.com/cedias/Jwitter-Web.git

@@ -1,4 +1,4 @@
-package servlets.auth;
+package servlets.user;
 
 import java.io.IOException;
 
@@ -9,28 +9,31 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
-import services.AuthServices;
+import services.UserServices;
 import servlets.GetParameters;
 
-public class LoginAuthServlet extends HttpServlet {
 
-	/**
-	 * 
-	 */
+/**
+ * @author Charles-Emmanuel Dias
+ * @author Marwan Ghanem
+ * 
+ * Logout servlet
+ * 
+ */
+public class LogoutUserServlet extends HttpServlet{
+	
+	
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-			
-			String username = req.getParameter(GetParameters.login);
-			String password = req.getParameter(GetParameters.password);
-			
-			JSONObject json = AuthServices.login(username, password);
+		
+			String key = req.getParameter(GetParameters.key);
+			JSONObject json = UserServices.logout(key);
 			
 			resp.setContentType("text/plain");
 			resp.getWriter().print(json);
 	}
-	
 
 }
