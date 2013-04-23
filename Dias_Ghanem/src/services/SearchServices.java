@@ -1,8 +1,16 @@
 package services;
 
 import java.sql.SQLException;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBObject;
 
 import bd.user.UserTools;
 import bd.exceptions.KeyInvalidException;
@@ -34,6 +42,46 @@ public class SearchServices {
 		} catch (SQLException e) {
 			return ErrorMsg.bdError();
 		}
+	}
+
+	public static JSONObject SearchRSV(String query) {
+		
+		try {
+			
+			BasicDBList scores  = SearchTools.searchRSV(query);
+			
+			TreeMap<String,Double> results = new TreeMap<String,Double>();
+			
+			for(Object obj:scores){
+				DBObject el = (DBObject) obj;
+				String doc = el.get("document").toString();
+				Double score = Double.parseDouble(el.get("score").toString());
+				
+				if(!results.containsKey(doc)){
+					results.put(doc, score);
+				}else
+				{
+					results.put(doc, results.get(doc)+score);
+				}
+			}
+			
+			JSONObject res  = new JSONObject();
+			Entry<String,Double> e = results.pollFirstEntry();
+			
+			while(e!=null)
+			{
+				res.accumulate("docs", new JSONObject().put("doc", e.getKey()).put("score", e.getValue()));
+				e = results.pollFirstEntry();
+			}
+			return res;
+			
+		} catch (SQLException e) {
+			return ErrorMsg.otherError(e.getMessage());
+		} catch (JSONException e) {
+			e.printStackTrace();
+			return ErrorMsg.bdError();
+		}
+		
 	}
 }
 

@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import bd.search.SearchTools;
 
 import services.ErrorMsg;
+import services.JSONtools;
 
 
 public class MapReduceServlet extends HttpServlet {
@@ -30,7 +31,9 @@ public class MapReduceServlet extends HttpServlet {
 		
 		JSONObject json = null;
 		try {
-			json = SearchTools.calculateDF();
+			SearchTools.calculateDF();
+			SearchTools.calculateTF();
+			json = JSONtools.ok();
 		} catch (JSONException e) {
 			json =  ErrorMsg.otherError("aint working");
 		} catch (SQLException e) {

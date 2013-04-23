@@ -2,9 +2,9 @@ package bd.search;
 
 import java.net.UnknownHostException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Arrays;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,10 +23,41 @@ import com.mongodb.DBObject;
 import com.mongodb.MapReduceCommand;
 import com.mongodb.MapReduceOutput;
 import com.mongodb.Mongo;
-import com.mongodb.util.JSON;
 
 public class SearchTools {
 
+	public static BasicDBList searchRSV(String q) throws SQLException, JSONException{
+		BasicDBObject json = new BasicDBObject();
+		String DFCount = "SELECT COUNT( * ) FROM DF";
+		
+		
+		Connection c = Database.getMySQLConnection();
+		Statement stt = c.createStatement();
+	    ResultSet res = stt.executeQuery(DFCount);
+	    res.next();
+	    int count = res.getInt(1);
+	    
+	    String sql = "SELECT a.document, a.tf * LOG( "+count+"/ b.df ) " +
+	    		"FROM TF a, DF b " +
+	    		"WHERE a.word =  \""+q+"\" " +
+	    		"AND b.word =  \""+q+"\" " +
+	    		"GROUP BY a.document " + 
+	    		"LIMIT 0 , 30";
+	    
+	    res = stt.executeQuery(sql);
+	   BasicDBList list = new BasicDBList();
+	   
+	    while(res.next()){
+	    	json.put("document",res.getString(1));
+	    	json.put("score", res.getDouble(2));
+	    	list.add(json);
+	    }
+	    
+	    stt.close();
+	    c.close();
+		
+		return list;
+	}
 	public static JSONObject Search(int id_user , String q , int rtf , int nbMessage , int offset){
 		
 		try {
@@ -119,7 +150,7 @@ public class SearchTools {
 				"var words = text.match(/\\w+/g);"+
 				"if(words == null) return;"+
 				"var tf=[];" +
-				"var did=ObjectId().str;"+
+				"var did=this._id;"+
 				"for(var i = 0;i< words.length;i++){" +
 				"if (tf[words[i]] === undefined)" +
 					"tf[words[i]] = 0;" +

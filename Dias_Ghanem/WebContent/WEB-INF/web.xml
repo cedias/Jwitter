@@ -117,5 +117,14 @@
 	 	<servlet-name>MapReduceServlet</servlet-name>
 	 	<url-pattern>/search/reduce</url-pattern>
 	 </servlet-mapping>
+	 
+	 <servlet>
+	 	<servlet-name>SearchMessageRSV</servlet-name>
+	 	<servlet-class>servlets.search.SearchRSVServlet</servlet-class>
+	 </servlet>
+	 <servlet-mapping>
+	 	<servlet-name>SearchMessageRSV</servlet-name>
+	 	<url-pattern>/search/rsv</url-pattern>
+	 </servlet-mapping>
 </web-app>
  
