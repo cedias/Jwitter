@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,7 +27,7 @@ import com.mongodb.Mongo;
 
 public class SearchTools {
 
-	public static BasicDBList searchRSV(String q) throws SQLException, JSONException{
+	public static HashMap<String, Double> searchRSV(String q) throws SQLException, JSONException{
 		BasicDBObject json = new BasicDBObject();
 		String DFCount = "SELECT COUNT( * ) FROM DF";
 		
@@ -36,7 +37,7 @@ public class SearchTools {
 	    ResultSet res = stt.executeQuery(DFCount);
 	    res.next();
 	    int count = res.getInt(1);
-	    
+	    res.close();
 	    String sql = "SELECT a.document, a.tf * LOG( "+count+"/ b.df ) " +
 	    		"FROM TF a, DF b " +
 	    		"WHERE a.word =  \""+q+"\" " +
@@ -45,18 +46,17 @@ public class SearchTools {
 	    		"LIMIT 0 , 30";
 	    
 	    res = stt.executeQuery(sql);
-	   BasicDBList list = new BasicDBList();
+	    HashMap<String,Double> map = new HashMap<String,Double>();
 	   
 	    while(res.next()){
-	    	json.put("document",res.getString(1));
-	    	json.put("score", res.getDouble(2));
-	    	list.add(json);
+	    	map.put(res.getString(1), res.getDouble(2));
+	    	
 	    }
-	    
+	    res.close();
 	    stt.close();
 	    c.close();
 		
-		return list;
+		return map;
 	}
 	public static JSONObject Search(int id_user , String q , int rtf , int nbMessage , int offset){
 		

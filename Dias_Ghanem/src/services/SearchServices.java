@@ -1,15 +1,15 @@
 package services;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
-import org.json.JSONArray;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mongodb.BasicDBList;
-import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 
 import bd.user.UserTools;
@@ -47,32 +47,33 @@ public class SearchServices {
 	public static JSONObject SearchRSV(String query) {
 		
 		try {
-			
-			BasicDBList scores  = SearchTools.searchRSV(query);
-			
-			TreeMap<String,Double> results = new TreeMap<String,Double>();
-			
-			for(Object obj:scores){
-				DBObject el = (DBObject) obj;
-				String doc = el.get("document").toString();
-				Double score = Double.parseDouble(el.get("score").toString());
-				
-				if(!results.containsKey(doc)){
-					results.put(doc, score);
-				}else
-				{
-					results.put(doc, results.get(doc)+score);
-				}
-			}
-			
+			HashMap<String,Double> results = new HashMap<String,Double>();
+			String[] queryWords = query.split("\\+");
 			JSONObject res  = new JSONObject();
-			Entry<String,Double> e = results.pollFirstEntry();
-			
-			while(e!=null)
-			{
-				res.accumulate("docs", new JSONObject().put("doc", e.getKey()).put("score", e.getValue()));
-				e = results.pollFirstEntry();
+			for(int i =0;i<queryWords.length;i++){
+				
+				HashMap<String,Double> scores  = SearchTools.searchRSV(queryWords[i]);
+				
+				
+				for(Entry<String,Double> e : scores.entrySet()){
+					String doc = e.getKey();
+					Double score = e.getValue();
+					
+					if(!results.containsKey(doc)){
+						results.put(doc, score);
+					}else
+					{
+						results.put(doc, results.get(doc)+score);
+					}
+				}
+				
 			}
+			
+			
+			for(Entry<String,Double> e : results.entrySet()){
+				res.accumulate("docs", new JSONObject().put("doc", e.getKey()).put("score", e.getValue()));
+			}
+		
 			return res;
 			
 		} catch (SQLException e) {

@@ -145,5 +145,31 @@ public class MessageTools {
 			}
 	}
 	
-}
+	/**
+	 * Return messages that respond to query
+	 * @param query
+	 * @return
+	 * @throws emptyResultException
+	 * @throws JSONException
+	 * @throws UnknownHostException
+	 */
+	public static JSONObject QueryMessages(BasicDBObject query) throws emptyResultException, JSONException, UnknownHostException {
+		
+		JSONObject json = new JSONObject();
+		Mongo m = new Mongo(BDStatic.mongoDb_host,BDStatic.mongoDb_port);
+		DB db = m.getDB(BDStatic.mysql_db);
+		DBCollection collection = db.getCollection("messages");
+		DBCursor cursor = collection.find(query).sort(new BasicDBObject("date",-1));
+		
+		while(cursor.hasNext()){
+			DBObject next = cursor.next();
+			json.accumulate("messages", next);
+		}
+		
+		return json;
+			
+		}
+	}
+
+
 
